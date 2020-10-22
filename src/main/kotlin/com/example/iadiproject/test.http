@@ -1,7 +1,68 @@
-POST http://localhost:8080/applications/
+
+###
+POST http://localhost:8080/sponsors
 Content-Type: application/json
 
 {
-
-
+  "id": 0,
+  "name": "FCT",
+  "contact": "FCT"
 }
+
+###
+
+GET http://localhost:8080/sponsors
+Accept: application/json
+
+###
+
+POST http://localhost:8080/grantcalls
+Content-Type: application/json
+
+{
+  "closingDate": "2020-10-19T11:17:13.962Z",
+  "dataItems": "string",
+  "description": "string",
+  "evaluationPanelId": 0,
+  "funding": 0,
+  "id": 0,
+  "openingDate": "2020-10-19T11:17:13.962Z",
+  "requirements": "string",
+  "sponsorId": 1,
+  "title": "string"
+}
+
+###
+POST http://localhost:8080/grantcalls
+Content-Type: application/json
+
+{
+"closingDate": "2020-10-19T11:17:13.962Z",
+"dataItems": "string",
+"description": "string",
+"evaluationPanelId": 0,
+"funding": 0,
+"id": 0,
+"openingDate": "2020-10-19T11:17:13.962Z",
+"requirements": "string",
+"sponsorId": 1,
+"title": "string"
+}
+
+###
+GET http://localhost:8080/sponsors
+Accept: application/json
+
+
+###
+
+
+GET http://localhost:8080/grantcalls
+Accept: application/json
+
+
+###
+
+GET http://localhost:8080/sponsors
+Accept: application/json
+
