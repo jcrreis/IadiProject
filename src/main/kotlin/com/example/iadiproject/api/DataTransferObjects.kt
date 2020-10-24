@@ -1,6 +1,11 @@
 package com.example.iadiproject.api
 
+import com.example.iadiproject.services.ReviewerDAO
+import org.springframework.web.multipart.MultipartFile
+import java.io.File
 import java.util.*
+
+
 
 
 data class ApplicationDTO(
@@ -8,7 +13,10 @@ data class ApplicationDTO(
         val submissionDate: Date,
         val status: Int,
         val decision: Boolean,
-        val justification: String
+        val justification: String,
+        val grantCallId: Long,
+        val studentId: Long,
+        val reviews: List<Long>
 )
 
 open class EntityDTO(
@@ -16,6 +24,8 @@ open class EntityDTO(
         open val name: String,
         open val contact: String
 )
+
+
 
 data class InstitutionDTO(
        override val id: Long,
@@ -32,11 +42,7 @@ data class SimpleInstitutionDTO(
         val contact: String
 )
 
-data class DataItemDTO(
-        val name: String,
-        val type: String,
-        val mandatory: Boolean
-)
+
 
 data class GrantCallDTO(
         val id: Long,
@@ -59,11 +65,7 @@ open class UserDTO(
         open val institution: SimpleInstitutionDTO
 )
 
-data class StudentCreateDTO(
-    val studentDTO: StudentDTO,
-    val password: String
 
-)
 
 data class StudentDTO(
         override val id: Long,
@@ -71,7 +73,8 @@ data class StudentDTO(
         override val email: String,
         override val address: String,
         override val institution: SimpleInstitutionDTO,
-        val cv: String
+        val password: String,
+        val cv: MultipartFile?
 ) : UserDTO(id,name,email,address,institution)
 
 data class SimpleStudentDTO(
@@ -81,21 +84,16 @@ data class SimpleStudentDTO(
         val address: String
 )
 
-data class AddStudentDTO(
-        val id: Long,
-        val name: String,
-        val email: String,
-        val address: String,
-        val institutionId: Long,
-        val cv: String
-)
 
 data class ReviewerDTO(
         override val id: Long,
         override val name: String,
         override val email: String,
         override val address: String,
-        override val institution: SimpleInstitutionDTO
+        override val institution: SimpleInstitutionDTO,
+        val ePanels: List<Long>,
+        val panelchairs: List<Long>,
+        val reviews: List<Long>
 ) : UserDTO(id,name,email,address,institution)
 
 
@@ -134,17 +132,18 @@ data class AddSponsorDTO(
 data class EvaluationPanelDTO(
         val id: Long,
         val reviewers: List<SimpleReviewerDTO>,
-        //val panelchair: ReviewerDTO,
+        val panelChairId: Long?,
         //val winner: ApplicationDTO,
         val grantCallId: Long
 )
 
 data class ReviewDTO(
-        val id: Number,
-        val application: ApplicationDTO,
-        val reviewer: ReviewerDTO,
+        val id: Long,
+        val applicationId: Long,
+        val reviewerId: Long,
         val score: Int,
         val observations: String
+
 )
 
 

@@ -4,11 +4,13 @@ package com.example.iadiproject.services
 
 import com.example.iadiproject.model.EvaluationPanelRepository
 import com.example.iadiproject.model.GrantCallRepository
+import com.example.iadiproject.model.ReviewerRepository
 
 import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 
 @Service
-class EvaluationPanelService(val ePanels: EvaluationPanelRepository, val grantCalls: GrantCallRepository) {
+class EvaluationPanelService(val ePanels: EvaluationPanelRepository, val grantCalls: GrantCallRepository, val reviewers: ReviewerService) {
 
     fun getAll() : Iterable<EvaluationPanelDAO> = ePanels.findAll()
 
@@ -29,5 +31,31 @@ class EvaluationPanelService(val ePanels: EvaluationPanelRepository, val grantCa
         //print(grantCallDAO)
         grantCallDAO.evaluationPanel = ePanel
         grantCalls.save(grantCallDAO)
+    }
+
+    @Transactional
+    fun addReviewerToPanel(id: Long, reviewerId: Long){
+        val ePanel = getOne(id)
+        val reviewer: ReviewerDAO = reviewers.getOne(reviewerId)
+        if(ePanel.reviewers.contains(reviewer) || (ePanel.panelchair?.equals(reviewer)==true)) {
+            return throw ConflictException("This reviewer with id $reviewer.id already belongs to this Panel")
+        }
+        ePanel.reviewers.add(reviewer)
+        reviewers.addPanelToReviewer(reviewer,ePanel)
+        ePanels.save(ePanel)
+    }
+
+    @Transactional
+    fun addPanelChairToPanel(id: Long, reviewerId: Long){
+        val ePanel = getOne(id)
+        val reviewer: ReviewerDAO = reviewers.getOne(reviewerId)
+        if(ePanel.reviewers.contains(reviewer) || (ePanel.panelchair?.equals(reviewer)==true)) {
+            return throw ConflictException("This reviewer with id $reviewer.id already belongs to this Panel")
+        }
+
+        reviewers.addPanelChairToReviewer(reviewer,ePanel)
+        ePanel.panelchair = reviewer
+        ePanels.save(ePanel)
+
     }
 }

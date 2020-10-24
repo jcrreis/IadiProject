@@ -16,4 +16,8 @@ class ApplicationService(val applications: ApplicationRepository) {
         application.id = 0
         applications.save(application)
     }
+
+    fun getApplicationsByGrantCall(grantCallId: Long) = applications.findApplicationDAOByGrantCallId(grantCallId)
+
+    fun getApplicationsByStudent(studentId: Long) = applications.findApplicationDAOByStudentId(studentId)
 }

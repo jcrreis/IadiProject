@@ -28,10 +28,10 @@ class GrantCallController(val grantCalls: GrantCallService, val sponsors: Sponso
 
     override  fun addOne(@RequestBody grantCall: GrantCallDTO){
         val sponsorDAO = sponsors.getOne(grantCall.sponsorId)
-        val evaluationPanelDAO = EvaluationPanelDAO(0,0,null)
+        val evaluationPanelDAO = EvaluationPanelDAO(0,null,0,null)
         ePanels.addOne(evaluationPanelDAO)
         val grantCallDAO = GrantCallDAO(grantCall.id,grantCall.title,grantCall.description,
-                grantCall.requirements,grantCall.funding,grantCall.openingDate,grantCall.closingDate,grantCall.dataItems,sponsorDAO,evaluationPanelDAO)
+                grantCall.requirements,grantCall.funding,grantCall.openingDate,grantCall.closingDate,grantCall.dataItems,sponsorDAO,evaluationPanelDAO, mutableListOf())
         grantCalls.addOne(grantCallDAO)
         ePanels.addGrantCallToPanel(grantCallDAO)
 

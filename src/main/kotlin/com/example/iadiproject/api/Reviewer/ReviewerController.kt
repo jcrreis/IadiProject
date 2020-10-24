@@ -13,16 +13,28 @@ class ReviewerController (val reviewers: ReviewerService, val institutions: Inst
 
 
     override fun getAll(): List<ReviewerDTO> = reviewers.getAll().map {
-        ReviewerDTO(it.id,it.name,it.email,it.address, SimpleInstitutionDTO(it.institution.id,it.institution.name,it.institution.contact))
+        ReviewerDTO(it.id,it.name,it.email,it.address, SimpleInstitutionDTO(it.institution.id,it.institution.name,it.institution.contact),it.evaluationPanels.map{
+            it1 -> it1.id
+        },it.panelsChairs.map{
+            it2 -> it2.id
+        },it.reviews.map{
+            it3 -> it3.id
+        })
     }
 
     override fun getOne(id: Long): ReviewerDTO = reviewers.getOne(id).let {
-        ReviewerDTO(it.id,it.name,it.email,it.address, SimpleInstitutionDTO(it.institution.id,it.institution.name,it.institution.contact))
+        ReviewerDTO(it.id,it.name,it.email,it.address, SimpleInstitutionDTO(it.institution.id,it.institution.name,it.institution.contact),it.evaluationPanels.map{
+            it1 -> it1.id
+        },it.panelsChairs.map{
+            it2 -> it2.id
+        },it.reviews.map{
+            it3 -> it3.id
+        })
     }
 
     override fun addOne(reviewer: AddUserDTO) {
         reviewers.addOne(ReviewerDAO(reviewer.id,reviewer.name,reviewer.password,reviewer.email,reviewer.address,
-                institutions.getOne(reviewer.institutionId)))
+                institutions.getOne(reviewer.institutionId), mutableListOf(), mutableListOf()))
     }
 
 

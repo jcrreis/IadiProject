@@ -19,4 +19,16 @@ class ReviewerService(val reviewers : ReviewerRepository, val institutions: Inst
         reviewers.save(reviewer)
 
     }
+
+    fun addPanelToReviewer(reviewerDAO: ReviewerDAO, epanel: EvaluationPanelDAO){
+        reviewerDAO.evaluationPanels.add(epanel)
+        reviewers.save(reviewerDAO)
+
+    }
+
+    fun addPanelChairToReviewer(reviewerDAO: ReviewerDAO, epanel: EvaluationPanelDAO){
+        reviewerDAO.panelsChairs.add(epanel)
+        reviewers.save(reviewerDAO)
+
+    }
 }

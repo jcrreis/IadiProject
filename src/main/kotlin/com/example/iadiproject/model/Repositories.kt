@@ -1,29 +1,36 @@
 package com.example.iadiproject.model
 
 import com.example.iadiproject.services.*
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.CrudRepository
 
-interface ApplicationRepository : CrudRepository<ApplicationDAO, Long> {
+interface ApplicationRepository : JpaRepository<ApplicationDAO, Long> {
+    fun findApplicationDAOByGrantCallId(id: Long): List<ApplicationDAO>
+    fun findApplicationDAOByStudentId(id: Long): List<ApplicationDAO>
 
 }
-interface InstitutionRepository : CrudRepository<InstitutionDAO, Long> {
+interface InstitutionRepository : JpaRepository<InstitutionDAO, Long> {
 
 }
-interface StudentRepository : CrudRepository<StudentDAO, Long> {
+interface StudentRepository: JpaRepository<StudentDAO, Long>{
 
 }
-interface SponsorRepository : CrudRepository<SponsorDAO, Long> {
-
-}
-
-interface ReviewerRepository : CrudRepository<ReviewerDAO, Long>{
+interface SponsorRepository : JpaRepository<SponsorDAO, Long> {
 
 }
 
-interface GrantCallRepository : CrudRepository<GrantCallDAO, Long>{
-
+interface ReviewerRepository: JpaRepository<ReviewerDAO, Long> {
+    fun findReviewerDAOByAddress(address: String)
 }
 
-interface EvaluationPanelRepository : CrudRepository<EvaluationPanelDAO, Long>{
+interface GrantCallRepository : JpaRepository<GrantCallDAO, Long>{
+    fun findGrantCallDAOBySponsorId(id: Long)
+}
+
+interface EvaluationPanelRepository : JpaRepository<EvaluationPanelDAO, Long>{
+    fun findEvaluationPanelDAOByGrantCallId(id: Long): EvaluationPanelDAO
+}
+
+interface ReviewRepository :  JpaRepository<ReviewDAO, Long>{
 
 }

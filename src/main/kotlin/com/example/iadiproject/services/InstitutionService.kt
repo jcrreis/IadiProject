@@ -11,7 +11,7 @@ class InstitutionService(val institutions: InstitutionRepository) {
     fun getAll() : Iterable<InstitutionDAO> = institutions.findAll()
 
     fun getOne(id: Long): InstitutionDAO = institutions.findById(id).orElseThrow() {
-        NotFoundException("Application with id $id not found.")
+        NotFoundException("Institution with id $id not found.")
     }
 
     fun addOne(institution: InstitutionDAO){

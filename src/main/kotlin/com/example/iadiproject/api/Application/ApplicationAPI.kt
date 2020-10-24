@@ -29,4 +29,10 @@ interface ApplicationAPI {
     @ResponseStatus(HttpStatus.CREATED)
     fun addOne(@RequestBody application: ApplicationDTO)
 
+    @GetMapping("/grantcall/{idGrantCall}")
+    fun getApplicationsByGrantCall(@PathVariable idGrantCall: Long): List<ApplicationDTO>
+
+    @GetMapping("/student/{studentId}")
+    fun getApplicationsByStudent(@PathVariable studentId: Long): List<ApplicationDTO>
+
 }

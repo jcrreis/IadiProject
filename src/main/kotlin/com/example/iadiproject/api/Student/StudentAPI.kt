@@ -1,15 +1,18 @@
 package com.example.iadiproject.api.Student
 
-import com.example.iadiproject.api.AddStudentDTO
 import com.example.iadiproject.api.AddUserDTO
-import com.example.iadiproject.api.StudentCreateDTO
+
 import com.example.iadiproject.api.StudentDTO
+import com.example.iadiproject.services.StudentDAO
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
+import java.io.File
+import javax.servlet.annotation.MultipartConfig
 
 @Api(value="students", description = "'Student' management operations")
 @RequestMapping("/students")
@@ -27,8 +30,9 @@ interface StudentAPI {
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): StudentDTO
 
+
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addOne(@RequestBody student: AddUserDTO)
+    fun addOne(@RequestBody student: StudentDTO)
 
 }
