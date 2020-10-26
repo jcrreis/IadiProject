@@ -2,6 +2,9 @@ package com.example.iadiproject.api.Review
 
 import com.example.iadiproject.api.*
 import com.example.iadiproject.api.EvaluationPanel.ReviewAPI
+import com.example.iadiproject.model.ApplicationDAO
+import com.example.iadiproject.model.ReviewDAO
+import com.example.iadiproject.model.ReviewerDAO
 import com.example.iadiproject.services.*
 import org.springframework.web.bind.annotation.*
 

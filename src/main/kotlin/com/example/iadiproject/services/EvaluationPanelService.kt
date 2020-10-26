@@ -2,9 +2,7 @@ package com.example.iadiproject.services
 
 
 
-import com.example.iadiproject.model.EvaluationPanelRepository
-import com.example.iadiproject.model.GrantCallRepository
-import com.example.iadiproject.model.ReviewerRepository
+import com.example.iadiproject.model.*
 
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional

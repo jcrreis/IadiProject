@@ -1,8 +1,6 @@
 package com.example.iadiproject.api
 
-import com.example.iadiproject.services.ReviewerDAO
 import org.springframework.web.multipart.MultipartFile
-import java.io.File
 import java.util.*
 
 
@@ -74,7 +72,7 @@ data class StudentDTO(
         override val address: String,
         override val institution: SimpleInstitutionDTO,
         val password: String,
-        val cv: MultipartFile?
+        val cv: String
 ) : UserDTO(id,name,email,address,institution)
 
 data class SimpleStudentDTO(

@@ -1,5 +1,6 @@
 package com.example.iadiproject.services
 
+import com.example.iadiproject.model.ApplicationDAO
 import com.example.iadiproject.model.ApplicationRepository
 import org.springframework.stereotype.Service
 

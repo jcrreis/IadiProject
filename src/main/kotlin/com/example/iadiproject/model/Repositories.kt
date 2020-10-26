@@ -1,8 +1,7 @@
 package com.example.iadiproject.model
 
-import com.example.iadiproject.services.*
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.data.repository.CrudRepository
+import java.util.*
 
 interface ApplicationRepository : JpaRepository<ApplicationDAO, Long> {
     fun findApplicationDAOByGrantCallId(id: Long): List<ApplicationDAO>
@@ -33,4 +32,16 @@ interface EvaluationPanelRepository : JpaRepository<EvaluationPanelDAO, Long>{
 
 interface ReviewRepository :  JpaRepository<ReviewDAO, Long>{
 
+}
+
+interface UserRepository : JpaRepository<UserDAO, Long>{
+    fun findUserDAOByName(name: String): Optional<UserDAO>
+}
+
+interface RoleRepository: JpaRepository<Role, Long>{
+  fun findRoleByName(name: String): Optional<Role>
+}
+
+interface PrivilegeRepository: JpaRepository<Privilege, Long>{
+    fun findPrivilegeByName(name: String): Optional<Privilege>
 }

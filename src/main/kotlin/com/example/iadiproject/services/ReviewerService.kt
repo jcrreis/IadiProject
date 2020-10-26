@@ -1,7 +1,9 @@
 package com.example.iadiproject.services
 
 
+import com.example.iadiproject.model.EvaluationPanelDAO
 import com.example.iadiproject.model.InstitutionRepository
+import com.example.iadiproject.model.ReviewerDAO
 import com.example.iadiproject.model.ReviewerRepository
 import org.springframework.stereotype.Service
 

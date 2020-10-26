@@ -1,7 +1,7 @@
 package com.example.iadiproject.services
 
+import com.example.iadiproject.model.GrantCallDAO
 import com.example.iadiproject.model.GrantCallRepository
-import com.example.iadiproject.model.InstitutionRepository
 import org.springframework.stereotype.Service
 
 @Service

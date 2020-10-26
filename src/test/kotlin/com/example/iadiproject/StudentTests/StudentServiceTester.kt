@@ -1,7 +1,7 @@
-package com.example.iadiproject
+package com.example.iadiproject.StudentTests
 
-import com.example.iadiproject.services.InstitutionDAO
-import com.example.iadiproject.services.StudentDAO
+import com.example.iadiproject.model.InstitutionDAO
+import com.example.iadiproject.model.StudentDAO
 import com.example.iadiproject.services.StudentService
 import org.junit.Assert
 import org.junit.Test
@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.multipart.MultipartFile
-import java.io.File
+import org.hamcrest.CoreMatchers.equalTo
 
 
 @RunWith(SpringRunner::class)
@@ -28,7 +27,7 @@ class StudentServiceTester{
         Assert.assertEquals(students.getAll().count(),0)
     }
     companion object{
-        val student = StudentDAO(0,"João","123","fct@gmail.com","Rua fct", InstitutionDAO(0,"Joao","262623231", mutableListOf()), null, mutableListOf())
+        val student = StudentDAO(0,"João","123","fct@gmail.com","Rua fct", InstitutionDAO(0,"Joao","262623231", mutableListOf()), mutableListOf(), "", mutableListOf())
     }
 
     @Test
@@ -43,7 +42,7 @@ class StudentServiceTester{
         students.addOne(student)
         var studentGetter: StudentDAO
         studentGetter = students.getOne(2)
-        Assert.assertEquals(student.id,studentGetter.id)
+        Assert.assertThat(studentGetter,equalTo(student))
 
 
 

@@ -1,19 +1,18 @@
-package com.example.iadiproject
+package com.example.iadiproject.InstitutionTests
 
-import com.example.iadiproject.services.InstitutionDAO
+import com.example.iadiproject.model.InstitutionDAO
 import com.example.iadiproject.services.InstitutionService
+import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
-import org.springframework.transaction.annotation.Transactional
 
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-@Transactional
 class InstitutionServiceTester{
 
     @Autowired
@@ -34,18 +33,16 @@ class InstitutionServiceTester{
     fun `test addOne`(){
         institutions.addOne(institution)
         Assert.assertEquals(institutions.getAll().count(),1)
-        Assert.assertEquals(institutions.getOne(1),institution)
     }
 
 
 
     @Test
     fun `test getOne`(){
-        institutions.addOne(institution)
         Assert.assertEquals(institutions.getAll().count(),1)
-        Assert.assertEquals(institutions.getOne(2),institution)
-        var institutionGetter: InstitutionDAO = institutions.getOne(2)
-        Assert.assertEquals(institution, institutionGetter)
+        var institutionGetter: InstitutionDAO = institutions.getOne(1)
+        Assert.assertThat(institutionGetter.id, equalTo(institution.id))
+
     }
 
 }

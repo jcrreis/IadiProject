@@ -1,10 +1,9 @@
 package com.example.iadiproject.api.Sponsor
 
 import com.example.iadiproject.api.AddSponsorDTO
-import com.example.iadiproject.api.EvaluationPanelDTO
 import com.example.iadiproject.api.GrantCallDTO
 import com.example.iadiproject.api.SponsorDTO
-import com.example.iadiproject.services.SponsorDAO
+import com.example.iadiproject.model.SponsorDAO
 import com.example.iadiproject.services.SponsorService
 import org.springframework.web.bind.annotation.*
 

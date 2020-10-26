@@ -3,7 +3,7 @@ package com.example.iadiproject.api.Institution
 
 
 import com.example.iadiproject.api.*
-import com.example.iadiproject.services.InstitutionDAO
+import com.example.iadiproject.model.InstitutionDAO
 import com.example.iadiproject.services.InstitutionService
 
 import org.springframework.web.bind.annotation.*

@@ -1,10 +1,7 @@
 package com.example.iadiproject.services
 
 
-import com.example.iadiproject.model.EvaluationPanelRepository
-import com.example.iadiproject.model.InstitutionRepository
-import com.example.iadiproject.model.ReviewRepository
-import com.example.iadiproject.model.ReviewerRepository
+import com.example.iadiproject.model.*
 import org.springframework.stereotype.Service
 
 @Service

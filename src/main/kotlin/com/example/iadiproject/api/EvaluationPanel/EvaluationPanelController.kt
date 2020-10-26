@@ -1,11 +1,9 @@
 package com.example.iadiproject.api
 
 import com.example.iadiproject.api.EvaluationPanel.EvaluationPanelAPI
-import com.example.iadiproject.services.EvaluationPanelDAO
+import com.example.iadiproject.model.EvaluationPanelDAO
 import com.example.iadiproject.services.EvaluationPanelService
 import org.springframework.web.bind.annotation.*
-import java.util.*
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 @RestController
 class EvaluationPanelController(val ePanels: EvaluationPanelService) : EvaluationPanelAPI{

@@ -4,6 +4,7 @@ import com.example.iadiproject.api.AddUserDTO
 import com.example.iadiproject.api.ReviewerDTO
 import com.example.iadiproject.api.SimpleInstitutionDTO
 import com.example.iadiproject.api.Student.ReviewerAPI
+import com.example.iadiproject.model.ReviewerDAO
 import com.example.iadiproject.services.*
 import org.springframework.web.bind.annotation.*
 
@@ -34,7 +35,7 @@ class ReviewerController (val reviewers: ReviewerService, val institutions: Inst
 
     override fun addOne(reviewer: AddUserDTO) {
         reviewers.addOne(ReviewerDAO(reviewer.id,reviewer.name,reviewer.password,reviewer.email,reviewer.address,
-                institutions.getOne(reviewer.institutionId), mutableListOf(), mutableListOf()))
+                institutions.getOne(reviewer.institutionId), mutableListOf(), mutableListOf(),mutableListOf()))
     }
 
 

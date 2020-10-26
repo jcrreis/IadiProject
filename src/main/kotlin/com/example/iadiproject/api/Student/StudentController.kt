@@ -1,14 +1,10 @@
 package com.example.iadiproject.api.Student
 
 import com.example.iadiproject.api.*
-import com.example.iadiproject.model.InstitutionRepository
-import com.example.iadiproject.services.InstitutionDAO
 import com.example.iadiproject.services.InstitutionService
-import com.example.iadiproject.services.StudentDAO
+import com.example.iadiproject.model.StudentDAO
 import com.example.iadiproject.services.StudentService
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.multipart.MultipartFile
-import java.io.File
 
 @RestController
 class StudentController(val students: StudentService, val institutions: InstitutionService) : StudentAPI {
@@ -24,7 +20,7 @@ class StudentController(val students: StudentService, val institutions: Institut
     override fun addOne(student: StudentDTO) {
 
         students.addOne(StudentDAO(student.id,student.name,student.password,student.email,student.address,
-                institutions.getOne(student.institution.id),student.cv,mutableListOf()))
+                institutions.getOne(student.institution.id), mutableListOf(),student.cv,mutableListOf()))
     }
 
 

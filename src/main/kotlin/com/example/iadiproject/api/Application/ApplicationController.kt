@@ -2,6 +2,9 @@ package com.example.iadiproject.api.Application
 
 
 import com.example.iadiproject.api.ApplicationDTO
+import com.example.iadiproject.model.ApplicationDAO
+import com.example.iadiproject.model.GrantCallDAO
+import com.example.iadiproject.model.StudentDAO
 import com.example.iadiproject.services.*
 import org.springframework.web.bind.annotation.*
 
