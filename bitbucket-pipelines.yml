@@ -10,4 +10,4 @@ pipelines:
   default:
     - step:
         script:
-          - mvn -B verify 
+          - mvn -B verify
