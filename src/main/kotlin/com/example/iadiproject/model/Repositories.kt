@@ -19,11 +19,10 @@ interface SponsorRepository : JpaRepository<SponsorDAO, Long> {
 }
 
 interface ReviewerRepository: JpaRepository<ReviewerDAO, Long> {
-    fun findReviewerDAOByAddress(address: String)
 }
 
 interface GrantCallRepository : JpaRepository<GrantCallDAO, Long>{
-    fun findGrantCallDAOBySponsorId(id: Long)
+    fun findGrantCallDAOBySponsorId(id: Long): List<GrantCallDAO>
 }
 
 interface EvaluationPanelRepository : JpaRepository<EvaluationPanelDAO, Long>{
@@ -38,10 +37,8 @@ interface UserRepository : JpaRepository<UserDAO, Long>{
     fun findUserDAOByName(name: String): Optional<UserDAO>
 }
 
-interface RoleRepository: JpaRepository<Role, Long>{
-  fun findRoleByName(name: String): Optional<Role>
-}
 
-interface PrivilegeRepository: JpaRepository<Privilege, Long>{
-    fun findPrivilegeByName(name: String): Optional<Privilege>
+
+interface AdminRepository: JpaRepository<AdminDAO, Long>{
+
 }

@@ -1,6 +1,6 @@
 package com.example.iadiproject.api
 
-import org.springframework.web.multipart.MultipartFile
+import com.example.iadiproject.model.DataItems
 import java.util.*
 
 
@@ -14,7 +14,8 @@ data class ApplicationDTO(
         val justification: String,
         val grantCallId: Long,
         val studentId: Long,
-        val reviews: List<Long>
+        val reviews: List<Long>,
+        val meanScores: Double
 )
 
 open class EntityDTO(
@@ -29,7 +30,7 @@ data class InstitutionDTO(
        override val id: Long,
        override val name: String,
        override val contact: String,
-       val students: List<SimpleStudentDTO>
+       val users: List<UserDTO>
        //val reviewers: List<SimpleReviewerDTO>
 ) : EntityDTO(id,name,contact)
 

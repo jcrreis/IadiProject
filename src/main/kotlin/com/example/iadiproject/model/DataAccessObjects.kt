@@ -19,17 +19,23 @@ data class ApplicationDAO(
         @ManyToOne(cascade = arrayOf(CascadeType.ALL), mappedBy = "applications")
         var student: StudentDAO,
         @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "application")
-        var reviews: MutableList<ReviewDAO>
+        var reviews: MutableList<ReviewDAO>,
+        var meanScores: Double
 ) {
-    constructor() : this(0, Date(), 1, true, "", GrantCallDAO(), StudentDAO(), mutableListOf()) {
+    constructor() : this(0, Date(), 1, true, "", GrantCallDAO(), StudentDAO(), mutableListOf(),0.0) {
 
     }
+
+   fun updateMeanScores(){
+       this.meanScores = this.reviews.map { it.score }.toList().average()
+    }
 }
+
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 abstract class UserDAO(
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.TABLE)
         var id: Long,
         @Column(nullable = false)
         var name: String,
@@ -40,51 +46,39 @@ abstract class UserDAO(
         var address: String,
         @ManyToOne(cascade = arrayOf(CascadeType.ALL), mappedBy = "students")
         var institution: InstitutionDAO,
-        @ManyToMany
-        @JoinTable(name = "users_roles", joinColumns = arrayOf(JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = JoinColumn(name = "role_id", referencedColumnName = "id")))
-        var roles: MutableList<Role>
+        //@ManyToMany(fetch = FetchType.EAGER)
+        //@JoinTable(name = "users_roles", joinColumns = arrayOf(JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = JoinColumn(name = "role_id", referencedColumnName = "id")))
+        var roles: String
 ){
-    constructor() : this(0, "", "", "", "", InstitutionDAO(), mutableListOf())
+    constructor() : this(0, "", "", "", "", InstitutionDAO(), "")
 
     fun changePassword(password: String){
         this.password = password
-        return
     }
 }
 
-@Entity
-data class Role(
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Long,
-        var name: String,
-        @ManyToMany(mappedBy = "roles")
-        var users: MutableList<UserDAO>,
-        @ManyToMany()
-        @JoinTable(name = "roles_privileges", joinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")], inverseJoinColumns = [JoinColumn(name = "privilege_id", referencedColumnName = "id")])
-        var privileges: MutableList<Privilege>
-){
-
-    constructor() : this(0,"", mutableListOf(), mutableListOf())
-}
 
 @Entity
-data class Privilege(
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long,
-    var name: String,
-    @ManyToMany(mappedBy = "privileges")
-    var roles: MutableList<Role>
-){
-    constructor() : this(0, "", mutableListOf())
+data class AdminDAO(
+        override var id: Long,
+        override var name: String,
+        override var password: String,
+        override var email: String,
+        override var address: String,
+        override var institution: InstitutionDAO
+
+): UserDAO(id,name,password,email,address,institution,"ROLE_ADMIN")
+{
+    constructor(): this(0,"","","","",InstitutionDAO())
 }
+
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 abstract class EntityDAO(
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.TABLE)
         var id: Long,
         @Column(nullable = false)
         var name: String,
@@ -104,14 +98,13 @@ data class StudentDAO(
         override var email: String,
         override var address: String,
         override var institution: InstitutionDAO,
-        override var roles: MutableList<Role>,
         @Lob
         var cv: String,
         @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "student")
         var applications: MutableList<ApplicationDAO>
 
-) : UserDAO(id, name, password, email, address, institution,roles) {
-    constructor() : this(0, "", "", "", "", InstitutionDAO(), mutableListOf(),"", mutableListOf()) {
+) : UserDAO(id, name, password, email, address, institution,"ROLE_STUDENT") {
+    constructor() : this(0, "", "", "", "", InstitutionDAO(),"", mutableListOf()) {
 
     }
 }
@@ -125,16 +118,15 @@ data class ReviewerDAO(
         override var email: String,
         override var address: String,
         override var institution: InstitutionDAO,
-        override var roles: MutableList<Role>,
         @OneToMany(cascade = arrayOf(CascadeType.ALL))
         var panelsChairs: MutableList<EvaluationPanelDAO>,
         @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "reviewer")
         var reviews: MutableList<ReviewDAO>
 
-): UserDAO(id, name, password, email, address, institution, roles){
+): UserDAO(id, name, password, email, address, institution, "ROLE_REVIEWER"){
     @ManyToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "reviewers")
     var evaluationPanels: MutableList<EvaluationPanelDAO> = mutableListOf()
-    constructor() : this(0, "", "", "", "", InstitutionDAO(), mutableListOf(), mutableListOf(),mutableListOf()) {
+    constructor() : this(0, "", "", "", "", InstitutionDAO(), mutableListOf(),mutableListOf()) {
 
     }
 }
@@ -231,3 +223,6 @@ data class ReviewDAO(
 
     }
 }
+
+
+data class DataItems(val value: String, val name: String)

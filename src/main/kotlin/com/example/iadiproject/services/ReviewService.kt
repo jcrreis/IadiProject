@@ -5,7 +5,7 @@ import com.example.iadiproject.model.*
 import org.springframework.stereotype.Service
 
 @Service
-class ReviewService(val reviews : ReviewRepository, val ePanels: EvaluationPanelRepository) {
+class ReviewService(val reviews : ReviewRepository, val ePanels: EvaluationPanelRepository, val applications: ApplicationRepository) {
 
     fun getAll() : Iterable<ReviewDAO> = reviews.findAll()
 

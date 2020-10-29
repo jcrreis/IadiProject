@@ -5,6 +5,7 @@ import com.example.iadiproject.model.EvaluationPanelDAO
 import com.example.iadiproject.model.InstitutionRepository
 import com.example.iadiproject.model.ReviewerDAO
 import com.example.iadiproject.model.ReviewerRepository
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
@@ -13,13 +14,14 @@ class ReviewerService(val reviewers : ReviewerRepository, val institutions: Inst
     fun getAll() : Iterable<ReviewerDAO> = reviewers.findAll()
 
     fun getOne(id: Long): ReviewerDAO = reviewers.findById(id).orElseThrow() {
-        NotFoundException("Application with id $id not found.")
+        NotFoundException("Reviewer with id $id not found.")
     }
 
     fun addOne(reviewer: ReviewerDAO){
         reviewer.id = 0
+        val encryptedPass: String = BCryptPasswordEncoder().encode(reviewer.password)
+        reviewer.password = encryptedPass
         reviewers.save(reviewer)
-
     }
 
     fun addPanelToReviewer(reviewerDAO: ReviewerDAO, epanel: EvaluationPanelDAO){

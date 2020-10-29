@@ -6,10 +6,11 @@ import com.example.iadiproject.api.SimpleInstitutionDTO
 import com.example.iadiproject.api.Student.ReviewerAPI
 import com.example.iadiproject.model.ReviewerDAO
 import com.example.iadiproject.services.*
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class ReviewerController (val reviewers: ReviewerService, val institutions: InstitutionService, val ePanels: EvaluationPanelService): ReviewerAPI{
+class ReviewerController (val reviewers: ReviewerService, val institutions: InstitutionService, val users: UserService): ReviewerAPI{
 
 
 
@@ -35,7 +36,7 @@ class ReviewerController (val reviewers: ReviewerService, val institutions: Inst
 
     override fun addOne(reviewer: AddUserDTO) {
         reviewers.addOne(ReviewerDAO(reviewer.id,reviewer.name,reviewer.password,reviewer.email,reviewer.address,
-                institutions.getOne(reviewer.institutionId), mutableListOf(), mutableListOf(),mutableListOf()))
+                institutions.getOne(reviewer.institutionId), mutableListOf(),mutableListOf()))
     }
 
 

@@ -21,4 +21,6 @@ class ApplicationService(val applications: ApplicationRepository) {
     fun getApplicationsByGrantCall(grantCallId: Long) = applications.findApplicationDAOByGrantCallId(grantCallId)
 
     fun getApplicationsByStudent(studentId: Long) = applications.findApplicationDAOByStudentId(studentId)
+
+    fun updateMeanScores(id: Long) = applications.findById(id).get().updateMeanScores()
 }

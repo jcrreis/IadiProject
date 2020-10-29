@@ -1,0 +1,25 @@
+POST http://localhost:8080/reviewers
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "ola",
+  "password": "ola",
+  "email": "string",
+  "address": "string",
+  "institutionId": 1
+}
+
+###
+
+POST http://localhost:8080/students
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "joaorodrigues",
+  "password": "joao",
+  "email": "string",
+  "address": "string",
+  "institutionId": 1
+}

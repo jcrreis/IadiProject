@@ -4,10 +4,11 @@ import com.example.iadiproject.api.*
 import com.example.iadiproject.services.InstitutionService
 import com.example.iadiproject.model.StudentDAO
 import com.example.iadiproject.services.StudentService
+import com.example.iadiproject.services.UserService
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class StudentController(val students: StudentService, val institutions: InstitutionService) : StudentAPI {
+class StudentController(val students: StudentService, val institutions: InstitutionService,val users: UserService) : StudentAPI {
 
     override fun getAll(): List<StudentDTO> = students.getAll().map {
         StudentDTO(it.id,it.name,it.email,it.address,SimpleInstitutionDTO(it.institution.id,it.institution.name,it.institution.contact),"",it.cv)
@@ -17,10 +18,9 @@ class StudentController(val students: StudentService, val institutions: Institut
         StudentDTO(it.id,it.name,it.email,it.address,SimpleInstitutionDTO(it.institution.id,it.institution.name,it.institution.contact),"",it.cv)
     }
 
-    override fun addOne(student: StudentDTO) {
-
+    override fun addOne(student: AddUserDTO) {
         students.addOne(StudentDAO(student.id,student.name,student.password,student.email,student.address,
-                institutions.getOne(student.institution.id), mutableListOf(),student.cv,mutableListOf()))
+                institutions.getOne(student.institutionId),"",mutableListOf()))
     }
 
 

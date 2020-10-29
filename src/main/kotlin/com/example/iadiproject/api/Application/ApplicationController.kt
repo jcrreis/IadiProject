@@ -16,7 +16,7 @@ class ApplicationController(val applications: ApplicationService, val grantCalls
             ApplicationDTO(it.id, it.submissionDate, it.status,
                 it.decision,it.justification,it.grantCall.id,it.student.id,it.reviews.map{
                 it1 -> it1.id
-            })
+            },it.meanScores)
         }
 
 
@@ -25,26 +25,26 @@ class ApplicationController(val applications: ApplicationService, val grantCalls
                 ApplicationDTO(it.id, it.submissionDate, it.status,
                     it.decision,it.justification,it.grantCall.id,it.student.id,it.reviews.map{
                     it1 -> it1.id
-                })
+                },it.meanScores)
             }
 
 
     override fun addOne(application: ApplicationDTO) {
         val grantCall: GrantCallDAO = grantCalls.getOne(application.grantCallId)
         val studentDAO: StudentDAO = students.getOne(application.studentId)
-        applications.addOne(ApplicationDAO(application.id, application.submissionDate,application.status,false,"",grantCall,studentDAO, mutableListOf()))
+        applications.addOne(ApplicationDAO(application.id, application.submissionDate,application.status,false,"",grantCall,studentDAO, mutableListOf(),0.0))
     }
 
     override fun getApplicationsByGrantCall(idGrantCall: Long) = applications.getApplicationsByGrantCall(idGrantCall).map {
         ApplicationDTO(it.id,it.submissionDate,it.status,it.decision,it.justification,it.grantCall.id,it.student.id,it.reviews.map{
             it1-> it1.id
-        })
+        },it.meanScores)
     }
 
     override fun getApplicationsByStudent(studentId: Long): List<ApplicationDTO> = applications.getApplicationsByStudent(studentId).map{
         ApplicationDTO(it.id,it.submissionDate,it.status,it.decision,it.justification,it.grantCall.id,it.student.id, it.reviews.map{
             it1 -> it1.id
-        })
+        },it.meanScores)
     }
 
 

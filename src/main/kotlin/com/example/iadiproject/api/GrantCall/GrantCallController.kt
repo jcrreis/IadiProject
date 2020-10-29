@@ -38,5 +38,10 @@ class GrantCallController(val grantCalls: GrantCallService, val sponsors: Sponso
 
     }
 
+    fun getSponsorGrantCalls(id: Long): List<GrantCallDTO> = grantCalls.getAllGrantCallsBySponsorId(id).map {
+        GrantCallDTO(it.id,it.title,it.description,it.requirements,it.funding,it.openingDate,it.closingDate,it.dataItems,it.sponsor.id
+        ,it.evaluationPanel.id)
+    }
+
 
 }

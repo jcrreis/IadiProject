@@ -17,4 +17,8 @@ class GrantCallService(val grantCalls: GrantCallRepository) {
         grantCall.id = 0
         grantCalls.save(grantCall)
     }
+
+    fun getAllGrantCallsBySponsorId(id: Long): Iterable<GrantCallDAO>{
+        return grantCalls.findGrantCallDAOBySponsorId(id)
+    }
 }
