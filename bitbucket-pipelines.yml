@@ -5,14 +5,13 @@
 
 # Prerequisites: pom.xml and appropriate project structure should exist in the repository.
 
-image: maven:3.3.9
+image: maven:4.0.0
 
 
 
 pipelines:
   default:
     - step:
-        image: openjdk:11
         caches:
           - maven
         script:
