@@ -87,6 +87,8 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
@@ -104,12 +106,9 @@
                     </args>
                     <compilerPlugins>
                         <plugin>spring</plugin>
+                        <plugin>jpa</plugin>
                     </compilerPlugins>
-                    <pluginOptions>
-                        <option>all-open:annotation=javax.persistence.Entity</option>
-                        <option>all-open:annotation=javax.persistence.Embeddable</option>
-                        <option>all-open:annotation=javax.persistence.MappedSuperclass</option>
-                    </pluginOptions>
+                    
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -126,6 +125,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>
