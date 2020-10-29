@@ -112,9 +112,7 @@
                     </pluginOptions>
                 </configuration>
                 <dependencies>
-                    <dependency>
-                        
-                    </dependency>
+                   
                 </dependencies>
             </plugin>
         </plugins>
