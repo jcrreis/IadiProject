@@ -6,8 +6,14 @@
 # Prerequisites: pom.xml and appropriate project structure should exist in the repository.
 
 image: maven:3.3.9
+
+
+
 pipelines:
   default:
     - step:
-        script:
+        caches:
+          - maven
+        script: 
           - mvn -B verify
+
