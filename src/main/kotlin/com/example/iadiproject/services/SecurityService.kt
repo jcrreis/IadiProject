@@ -32,6 +32,11 @@ class SecurityService(
         return ePanel.panelchair?.id == principal.getId() || ePanel.reviewers.contains(reviewers.findById(id).get())
     }
 
+    fun isStudentOwnerOfApplication(principal: CustomUserDetails, idApplication: Long): Boolean{
+        val application: ApplicationDAO = applications.getOne(idApplication)
+        return application.student.id == principal.getId()
+    }
+
 
 
 

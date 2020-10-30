@@ -4,11 +4,12 @@ package com.example.iadiproject.services
 import com.example.iadiproject.model.InstitutionRepository
 import com.example.iadiproject.model.StudentDAO
 import com.example.iadiproject.model.StudentRepository
+import com.example.iadiproject.model.UserRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class StudentService(val students: StudentRepository, val institutions: InstitutionRepository) {
+class StudentService(val users: UserService, val students: StudentRepository, val institutions: InstitutionRepository) {
 
     fun getAll() : Iterable<StudentDAO> = students.findAll()
 
@@ -18,6 +19,7 @@ class StudentService(val students: StudentRepository, val institutions: Institut
 
     fun addOne(student: StudentDAO){
         student.id = 0
+        users.verifyIfValuesAreUnique(student)
         val encryptedPass: String = BCryptPasswordEncoder().encode(student.password)
         student.password = encryptedPass
         students.save(student)

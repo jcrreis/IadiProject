@@ -26,7 +26,6 @@ class EvaluationPanelService(val ePanels: EvaluationPanelRepository, val grantCa
         ePanel.grantCall = grantCall
         ePanels.save(ePanel)
         val grantCallDAO = grantCalls.findById(grantCall.id).get()
-        //print(grantCallDAO)
         grantCallDAO.evaluationPanel = ePanel
         grantCalls.save(grantCallDAO)
     }

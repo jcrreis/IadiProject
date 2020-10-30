@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class ReviewerService(val reviewers : ReviewerRepository, val institutions: InstitutionRepository) {
+class ReviewerService(val users: UserService,val reviewers : ReviewerRepository, val institutions: InstitutionRepository) {
 
     fun getAll() : Iterable<ReviewerDAO> = reviewers.findAll()
 
@@ -19,6 +19,7 @@ class ReviewerService(val reviewers : ReviewerRepository, val institutions: Inst
 
     fun addOne(reviewer: ReviewerDAO){
         reviewer.id = 0
+        users.verifyIfValuesAreUnique(reviewer)
         val encryptedPass: String = BCryptPasswordEncoder().encode(reviewer.password)
         reviewer.password = encryptedPass
         reviewers.save(reviewer)

@@ -40,6 +40,18 @@ class UserService(val users: UserRepository) : UserDetailsService{
         }
     }
 
+    fun verifyIfValuesAreUnique(user: UserDAO){
+
+        if(users.findUserDAOByName(user.name).isPresent){
+            throw BadRequestExcepetion("This username already exists")
+        }
+        if(users.findUserDAOByEmail(user.email).isPresent){
+            throw BadRequestExcepetion("This email already exists")
+        }
+
+
+    }
+
 }
 
 

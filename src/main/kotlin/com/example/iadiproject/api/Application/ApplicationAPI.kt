@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 import org.springframework.http.HttpStatus
+import org.springframework.security.access.prepost.PostAuthorize
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
@@ -23,7 +24,7 @@ interface ApplicationAPI {
     @GetMapping("")
     fun getAll(): List<ApplicationDTO>
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostAuthorize("hasRole('ROLE_ADMIN') or @securityService.isStudentOwnerOfApplication(authentication.principal, #id)")
     @ApiOperation("Get an application by id")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved application"),
@@ -46,7 +47,7 @@ interface ApplicationAPI {
     fun addOne(@RequestBody application: ApplicationDTO)
 
 
-    @PreAuthorize("@securityService.doesReviewerBelongToGrantCallPanel(principal, #idGrantCall) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@securityService.doesReviewerBelongToGrantCallPanel(authentication.principal, #idGrantCall) or hasRole('ROLE_ADMIN')")
     @ApiOperation("Get all applications of a single grant call")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved all applications of a grant call"),
@@ -57,7 +58,7 @@ interface ApplicationAPI {
     fun getApplicationsByGrantCall(@PathVariable idGrantCall: Long): List<ApplicationDTO>
 
 
-    @PreAuthorize("@securityService.isUserOwnerOfResource(principal, #studentId) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@securityService.isUserOwnerOfResource(authentication.principal, #studentId) or hasRole('ROLE_ADMIN')")
     @ApiOperation("Get all applications of a student")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved all applications of a student"),

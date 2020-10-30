@@ -17,9 +17,9 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "name": "joaorodrigues",
-  "password": "joao",
-  "email": "string",
+  "name": "3213213",
+  "password": "21312312",
+  "email": "2131231",
   "address": "string",
   "institutionId": 1
 }

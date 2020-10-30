@@ -35,6 +35,7 @@ interface ReviewRepository :  JpaRepository<ReviewDAO, Long>{
 
 interface UserRepository : JpaRepository<UserDAO, Long>{
     fun findUserDAOByName(name: String): Optional<UserDAO>
+    fun findUserDAOByEmail(email: String): Optional<UserDAO>
 }
 
 

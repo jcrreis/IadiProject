@@ -37,17 +37,15 @@ abstract class UserDAO(
         @Id
         @GeneratedValue(strategy = GenerationType.TABLE)
         open var id: Long,
-        @Column(nullable = false)
+        @Column(nullable = false, unique = true)
         open var name: String,
         @Column(nullable = false)
         open var password: String,
-        //@Column(nullable = false,unique=true)
+        @Column(nullable = false,unique=true)
         open var email: String,
         open var address: String,
         @ManyToOne(cascade = arrayOf(CascadeType.ALL), mappedBy = "students")
         open var institution: InstitutionDAO,
-        //@ManyToMany(fetch = FetchType.EAGER)
-        //@JoinTable(name = "users_roles", joinColumns = arrayOf(JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = JoinColumn(name = "role_id", referencedColumnName = "id")))
         open var roles: String
 ){
     constructor() : this(0, "", "", "", "", InstitutionDAO(), "")
@@ -80,7 +78,7 @@ abstract class EntityDAO(
         @Id
         @GeneratedValue(strategy = GenerationType.TABLE)
         open var id: Long,
-        @Column(nullable = false)
+        @Column(nullable = false,unique = true)
         open var name: String,
         @Column(nullable = false)
         open var contact: String

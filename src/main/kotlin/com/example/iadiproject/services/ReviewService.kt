@@ -19,6 +19,8 @@ class ReviewService(val reviews : ReviewRepository, val ePanels: EvaluationPanel
         if(ePanel.reviewers.contains(review.reviewer) || (ePanel.panelchair?.equals(review.reviewer) == true)){
             review.id = 0
             reviews.save(review)
+            application.updateMeanScores()
+            applications.save(application)
         }
         else{
             throw ConflictException("This reviewer with ${review.reviewer.id} id doesn't belong to Evaluation Panel with id ${ePanel.id}")

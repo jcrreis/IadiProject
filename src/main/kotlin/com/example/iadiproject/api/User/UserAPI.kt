@@ -43,18 +43,9 @@ interface UserAPI {
         ApiResponse(code = 401, message = "UNAUTHORIZED"),
         ApiResponse(code = 403, message = "FORBIDDEN")
     ])
-
-
     @PutMapping("/changepassword")
     fun changePassword(@RequestBody passwords: ChangePasswordDTO){
     }
 
-   // @PostMapping("")
-    //@ResponseStatus(HttpStatus.CREATED)
-   // fun signUp(@RequestBody sponsor: AddSponsorDTO)
-
-   // @PostMapping("")
-   // @ResponseStatus(HttpStatus.CREATED)
-   // fun login(@RequestBody sponsor: AddSponsorDTO)
 
 }
