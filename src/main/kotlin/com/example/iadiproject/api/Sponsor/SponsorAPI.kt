@@ -17,9 +17,9 @@ interface SponsorAPI {
 
     @ApiOperation("Get the list of all sponsors")
     @ApiResponses(value = [
-        ApiResponse(code = 200, message = "Successfully retrieved list of sponsors")
-        //ApiResponse(code = 401, message = RESPONSE_UNAUTHORIZED),
-        //ApiResponse(code = 403, message = RESPONSE_FORBIDDEN)
+        ApiResponse(code = 200, message = "Successfully retrieved list of sponsors"),
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN")
     ])
     @GetMapping("")
     fun getAll(): List<SponsorDTO>

@@ -1,5 +1,6 @@
 package com.example.iadiproject.api.User
 
+import com.example.iadiproject.api.ChangePasswordDTO
 import com.example.iadiproject.api.SimpleInstitutionDTO
 import com.example.iadiproject.api.UserDTO
 import com.example.iadiproject.services.UserService
@@ -23,9 +24,9 @@ class UserController(val users: UserService): UserAPI{
         }
     }
 
-    override fun changePassword(password: String){
+    override fun changePassword(passwords: ChangePasswordDTO){
         val auth: Authentication = SecurityContextHolder.getContext().authentication
-        users.changePassword(auth.name,password)
+        users.changePassword(auth.name,passwords.oldpassword,passwords.newpassword)
     }
 
 }

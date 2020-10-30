@@ -2,8 +2,7 @@ package com.example.iadiproject.services
 
 import com.example.iadiproject.model.*
 import com.example.iadiproject.securityconfig.CustomUserDetails
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.core.userdetails.User
+
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -26,11 +25,19 @@ class UserService(val users: UserRepository) : UserDetailsService{
         return CustomUserDetails(user.id,user.name, user.password, mutableListOf())
     }
 
+    fun changePassword(name: String,oldpassword: String,newpassword: String){
 
-
-    fun changePassword(name: String,password: String){
-        val encryptedPass: String = BCryptPasswordEncoder().encode(password)
-        users.findUserDAOByName(name).get().changePassword(encryptedPass)
+        val newEncryptedPass: String = BCryptPasswordEncoder().encode(newpassword)
+        val user = users.findUserDAOByName(name).orElseThrow(){
+            NotFoundException("User not found")
+        }
+        if(BCryptPasswordEncoder().matches(oldpassword, user.password)) {
+            user.changePassword(newEncryptedPass)
+            users.save(user)
+        }
+        else{
+            throw BadRequestExcepetion("Old password is invalid")
+        }
     }
 
 }

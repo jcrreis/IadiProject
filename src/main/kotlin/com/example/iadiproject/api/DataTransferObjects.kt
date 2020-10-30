@@ -73,7 +73,7 @@ data class StudentDTO(
         override val address: String,
         override val institution: SimpleInstitutionDTO,
         val password: String,
-        val cv: String
+        val cv: ByteArray
 ) : UserDTO(id,name,email,address,institution)
 
 data class SimpleStudentDTO(
@@ -145,4 +145,8 @@ data class ReviewDTO(
 
 )
 
+data class ChangePasswordDTO(
+        val oldpassword: String,
+        val newpassword: String
+)
 

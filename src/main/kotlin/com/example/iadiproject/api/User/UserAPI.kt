@@ -3,6 +3,7 @@ package com.example.iadiproject.api.User
 
 
 import com.example.iadiproject.api.AddSponsorDTO
+import com.example.iadiproject.api.ChangePasswordDTO
 import com.example.iadiproject.api.UserDTO
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -36,8 +37,16 @@ interface UserAPI {
     @GetMapping("/current")
     fun getLoggedUser(): UserDTO?
 
+    @ApiOperation("Change user password")
+    @ApiResponses(value = [
+        ApiResponse(code = 200, message = "Successfully change the user password"),
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN")
+    ])
+
+
     @PutMapping("/changepassword")
-    fun changePassword(password: String){
+    fun changePassword(@RequestBody passwords: ChangePasswordDTO){
     }
 
    // @PostMapping("")

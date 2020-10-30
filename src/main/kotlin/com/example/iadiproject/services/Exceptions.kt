@@ -8,3 +8,6 @@ class NotFoundException(message:String = "Not Found!!") : RuntimeException(messa
 
 @ResponseStatus(HttpStatus.CONFLICT)
 class ConflictException(message:String = "Conflict!!!") : RuntimeException(message)
+
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+class BadRequestExcepetion(message: String = "Bad Request!!!") : RuntimeException(message)

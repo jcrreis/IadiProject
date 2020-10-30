@@ -32,20 +32,7 @@ class SecurityService(
         return ePanel.panelchair?.id == principal.getId() || ePanel.reviewers.contains(reviewers.findById(id).get())
     }
 
-    fun isUserAStudent(principal: CustomUserDetails): Boolean{
-        val student: StudentDAO? = students.findById(principal.getId()).orElse(null)
-        return student !== null
-    }
 
-    fun isUserAnAdmin(principal: CustomUserDetails): Boolean{
-        val admin: AdminDAO? = admins.findById(principal.getId()).orElse(null)
-        return admin !== null
-    }
-
-    fun isUserAReviewer(principal: CustomUserDetails): Boolean{
-        val reviewer: ReviewerDAO? = reviewers.findById(principal.getId()).orElse(null)
-        return reviewer !== null
-    }
 
 
 

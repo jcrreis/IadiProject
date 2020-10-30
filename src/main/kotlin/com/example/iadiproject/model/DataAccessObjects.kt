@@ -99,12 +99,12 @@ data class StudentDAO(
         override var address: String,
         override var institution: InstitutionDAO,
         @Lob
-        var cv: String,
+        var cv: ByteArray,
         @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "student")
         var applications: MutableList<ApplicationDAO>
 
 ) : UserDAO(id, name, password, email, address, institution,"ROLE_STUDENT") {
-    constructor() : this(0, "", "", "", "", InstitutionDAO(),"", mutableListOf()) {
+    constructor() : this(0, "", "", "", "", InstitutionDAO(),ByteArray(0), mutableListOf()) {
 
     }
 }

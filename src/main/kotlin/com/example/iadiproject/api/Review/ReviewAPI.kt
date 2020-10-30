@@ -20,8 +20,8 @@ interface ReviewAPI {
     @ApiOperation("Get the list of all reviews")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved list of reviews"),
-        ApiResponse(code = 401, message = "FORBIDDEN"),
-        ApiResponse(code = 403, message = "UNAUTHORIZED")
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN")
     ])
     @GetMapping("")
     fun getAll(): List<ReviewDTO>
@@ -30,8 +30,8 @@ interface ReviewAPI {
     @ApiOperation("Get a review by id")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved the review"),
-        ApiResponse(code = 401, message = "FORBIDDEN"),
-        ApiResponse(code = 403, message = "UNAUTHORIZED"),
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN"),
         ApiResponse(code = 404, message = "NOT_FOUND")
     ])
     @GetMapping("/{id}")

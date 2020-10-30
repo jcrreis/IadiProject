@@ -35,7 +35,9 @@ class SecurityConfig(
         .antMatchers(HttpMethod.POST, "/reviewers").permitAll()
         .anyRequest().authenticated()
         .and()
-        .formLogin()
+        //.formLogin()
+        //.and()
+         .httpBasic();
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {

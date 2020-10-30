@@ -38,7 +38,7 @@ class StudentServiceTester{
 
     }
     companion object{
-        val student = StudentDAO(0,"João","123","fct@gmail.com","Rua fct", InstitutionDAO(0,"Joao","262623231", mutableListOf()), "", mutableListOf())
+        val student = StudentDAO(0,"João","123","fct@gmail.com","Rua fct", InstitutionDAO(0,"Joao","262623231", mutableListOf()), ByteArray(0), mutableListOf())
     }
 
     @Test

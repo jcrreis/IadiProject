@@ -1,10 +1,11 @@
-package com.example.iadiproject.ReviewerTests
+package com.example.iadiproject.InstitutionTests
 
 import com.example.iadiproject.model.InstitutionDAO
-import com.example.iadiproject.model.ReviewerDAO
-import com.example.iadiproject.model.ReviewerRepository
-import com.example.iadiproject.services.ReviewerService
-import com.google.gson.ExclusionStrategy
+import com.example.iadiproject.model.InstitutionRepository
+
+import com.example.iadiproject.services.InstitutionService
+
+import com.google.gson.Gson
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
@@ -16,39 +17,36 @@ import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import com.google.gson.Gson
-
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class ReviewerControllerTester {
-
+class InstitutionControllerTester {
     @Autowired
     lateinit var mvc: MockMvc
 
-    //@MockBean
-    //lateinit var reviewerRepository: ReviewerRepository
+    @MockBean
+    lateinit var institutionRepository: InstitutionRepository
 
     @MockBean
-    lateinit var reviewers: ReviewerService
+    lateinit var institutions: InstitutionService
 
 
     companion object {
-        const val reviewersPath: String = "/reviewers"
-        val reviewer = ReviewerDAO(1L,"joao","joao","joao","address", InstitutionDAO(1L,"FCT","FCT", mutableListOf()),mutableListOf(), mutableListOf())
+        const val institutionsPath: String = "/institutions"
+        val institution = InstitutionDAO(1L,"FCT","FCT", mutableListOf())
         val gson: Gson = Gson()
     }
 
     @Test
     @WithMockUser(username = "user", password = "password")
     fun `Test getOne()`() {
-        Mockito.`when`(reviewers.getOne(1L)).thenReturn(reviewer)
+        Mockito.`when`(institutions.getOne(1L)).thenReturn(institution)
 
-        mvc.perform(get("$reviewersPath/1"))
+        mvc.perform(MockMvcRequestBuilders.get("$institutionsPath/1"))
                 .andExpect(status().isOk)
                 .andReturn()
 
@@ -57,21 +55,23 @@ class ReviewerControllerTester {
     @Test
     @WithMockUser(username = "user", password = "password")
     fun `Test getAll()`() {
-        Mockito.`when`(reviewers.getAll()).thenReturn(emptyList())
+        Mockito.`when`(institutions.getAll()).thenReturn(emptyList())
 
-        mvc.perform(get("$reviewersPath"))
+        mvc.perform(MockMvcRequestBuilders.get("$institutionsPath"))
                 .andExpect(status().isOk)
                 .andReturn()
     }
 
-
-//GSON NOT WORKING
+    //GSON NOT WORKING
     @Test
     fun `Test addOne()`(){
-        /*val jsonObject = gson.toJson(reviewer)
-        mvc.perform(post(reviewersPath)
+       /* val jsonObject = gson.toJson(institution)
+        mvc.perform(post(institutionsPath)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonObject))
                 .andExpect(status().isCreated)*/
     }
+
+
+
 }

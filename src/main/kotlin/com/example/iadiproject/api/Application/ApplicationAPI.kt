@@ -17,8 +17,8 @@ interface ApplicationAPI {
     @ApiOperation("Get the list of all applications")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved list of applications"),
-        ApiResponse(code = 401, message = "FORBIDDEN"),
-        ApiResponse(code = 403, message = "UNAUTHORIZED")
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN")
     ])
     @GetMapping("")
     fun getAll(): List<ApplicationDTO>
@@ -27,8 +27,8 @@ interface ApplicationAPI {
     @ApiOperation("Get an application by id")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved application"),
-        ApiResponse(code = 401, message = "FORBIDDEN"),
-        ApiResponse(code = 403, message = "UNAUTHORIZED")
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN")
     ])
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): ApplicationDTO

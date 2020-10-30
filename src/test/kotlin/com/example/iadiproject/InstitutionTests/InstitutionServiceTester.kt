@@ -1,11 +1,8 @@
 package com.example.iadiproject.InstitutionTests
 
-import com.example.iadiproject.ReviewerTests.ReviewerServiceTester
 import com.example.iadiproject.model.InstitutionDAO
 import com.example.iadiproject.model.InstitutionRepository
-import com.example.iadiproject.model.ReviewerDAO
 import com.example.iadiproject.services.InstitutionService
-import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
