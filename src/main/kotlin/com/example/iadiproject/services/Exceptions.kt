@@ -11,3 +11,6 @@ class ConflictException(message:String = "Conflict!!!") : RuntimeException(messa
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 class BadRequestExcepetion(message: String = "Bad Request!!!") : RuntimeException(message)
+
+@ResponseStatus(HttpStatus.FORBIDDEN)
+class ForbiddenException(message: String = "Forbidden!!!") : RuntimeException(message)

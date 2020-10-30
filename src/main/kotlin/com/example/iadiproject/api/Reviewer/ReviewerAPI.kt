@@ -28,7 +28,7 @@ interface ReviewerAPI {
 
     @ApiOperation("Get a reviewer by id")
     @ApiResponses(value = [
-        ApiResponse(code = 200, message = "Successfully retrieved the user"),
+        ApiResponse(code = 200, message = "Successfully retrieved the reviewer"),
         ApiResponse(code = 401, message = "UNAUTHORIZED"),
         ApiResponse(code = 403, message = "FORBIDDEN"),
         ApiResponse(code = 404, message = "NOT_FOUND")

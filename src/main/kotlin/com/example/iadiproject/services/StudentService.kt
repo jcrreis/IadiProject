@@ -4,7 +4,6 @@ package com.example.iadiproject.services
 import com.example.iadiproject.model.InstitutionRepository
 import com.example.iadiproject.model.StudentDAO
 import com.example.iadiproject.model.StudentRepository
-import com.example.iadiproject.model.UserRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 

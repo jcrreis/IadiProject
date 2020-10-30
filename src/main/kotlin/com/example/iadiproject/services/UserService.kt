@@ -29,7 +29,7 @@ class UserService(val users: UserRepository) : UserDetailsService{
 
         val newEncryptedPass: String = BCryptPasswordEncoder().encode(newpassword)
         val user = users.findUserDAOByName(name).orElseThrow(){
-            NotFoundException("User not found")
+            ForbiddenException("User not logged in")
         }
         if(BCryptPasswordEncoder().matches(oldpassword, user.password)) {
             user.changePassword(newEncryptedPass)
@@ -48,7 +48,6 @@ class UserService(val users: UserRepository) : UserDetailsService{
         if(users.findUserDAOByEmail(user.email).isPresent){
             throw BadRequestExcepetion("This email already exists")
         }
-
 
     }
 

@@ -36,7 +36,7 @@ interface InstitutionAPI {
     fun getOne(@PathVariable id: Long): InstitutionDTO
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ApiOperation("Create a new institution")
     @ApiResponses(value = [
         ApiResponse(code = 201, message = "Successfully created a new institution"),
