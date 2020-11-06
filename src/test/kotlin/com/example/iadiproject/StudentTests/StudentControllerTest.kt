@@ -1,7 +1,10 @@
 package com.example.iadiproject.StudentTests
 
+import com.example.iadiproject.api.AddUserDTO
 import com.example.iadiproject.model.InstitutionDAO
+import com.example.iadiproject.model.InstitutionRepository
 import com.example.iadiproject.model.StudentDAO
+import com.example.iadiproject.services.InstitutionService
 import com.example.iadiproject.services.StudentService
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,18 +19,20 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import com.google.gson.Gson
+import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class StudentControllerTester {
+class StudentControllerTest {
 
     @Autowired
     lateinit var mvc: MockMvc
 
-    //@MockBean
-    //lateinit var reviewerRepository: ReviewerRepository
+    @MockBean
+    lateinit var institutions: InstitutionRepository
 
     @MockBean
     lateinit var students: StudentService
@@ -35,7 +40,8 @@ class StudentControllerTester {
 
     companion object {
         const val studentsPath: String = "/students"
-        val student = StudentDAO(1L,"joao","joao","joao","address", InstitutionDAO(1L,"FCT","FCT", mutableListOf()),ByteArray(0),mutableListOf())
+        val institution = InstitutionDAO(1L,"FCT","FCT", mutableListOf())
+        val student = StudentDAO(1L,"joao","joao","joao","address", institution,ByteArray(0),mutableListOf())
         val gson: Gson = Gson()
     }
 
@@ -54,18 +60,19 @@ class StudentControllerTester {
     @WithMockUser(username = "user", password = "password")
     fun `Test getAll()`() {
         Mockito.`when`(students.getAll()).thenReturn(emptyList())
-
         mvc.perform(get("$studentsPath"))
                 .andExpect(status().isOk)
                 .andReturn()
     }
 
 
-    //GSON NOT WORKING
+    //GETTING NOTFOUND BECAUSE NO INSTITUTION IS CREATED
     @Test
     fun `Test addOne()`(){
-        /*val jsonObject = gson.toJson(reviewer)
-        mvc.perform(post(reviewersPath)
+       /* val student = AddUserDTO(1L,"joao","joao","joao","joao",1L)
+        val jsonObject = gson.toJson(student)
+        institutions.save(institution)
+        mvc.perform(post("$studentsPath")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonObject))
                 .andExpect(status().isCreated)*/

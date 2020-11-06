@@ -19,6 +19,7 @@ class StudentController(val students: StudentService, val institutions: Institut
     }
 
     override fun addOne(student: AddUserDTO) {
+        print(institutions.getOne(student.institutionId))
         students.addOne(StudentDAO(student.id,student.name,student.password,student.email,student.address,
                 institutions.getOne(student.institutionId),ByteArray(0),mutableListOf()))
     }

@@ -1,12 +1,14 @@
-package com.example.iadiproject.InstitutionTests
+package com.example.iadiproject.ReviewerTests
 
+import com.example.iadiproject.InstitutionTests.InstitutionServiceTest
 import com.example.iadiproject.model.InstitutionDAO
-import com.example.iadiproject.model.InstitutionRepository
-
-import com.example.iadiproject.services.InstitutionService
-
-import com.google.gson.Gson
+import com.example.iadiproject.model.ReviewerDAO
+import com.example.iadiproject.model.ReviewerRepository
+import com.example.iadiproject.model.StudentDAO
+import com.example.iadiproject.services.ReviewerService
 import org.junit.Test
+//import org.junit.jupiter.api.Test
+
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,36 +19,40 @@ import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import com.google.gson.Gson
+import org.junit.Assert
+
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class InstitutionControllerTester {
+class ReviewerControllerTest {
+
     @Autowired
     lateinit var mvc: MockMvc
 
-    @MockBean
-    lateinit var institutionRepository: InstitutionRepository
+    //@MockBean
+    //lateinit var reviewerRepository: ReviewerRepository
 
     @MockBean
-    lateinit var institutions: InstitutionService
+    lateinit var reviewers: ReviewerService
 
 
     companion object {
-        const val institutionsPath: String = "/institutions"
-        val institution = InstitutionDAO(1L,"FCT","FCT", mutableListOf())
+        const val reviewersPath: String = "/reviewers"
+        val reviewer = ReviewerDAO(1L,"joao","joao","joao","address", InstitutionDAO(1L,"FCT","FCT", mutableListOf()),mutableListOf(), mutableListOf())
         val gson: Gson = Gson()
     }
 
     @Test
     @WithMockUser(username = "user", password = "password")
     fun `Test getOne()`() {
-        Mockito.`when`(institutions.getOne(1L)).thenReturn(institution)
+        Mockito.`when`(reviewers.getOne(1L)).thenReturn(reviewer)
 
-        mvc.perform(MockMvcRequestBuilders.get("$institutionsPath/1"))
+        mvc.perform(get("$reviewersPath/1"))
                 .andExpect(status().isOk)
                 .andReturn()
 
@@ -55,23 +61,22 @@ class InstitutionControllerTester {
     @Test
     @WithMockUser(username = "user", password = "password")
     fun `Test getAll()`() {
-        Mockito.`when`(institutions.getAll()).thenReturn(emptyList())
+        Mockito.`when`(reviewers.getAll()).thenReturn(emptyList())
 
-        mvc.perform(MockMvcRequestBuilders.get("$institutionsPath"))
+        mvc.perform(get("$reviewersPath"))
                 .andExpect(status().isOk)
                 .andReturn()
     }
 
-    //GSON NOT WORKING
+
+    //GETTING NOTFOUND BECAUSE NO INSTITUTION IS CREATED
     @Test
     fun `Test addOne()`(){
-       /* val jsonObject = gson.toJson(institution)
-        mvc.perform(post(institutionsPath)
+      /*  val jsonObject = gson.toJson(reviewer)
+
+        mvc.perform(post("$reviewersPath")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonObject))
                 .andExpect(status().isCreated)*/
     }
-
-
-
 }

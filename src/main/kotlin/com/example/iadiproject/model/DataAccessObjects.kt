@@ -20,9 +20,11 @@ data class ApplicationDAO(
         var student: StudentDAO,
         @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "application")
         var reviews: MutableList<ReviewDAO>,
-        var meanScores: Double
+        var meanScores: Double,
+        @OneToMany(fetch = FetchType.LAZY,mappedBy="application")
+        var dataItemAnswers: List<DataItemAnswer>
 ) {
-    constructor() : this(0, Date(), 1, true, "", GrantCallDAO(), StudentDAO(), mutableListOf(),0.0) {
+    constructor() : this(0, Date(), 1, true, "", GrantCallDAO(), StudentDAO(), mutableListOf(),0.0, mutableListOf()) {
 
     }
 
@@ -44,18 +46,32 @@ abstract class UserDAO(
         @Column(nullable = false,unique=true)
         open var email: String,
         open var address: String,
-        @ManyToOne(cascade = arrayOf(CascadeType.ALL), mappedBy = "students")
-        open var institution: InstitutionDAO,
         open var roles: String
 ){
-    constructor() : this(0, "", "", "", "", InstitutionDAO(), "")
+    constructor() : this(0, "", "", "", "", "")
 
     fun changePassword(password: String){
         this.password = password
     }
 }
 
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+abstract class RegularUserDAO(
+        id: Long,
+        name: String,
+        password: String,
+        email: String,
+        address: String,
+        @ManyToOne(cascade = arrayOf(CascadeType.ALL), mappedBy="users")
+        open var institution: InstitutionDAO,
+        roles: String
+) : UserDAO(id,name,password,email,address,roles){
+    constructor() : this(0, "", "", "", "", InstitutionDAO(), "")
 
+}
+
+/*
 @Entity
 data class AdminDAO(
         override var id: Long,
@@ -69,8 +85,7 @@ data class AdminDAO(
 {
     constructor(): this(0,"","","","",InstitutionDAO())
 }
-
-
+*/
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -90,18 +105,19 @@ abstract class EntityDAO(
 data class StudentDAO(
 
 
-        override var id: Long,
-        override var name: String,
-        override var password: String,
-        override var email: String,
-        override var address: String,
-        override var institution: InstitutionDAO,
+        var student_id: Long,
+        var student_name: String,
+        var student_password: String,
+        var student_email: String,
+        var student_address: String,
+        @ManyToOne
+        var student_institution: InstitutionDAO,
         @Lob
         var cv: ByteArray,
         @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "student")
         var applications: MutableList<ApplicationDAO>
 
-) : UserDAO(id, name, password, email, address, institution,"ROLE_STUDENT") {
+) : RegularUserDAO(student_id, student_name, student_password, student_email, student_address, student_institution,"ROLE_STUDENT") {
     constructor() : this(0, "", "", "", "", InstitutionDAO(),ByteArray(0), mutableListOf()) {
 
     }
@@ -110,18 +126,19 @@ data class StudentDAO(
 @Entity
 data class ReviewerDAO(
 
-        override var id: Long,
-        override var name: String,
-        override var password: String,
-        override var email: String,
-        override var address: String,
-        override var institution: InstitutionDAO,
+        var reviewer_id: Long,
+        var reviewer_name: String,
+        var reviewer_password: String,
+        var reviewer_email: String,
+        var reviewer_address: String,
+        @ManyToOne
+        var reviewer_institution: InstitutionDAO,
         @OneToMany(cascade = arrayOf(CascadeType.ALL))
         var panelsChairs: MutableList<EvaluationPanelDAO>,
         @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "reviewer")
         var reviews: MutableList<ReviewDAO>
 
-): UserDAO(id, name, password, email, address, institution, "ROLE_REVIEWER"){
+): RegularUserDAO(reviewer_id, reviewer_name, reviewer_password, reviewer_email, reviewer_address, reviewer_institution, "ROLE_REVIEWER"){
     @ManyToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "reviewers")
     var evaluationPanels: MutableList<EvaluationPanelDAO> = mutableListOf()
     constructor() : this(0, "", "", "", "", InstitutionDAO(), mutableListOf(),mutableListOf()) {
@@ -132,28 +149,30 @@ data class ReviewerDAO(
 @Entity
 data class InstitutionDAO(
 
-        override var id: Long,
-        override var name: String,
-        override var contact: String,
+        var institution_id: Long,
+        var institution_name: String,
+        var institution_contact: String,
         @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "institution",fetch = FetchType.EAGER)
-        var users: MutableList<UserDAO>
+        var users: MutableList<RegularUserDAO>
 
-): EntityDAO(id, name, contact){
+): EntityDAO(institution_id, institution_name, institution_contact){
     constructor() : this(0, "", "", mutableListOf()) {
 
     }
 }
 
+
 @Entity
 data class SponsorDAO(
 
-        override var id: Long,
-        override var name: String,
-        override var contact: String
+        var sponsor_id: Long,
+        var sponsor_name: String,
+        var sponsor_contact: String
+): EntityDAO(sponsor_id, sponsor_name, sponsor_contact){
 
-): EntityDAO(id, name, contact) {
     @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "sponsor")
     var grantCalls: MutableList<GrantCallDAO> = mutableListOf()
+
     constructor() : this(0, "", "") {
 
     }
@@ -170,7 +189,8 @@ data class GrantCallDAO(
         var funding: Double,
         var openingDate: Date,
         var closingDate: Date,
-        var dataItems: String,
+        @OneToMany(fetch = FetchType.LAZY,mappedBy="grantCall")
+        var dataItems: List<DataItem>,
         @ManyToOne(fetch = FetchType.LAZY)
         var sponsor: SponsorDAO,
         @OneToOne(cascade = arrayOf(CascadeType.ALL), mappedBy = "grantCall")
@@ -178,7 +198,7 @@ data class GrantCallDAO(
         @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "grantCall")
         var applications: MutableList<ApplicationDAO>
 ) {
-    constructor() : this(0, "", "", "", 0.0, Date(), Date(), "", SponsorDAO(), EvaluationPanelDAO(), mutableListOf()) {
+    constructor() : this(0, "", "", "", 0.0, Date(), Date(), mutableListOf(),SponsorDAO(), EvaluationPanelDAO(), mutableListOf()) {
 
     }
 }
@@ -222,5 +242,37 @@ data class ReviewDAO(
     }
 }
 
+@Entity
+data class DataItem(
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        var id: Long,
+        var mandatory: Boolean,
+        var name: String,
+        var datatype: String,
+        @ManyToOne(fetch = FetchType.LAZY)
+        var grantCall: GrantCallDAO,
+        @OneToMany(fetch = FetchType.LAZY)
+        var answers: List<DataItemAnswer>
 
-data class DataItems(val value: String, val name: String)
+){
+    constructor() : this(0,true,"","", GrantCallDAO(), mutableListOf()){
+
+    }
+}
+
+@Entity
+data class DataItemAnswer(
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        var id: Long,
+        @ManyToOne(fetch = FetchType.LAZY)
+        var dataItem: DataItem,
+        @ManyToOne(fetch = FetchType.LAZY)
+        var application: ApplicationDAO,
+        var value: String
+        ){
+    constructor() : this(0,DataItem(),ApplicationDAO(),""){
+
+    }
+}

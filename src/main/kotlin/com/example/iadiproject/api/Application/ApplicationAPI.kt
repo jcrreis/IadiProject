@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/applications")
 interface ApplicationAPI {
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ApiOperation("Get the list of all applications")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved list of applications"),
@@ -24,7 +24,7 @@ interface ApplicationAPI {
     @GetMapping("")
     fun getAll(): List<ApplicationDTO>
 
-    @PostAuthorize("hasRole('ROLE_ADMIN') or @securityService.isStudentOwnerOfApplication(authentication.principal, #id)")
+    @PostAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.isStudentOwnerOfApplication(authentication.principal, #id)")
     @ApiOperation("Get an application by id")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved application"),
@@ -47,7 +47,7 @@ interface ApplicationAPI {
     fun addOne(@RequestBody application: ApplicationDTO)
 
 
-    @PostAuthorize("@securityService.doesReviewerBelongToGrantCallPanel(authentication.principal, #idGrantCall) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@securityService.doesReviewerBelongToGrantCallPanel(authentication.principal, #idGrantCall) or hasAuthority('ROLE_ADMIN')")
     @ApiOperation("Get all applications of a single grant call")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved all applications of a grant call"),
@@ -58,7 +58,7 @@ interface ApplicationAPI {
     fun getApplicationsByGrantCall(@PathVariable idGrantCall: Long): List<ApplicationDTO>
 
 
-    @PostAuthorize("@securityService.isUserOwnerOfResource(authentication.principal, #studentId) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@securityService.isUserOwnerOfResource(authentication.principal, #studentId) or hasAuthority('ROLE_ADMIN')")
     @ApiOperation("Get all applications of a student")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved all applications of a student"),
@@ -67,5 +67,17 @@ interface ApplicationAPI {
     ])
     @GetMapping("/student/{studentId}")
     fun getApplicationsByStudent(@PathVariable studentId: Long): List<ApplicationDTO>
+
+    @PostAuthorize("@securityService.isStudentOwnerOfApplication(authentication.principal, #id) or hasAuthority('ROLE_ADMIN')")
+    @ApiOperation("Delete an application")
+    @ApiResponses(value = [
+        ApiResponse(code = 200, message = "Successfully deleted an Application"),
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN")
+    ])
+    @DeleteMapping("/{id}")
+    fun deleteApplicationById(@PathVariable id: Long)
+
+
 
 }

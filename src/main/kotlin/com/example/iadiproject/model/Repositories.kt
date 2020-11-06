@@ -39,7 +39,7 @@ interface UserRepository : JpaRepository<UserDAO, Long>{
 }
 
 
-
+/*
 interface AdminRepository: JpaRepository<AdminDAO, Long>{
 
-}
+}*/

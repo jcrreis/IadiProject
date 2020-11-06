@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/evaluationpanels")
 interface EvaluationPanelAPI {
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ApiOperation("Get the list of all evaluation panels")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved list of evaluation panels"),
@@ -25,7 +25,7 @@ interface EvaluationPanelAPI {
     @GetMapping("")
     fun getAll(): List<EvaluationPanelDTO>
 
-    @PreAuthorize("@securityService.doesReviewerBelongToPanel(principal, #id) or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("@securityService.doesReviewerBelongToPanel(principal, #id) or hasAuthority('ROLE_ADMIN')")
     @ApiOperation("Get a evaluation panel by id")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved list of evaluation panels"),
@@ -35,7 +35,7 @@ interface EvaluationPanelAPI {
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): EvaluationPanelDTO
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ApiOperation("Create a new evaluation panel")
     @ApiResponses(value = [
         ApiResponse(code = 201, message = "Successfully created a new evaluation panel"),

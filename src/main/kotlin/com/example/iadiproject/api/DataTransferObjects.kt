@@ -1,6 +1,5 @@
 package com.example.iadiproject.api
 
-import com.example.iadiproject.model.DataItems
 import java.util.*
 
 
@@ -51,7 +50,7 @@ data class GrantCallDTO(
         val funding: Double,
         val openingDate: Date,
         val closingDate: Date,
-        val dataItems: String,
+        val dataItems: List<DataItemDTO>,
         val sponsorId: Long,
         val evaluationPanelId: Long
 )
@@ -149,4 +148,12 @@ data class ChangePasswordDTO(
         val oldpassword: String,
         val newpassword: String
 )
+
+data class DataItemDTO(
+        val mandatory: Boolean,
+        val name: String,
+        val datatype: String
+
+)
+
 

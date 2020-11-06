@@ -20,7 +20,7 @@ class UserController(val users: UserService): UserAPI{
     override fun getLoggedUser(): UserDTO?{
         val auth: Authentication = SecurityContextHolder.getContext().authentication
         return users.findByName(auth.name)?.let {
-            UserDTO(it.id,it.name,it.email,it.address,SimpleInstitutionDTO(it.institution.id,it.institution.name,it.institution.contact))
+            UserDTO(it.id,it.name,it.email,it.address, SimpleInstitutionDTO(1, "test", "test"))
         }
     }
 

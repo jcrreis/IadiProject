@@ -23,7 +23,7 @@ class ReviewService(val reviews : ReviewRepository, val ePanels: EvaluationPanel
             applications.save(application)
         }
         else{
-            throw ConflictException("This reviewer with ${review.reviewer.id} id doesn't belong to Evaluation Panel with id ${ePanel.id}")
+            throw ForbiddenException("This reviewer with ${review.reviewer.id} id doesn't belong to Evaluation Panel with id ${ePanel.id}")
         }
 
     }

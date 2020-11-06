@@ -1,19 +1,17 @@
 package com.example.iadiproject.StudentTests
 
-import com.example.iadiproject.ReviewerTests.ReviewerServiceTester
 import com.example.iadiproject.model.InstitutionDAO
-import com.example.iadiproject.model.ReviewerDAO
 import com.example.iadiproject.model.StudentDAO
 import com.example.iadiproject.model.StudentRepository
 import com.example.iadiproject.services.StudentService
 import org.junit.Assert
 import org.junit.Test
+//import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
-import org.hamcrest.CoreMatchers.equalTo
 import org.mockito.Mockito
 import org.springframework.boot.test.mock.mockito.MockBean
 
@@ -21,7 +19,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 @RunWith(SpringRunner::class)
 @SpringBootTest
 @Transactional
-class StudentServiceTester{
+class StudentServiceTest{
 
     @Autowired
     lateinit var students: StudentService

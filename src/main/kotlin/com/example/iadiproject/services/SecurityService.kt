@@ -13,8 +13,7 @@ class SecurityService(
         val review: ReviewRepository,
         val grantCalls: GrantCallRepository,
         val reviewers: ReviewerRepository,
-        val students: StudentRepository,
-        val admins: AdminRepository
+        val students: StudentRepository
 )
 {
 
@@ -36,6 +35,7 @@ class SecurityService(
         val application: ApplicationDAO = applications.getOne(idApplication)
         return application.student.id == principal.getId()
     }
+
 
 
 
