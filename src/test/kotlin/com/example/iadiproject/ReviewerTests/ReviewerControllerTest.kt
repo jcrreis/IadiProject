@@ -1,13 +1,11 @@
 package com.example.iadiproject.ReviewerTests
 
-import com.example.iadiproject.InstitutionTests.InstitutionServiceTest
 import com.example.iadiproject.model.InstitutionDAO
 import com.example.iadiproject.model.ReviewerDAO
-import com.example.iadiproject.model.ReviewerRepository
-import com.example.iadiproject.model.StudentDAO
+import com.example.iadiproject.services.InstitutionService
+
 import com.example.iadiproject.services.ReviewerService
 import org.junit.Test
-//import org.junit.jupiter.api.Test
 
 import org.junit.runner.RunWith
 import org.mockito.Mockito
@@ -36,7 +34,8 @@ class ReviewerControllerTest {
 
     //@MockBean
     //lateinit var reviewerRepository: ReviewerRepository
-
+    @MockBean
+    lateinit var institutions: InstitutionService
     @MockBean
     lateinit var reviewers: ReviewerService
 
@@ -72,11 +71,11 @@ class ReviewerControllerTest {
     //GETTING NOTFOUND BECAUSE NO INSTITUTION IS CREATED
     @Test
     fun `Test addOne()`(){
-      /*  val jsonObject = gson.toJson(reviewer)
+      val jsonObject = gson.toJson(reviewer)
 
         mvc.perform(post("$reviewersPath")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonObject))
-                .andExpect(status().isCreated)*/
+                .andExpect(status().isCreated)
     }
 }

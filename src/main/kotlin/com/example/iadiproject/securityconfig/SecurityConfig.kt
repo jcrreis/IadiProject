@@ -1,5 +1,6 @@
 package com.example.iadiproject.securityconfig
 
+import com.example.iadiproject.services.UserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -9,11 +10,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
 
 
 @Configuration
 class SecurityConfig(
-        val customUserDetails: CustomUserDetailsService
+        val customUserDetails: CustomUserDetailsService,
+        val users: UserService
 ) : WebSecurityConfigurerAdapter() {
 
     @Bean
@@ -33,9 +36,15 @@ class SecurityConfig(
         .antMatchers("/v2/api-docs").permitAll()
         .antMatchers(HttpMethod.POST, "/students").permitAll()
         .antMatchers(HttpMethod.POST, "/reviewers").permitAll()
+        .antMatchers(HttpMethod.POST, "/sponsors").permitAll()
         .anyRequest().authenticated()
         .and()
-        .formLogin()
+        .addFilterBefore(UserPasswordAuthenticationFilterToJWT ("/login", super.authenticationManagerBean()),
+                BasicAuthenticationFilter::class.java)
+        .addFilterBefore(UserPasswordSignUpFilterToJWT ("/signup", users),
+                BasicAuthenticationFilter::class.java)
+        .addFilterBefore(JWTAuthenticationFilter(),
+                BasicAuthenticationFilter::class.java)
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {

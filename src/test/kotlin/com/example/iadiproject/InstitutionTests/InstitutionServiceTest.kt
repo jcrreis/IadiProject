@@ -4,7 +4,6 @@ import com.example.iadiproject.model.InstitutionDAO
 import com.example.iadiproject.model.InstitutionRepository
 import com.example.iadiproject.services.InstitutionService
 import org.junit.Assert
-//import org.junit.jupiter.api.Test
 
 import org.junit.Test
 import org.junit.runner.RunWith

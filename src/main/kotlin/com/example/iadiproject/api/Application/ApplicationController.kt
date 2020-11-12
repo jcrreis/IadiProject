@@ -16,7 +16,7 @@ class ApplicationController(val applications: ApplicationService, val grantCalls
             ApplicationDTO(it.id, it.submissionDate, it.status,
                 it.decision,it.justification,it.grantCall.id,it.student.id,it.reviews.map{
                 it1 -> it1.id
-            },it.meanScores)
+            },it.meanScores,it.dataItemAnswers.map { it1 -> it1.value})
         }
 
 
@@ -25,26 +25,26 @@ class ApplicationController(val applications: ApplicationService, val grantCalls
                 ApplicationDTO(it.id, it.submissionDate, it.status,
                     it.decision,it.justification,it.grantCall.id,it.student.id,it.reviews.map{
                     it1 -> it1.id
-                },it.meanScores)
+                },it.meanScores,it.dataItemAnswers.map { it1 -> it1.value})
             }
 
 
     override fun addOne(application: ApplicationDTO) {
         val grantCall: GrantCallDAO = grantCalls.getOne(application.grantCallId)
         val studentDAO: StudentDAO = students.getOne(application.studentId)
-        applications.addOne(ApplicationDAO(application.id, application.submissionDate,application.status,false,"",grantCall,studentDAO, mutableListOf(),0.0, mutableListOf()))
+        applications.addOne(ApplicationDAO(application.id, application.submissionDate,application.status,false,"",grantCall,studentDAO, mutableListOf(),0.0, mutableListOf()),application.answers)
     }
 
     override fun getApplicationsByGrantCall(idGrantCall: Long) = applications.getApplicationsByGrantCall(idGrantCall).map {
         ApplicationDTO(it.id,it.submissionDate,it.status,it.decision,it.justification,it.grantCall.id,it.student.id,it.reviews.map{
             it1-> it1.id
-        },it.meanScores)
+        },it.meanScores,it.dataItemAnswers.map { it1 -> it1.value})
     }
 
     override fun getApplicationsByStudent(studentId: Long): List<ApplicationDTO> = applications.getApplicationsByStudent(studentId).map{
         ApplicationDTO(it.id,it.submissionDate,it.status,it.decision,it.justification,it.grantCall.id,it.student.id, it.reviews.map{
             it1 -> it1.id
-        },it.meanScores)
+        },it.meanScores,it.dataItemAnswers.map { it1 -> it1.value})
     }
 
     override fun deleteApplicationById(id: Long) = applications.deleteApplicationById(id)

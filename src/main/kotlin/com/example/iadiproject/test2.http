@@ -3,9 +3,9 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "name": "ola",
-  "password": "ola",
-  "email": "string",
+  "name": "233",
+  "password": "322",
+  "email": "23111",
   "address": "string",
   "institutionId": 1
 }
@@ -17,9 +17,9 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "name": "3213213",
-  "password": "21312312",
-  "email": "2131231",
+  "name": "student",
+  "password": "student",
+  "email": "student",
   "address": "string",
   "institutionId": 1
 }

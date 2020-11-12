@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import java.util.*
 import javax.transaction.Transactional
 
 
@@ -25,7 +26,7 @@ class UserService(val users: UserRepository) : UserDetailsService{
         return CustomUserDetails(user.id,user.name, user.password, mutableListOf())
     }
 
-    fun changePassword(name: String,oldpassword: String,newpassword: String){
+    fun changePassword(name: String, oldpassword: String, newpassword: String){
 
         val newEncryptedPass: String = BCryptPasswordEncoder().encode(newpassword)
         val user = users.findUserDAOByName(name).orElseThrow(){
@@ -49,6 +50,17 @@ class UserService(val users: UserRepository) : UserDetailsService{
             throw BadRequestExcepetion("This email already exists")
         }
 
+    }
+
+    fun addUser(user: UserDAO) : Optional<UserDAO> {
+        val aUser = users.findById(user.id)
+
+        return if ( aUser.isPresent )
+            Optional.empty()
+        else {
+            user.password = BCryptPasswordEncoder().encode(user.password)
+            Optional.of(users.save(user))
+        }
     }
 
 }

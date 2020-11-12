@@ -36,12 +36,5 @@ class SecurityService(
         return application.student.id == principal.getId()
     }
 
-
-
-
-
-
-
-
 }
 

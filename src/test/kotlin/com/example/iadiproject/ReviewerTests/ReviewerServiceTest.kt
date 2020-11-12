@@ -8,8 +8,6 @@ import com.example.iadiproject.services.*
 import com.google.common.base.Predicates.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert
-//import org.junit.jupiter.api.Test
-
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired

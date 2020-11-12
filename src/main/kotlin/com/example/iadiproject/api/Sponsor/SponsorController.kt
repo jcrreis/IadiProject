@@ -33,7 +33,7 @@ class SponsorController(val sponsors : SponsorService) : SponsorAPI {
     }) }
 
     override fun addOne(sponsor: AddSponsorDTO) {
-        sponsors.addOne(SponsorDAO(sponsor.id,sponsor.name,sponsor.contact))
+        sponsors.addOne(SponsorDAO(sponsor.id,sponsor.name,sponsor.password,sponsor.email,sponsor.address,sponsor.contact))
     }
 
 

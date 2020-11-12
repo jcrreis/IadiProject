@@ -1,0 +1,46 @@
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "name": "sponsor22",
+  "password": "sponsor22"
+}
+
+###
+POST http://localhost:8080/sponsors
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "sponsor22",
+  "contact": "FCT22",
+  "password": "sponsor22",
+  "email": "fct@gmail2.com2",
+  "address": "Rua fct22"
+}
+###
+POST http://localhost:8080/reviewers
+Content-Type: application/json
+
+{
+"id": 0,
+"name": "233",
+"password": "322",
+"email": "23111",
+"address": "string",
+"institutionId": 1
+}
+
+###
+
+POST http://localhost:8080/students
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "student",
+  "password": "student",
+  "email": "student",
+  "address": "string",
+  "institutionId": 1
+}

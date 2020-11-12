@@ -3,10 +3,11 @@ package com.example.iadiproject.services
 
 import com.example.iadiproject.model.SponsorDAO
 import com.example.iadiproject.model.SponsorRepository
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class SponsorService(val sponsors: SponsorRepository) {
+class SponsorService(val sponsors: SponsorRepository, val users: UserService) {
 
     fun getAll() : Iterable<SponsorDAO> = sponsors.findAll()
 
@@ -16,6 +17,9 @@ class SponsorService(val sponsors: SponsorRepository) {
 
     fun addOne(sponsor: SponsorDAO){
         sponsor.id = 0
+        users.verifyIfValuesAreUnique(sponsor)
+        val encryptedPass: String = BCryptPasswordEncoder().encode(sponsor.password)
+        sponsor.password = encryptedPass
         sponsors.save(sponsor)
     }
 }

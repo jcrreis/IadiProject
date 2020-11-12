@@ -2,7 +2,6 @@ package com.example.iadiproject.StudentTests
 
 import com.example.iadiproject.api.AddUserDTO
 import com.example.iadiproject.model.InstitutionDAO
-import com.example.iadiproject.model.InstitutionRepository
 import com.example.iadiproject.model.StudentDAO
 import com.example.iadiproject.services.InstitutionService
 import com.example.iadiproject.services.StudentService
@@ -19,6 +18,8 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import com.google.gson.Gson
+import org.hamcrest.CoreMatchers.equalTo
+import org.junit.Assert
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 
@@ -32,7 +33,7 @@ class StudentControllerTest {
     lateinit var mvc: MockMvc
 
     @MockBean
-    lateinit var institutions: InstitutionRepository
+    lateinit var institutions: InstitutionService
 
     @MockBean
     lateinit var students: StudentService
@@ -40,8 +41,9 @@ class StudentControllerTest {
 
     companion object {
         const val studentsPath: String = "/students"
-        val institution = InstitutionDAO(1L,"FCT","FCT", mutableListOf())
+        val institution = InstitutionDAO(1L,"","", mutableListOf())
         val student = StudentDAO(1L,"joao","joao","joao","address", institution,ByteArray(0),mutableListOf())
+        val studentDTO = AddUserDTO(1L,"joao","joao","joao","address",1L)
         val gson: Gson = Gson()
     }
 
@@ -65,16 +67,19 @@ class StudentControllerTest {
                 .andReturn()
     }
 
+    fun <T>nonNullAny(t:Class<T>):T = Mockito.any(t)
 
-    //GETTING NOTFOUND BECAUSE NO INSTITUTION IS CREATED
+    //WOKING
     @Test
     fun `Test addOne()`(){
-       /* val student = AddUserDTO(1L,"joao","joao","joao","joao",1L)
-        val jsonObject = gson.toJson(student)
-        institutions.save(institution)
+
+        Mockito.`when`(students.addOne(nonNullAny(StudentDAO::class.java)))
+                .then {  it.getArgument(0) }
+        Mockito.`when`(institutions.getOne(1L)).thenReturn(institution)
+        val jsonObject = gson.toJson(studentDTO)
         mvc.perform(post("$studentsPath")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonObject))
-                .andExpect(status().isCreated)*/
+                .andExpect(status().isCreated)
     }
 }

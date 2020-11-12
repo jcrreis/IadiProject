@@ -1,7 +1,7 @@
 package com.example.iadiproject.api
 
-import java.util.*
 
+import java.util.*
 
 
 
@@ -14,7 +14,8 @@ data class ApplicationDTO(
         val grantCallId: Long,
         val studentId: Long,
         val reviews: List<Long>,
-        val meanScores: Double
+        val meanScores: Double,
+        val answers: List<String>
 )
 
 open class EntityDTO(
@@ -122,6 +123,9 @@ data class  SponsorDTO(
 data class AddSponsorDTO(
         val id: Long,
         val name: String,
+        val password: String,
+        val email: String,
+        val address: String,
         val contact: String
 )
 
@@ -155,5 +159,15 @@ data class DataItemDTO(
         val datatype: String
 
 )
+
+
+data class UserSignInDTO(
+        val name: String,
+        val password: String
+){
+    constructor(): this("",""){
+
+    }
+}
 
 

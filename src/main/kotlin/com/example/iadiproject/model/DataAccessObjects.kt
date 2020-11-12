@@ -14,22 +14,22 @@ data class ApplicationDAO(
         var status: Int,
         var decision: Boolean,
         var justification: String,
-        @ManyToOne(cascade = arrayOf(CascadeType.ALL), mappedBy = "applications")
+        @ManyToOne(cascade = arrayOf(CascadeType.ALL))
         var grantCall: GrantCallDAO,
-        @ManyToOne(cascade = arrayOf(CascadeType.ALL), mappedBy = "applications")
+        @ManyToOne(cascade = arrayOf(CascadeType.ALL))
         var student: StudentDAO,
         @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "application")
         var reviews: MutableList<ReviewDAO>,
         var meanScores: Double,
         @OneToMany(fetch = FetchType.LAZY,mappedBy="application")
-        var dataItemAnswers: List<DataItemAnswer>
+        var dataItemAnswers: MutableList<DataItemAnswer>
 ) {
     constructor() : this(0, Date(), 1, true, "", GrantCallDAO(), StudentDAO(), mutableListOf(),0.0, mutableListOf()) {
 
     }
 
    fun updateMeanScores(){
-       this.meanScores = this.reviews.map { it.score }.toList().average()
+       this.meanScores = this.reviews.map { it.score }.average()
     }
 }
 
@@ -63,7 +63,7 @@ abstract class RegularUserDAO(
         password: String,
         email: String,
         address: String,
-        @ManyToOne(cascade = arrayOf(CascadeType.ALL), mappedBy="users")
+        @ManyToOne(cascade = arrayOf(CascadeType.ALL))
         open var institution: InstitutionDAO,
         roles: String
 ) : UserDAO(id,name,password,email,address,roles){
@@ -71,34 +71,11 @@ abstract class RegularUserDAO(
 
 }
 
-/*
-@Entity
-data class AdminDAO(
-        override var id: Long,
-        override var name: String,
-        override var password: String,
-        override var email: String,
-        override var address: String,
-        override var institution: InstitutionDAO
 
-): UserDAO(id,name,password,email,address,institution,"ROLE_ADMIN")
-{
-    constructor(): this(0,"","","","",InstitutionDAO())
-}
-*/
-
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-abstract class EntityDAO(
-        @Id
-        @GeneratedValue(strategy = GenerationType.TABLE)
-        open var id: Long,
-        @Column(nullable = false,unique = true)
-        open var name: String,
-        @Column(nullable = false)
-        open var contact: String
-){
-    constructor() : this(0, "", "")
+interface EntityI{
+        var id: Long
+        var name: String
+        var contact: String
 }
 
 @Entity
@@ -148,32 +125,37 @@ data class ReviewerDAO(
 
 @Entity
 data class InstitutionDAO(
-
-        var institution_id: Long,
-        var institution_name: String,
-        var institution_contact: String,
-        @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "institution",fetch = FetchType.EAGER)
+        @Id
+        @GeneratedValue
+        override var id: Long,
+        @Column(nullable = false, unique = true)
+        override var name: String,
+        @Column(nullable = false)
+        override var contact: String,
+        @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "institution")
         var users: MutableList<RegularUserDAO>
 
-): EntityDAO(institution_id, institution_name, institution_contact){
+) : EntityI {
     constructor() : this(0, "", "", mutableListOf()) {
 
     }
 }
-
 
 @Entity
 data class SponsorDAO(
 
         var sponsor_id: Long,
         var sponsor_name: String,
-        var sponsor_contact: String
-): EntityDAO(sponsor_id, sponsor_name, sponsor_contact){
+        var sponsor_password: String,
+        var sponsor_email: String,
+        var sponsor_address: String,
+        override var contact: String
+): UserDAO(sponsor_id,sponsor_name,sponsor_password,sponsor_email,sponsor_address,"ROLE_SPONSOR"),EntityI {
 
     @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "sponsor")
     var grantCalls: MutableList<GrantCallDAO> = mutableListOf()
 
-    constructor() : this(0, "", "") {
+    constructor() : this(0, "", "", "", "", "") {
 
     }
 }
@@ -215,7 +197,6 @@ data class EvaluationPanelDAO(
         @OneToOne(cascade = arrayOf(CascadeType.ALL), optional = true)
         var grantCall: GrantCallDAO?
 
-
 ){
     @ManyToMany(cascade = arrayOf(CascadeType.ALL))
     var reviewers: MutableList<ReviewerDAO> = mutableListOf()
@@ -229,9 +210,9 @@ data class ReviewDAO(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long,
-        @ManyToOne(cascade = arrayOf(CascadeType.ALL), mappedBy = "reviews")
+        @ManyToOne(cascade = arrayOf(CascadeType.ALL))
         var application: ApplicationDAO,
-        @ManyToOne(cascade = arrayOf(CascadeType.ALL), mappedBy = "reviews")
+        @ManyToOne(cascade = arrayOf(CascadeType.ALL))
         var reviewer: ReviewerDAO,
         var score: Int,
         var observations: String
@@ -250,7 +231,7 @@ data class DataItem(
         var mandatory: Boolean,
         var name: String,
         var datatype: String,
-        @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY)
         var grantCall: GrantCallDAO,
         @OneToMany(fetch = FetchType.LAZY)
         var answers: List<DataItemAnswer>
@@ -266,9 +247,9 @@ data class DataItemAnswer(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long,
-        @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY)
         var dataItem: DataItem,
-        @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY)
         var application: ApplicationDAO,
         var value: String
         ){
