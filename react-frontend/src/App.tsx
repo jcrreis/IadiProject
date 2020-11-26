@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import './App.css';
+import Login from "./Login";
+import {InstitutionI} from "./DTOs";
+import SignUp from "./SignUp";
 
-interface Institution{
-  id: number,
-  name: string,
-  contact: string
 
-}
 interface IProps {
 }
 
 interface IState {
-  institutions: Institution[];
+  institutions: InstitutionI[];
 }
 
 
@@ -26,6 +24,7 @@ class App extends Component<IProps, IState>{
   }
     componentDidMount(){
       let token = undefined;
+
       axios.post('/login',{
         "name": "sponsor22",
         "password": "sponsor22"
@@ -45,15 +44,26 @@ class App extends Component<IProps, IState>{
       }).catch(e => {
         console.log(e)
       })
+
+      axios.get('/users/current',{ headers: {
+          Authorization: token
+        }}).then(r => {
+        console.log(r)
+      }).catch(e => {
+        console.log(e)
+      })
     }
 
   render(){
-    return(<div className="App">
-      {this.state.institutions.map(institution => (
-          <div className="institution" key={institution.id}>{institution.name}</div>
-      ))}
-    </div>
-
+    return(<>
+          <div className="App">
+            {this.state.institutions.map(institution => (
+                <div className="institution" key={institution.id}>{institution.name}</div>
+            ))}
+          </div>
+          <Login/>
+          <SignUp type={"Student"}/>
+          </>
     );
     }
 
