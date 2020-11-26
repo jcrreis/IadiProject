@@ -43,26 +43,8 @@ class ReviewerServiceTest{
     companion object{
         val institution = InstitutionDAO(0,"FCT","FCT", mutableListOf())
         val reviewer = ReviewerDAO(0,"João","123","joao@gmail.com","Rua 123",institution, mutableListOf(), mutableListOf())
-        val addUserDTO = AddUserDTO(reviewer.reviewer_id,reviewer.reviewer_name,reviewer.reviewer_password,reviewer.reviewer_email,reviewer.reviewer_address,reviewer.reviewer_institution.id,"","Reviewer")
     }
 
-    @Test
-    fun `test addOne`(){
-
-        Mockito.`when`(repo.save(Mockito.any(ReviewerDAO::class.java)))
-                .then {
-                    val rev:ReviewerDAO = it.getArgument(0)
-                    Assert.assertEquals(rev.id, 0L)
-                    Assert.assertEquals(rev.name,reviewer.name)
-                    Assert.assertEquals(rev.reviews,reviewer.reviews)
-                    Assert.assertEquals(rev.institution,reviewer.institution)
-                    Assert.assertEquals(rev.panelsChairs,reviewer.panelsChairs)
-                    Assert.assertEquals(rev.evaluationPanels,reviewer.evaluationPanels)
-                    Assert.assertEquals(rev.panelsChairs,reviewer.panelsChairs)
-                    rev
-                }
-        users.addUser(addUserDTO)
-    }
 
 
 
