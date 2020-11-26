@@ -14,12 +14,12 @@ class InstitutionController(val institutions: InstitutionService): InstitutionAP
 
 
     override fun getAll(): List<InstitutionDTO> = institutions.getAll().map { InstitutionDTO(it.id,it.name,it.contact,it.users.map {
-        it1 -> UserDTO(it1.id,it1.name,it1.email,it1.address, SimpleInstitutionDTO(it.id,it.name,it.contact))
+        it1 -> it1.id
     })
     }
 
     override fun getOne(id: Long): InstitutionDTO = institutions.getOne(id).let {  InstitutionDTO(it.id,it.name,it.contact,it.users.map {
-        it1 -> UserDTO(it1.id,it1.name,it1.email,it1.address,SimpleInstitutionDTO(it.id,it.name,it.contact))
+        it1 -> it1.id
     })
     }
 

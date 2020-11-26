@@ -28,8 +28,6 @@ class InstitutionControllerTest {
     @Autowired
     lateinit var mvc: MockMvc
 
-    @MockBean
-    lateinit var institutionRepository: InstitutionRepository
 
     @MockBean
     lateinit var institutions: InstitutionService

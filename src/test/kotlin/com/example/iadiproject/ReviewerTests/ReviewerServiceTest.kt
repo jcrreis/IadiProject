@@ -1,6 +1,7 @@
 package com.example.iadiproject.ReviewerTests
 
 
+import com.example.iadiproject.api.AddUserDTO
 import com.example.iadiproject.model.InstitutionDAO
 import com.example.iadiproject.model.ReviewerDAO
 import com.example.iadiproject.model.ReviewerRepository
@@ -25,6 +26,9 @@ class ReviewerServiceTest{
     @Autowired
     lateinit var reviewers: ReviewerService
 
+    @Autowired
+    lateinit var users: UserService
+
 
     @MockBean
     lateinit var repo: ReviewerRepository
@@ -39,6 +43,7 @@ class ReviewerServiceTest{
     companion object{
         val institution = InstitutionDAO(0,"FCT","FCT", mutableListOf())
         val reviewer = ReviewerDAO(0,"João","123","joao@gmail.com","Rua 123",institution, mutableListOf(), mutableListOf())
+        val addUserDTO = AddUserDTO(reviewer.reviewer_id,reviewer.reviewer_name,reviewer.reviewer_password,reviewer.reviewer_email,reviewer.reviewer_address,reviewer.reviewer_institution.id,"","Reviewer")
     }
 
     @Test
@@ -56,7 +61,7 @@ class ReviewerServiceTest{
                     Assert.assertEquals(rev.panelsChairs,reviewer.panelsChairs)
                     rev
                 }
-       reviewers.addOne(reviewer)
+        users.addUser(addUserDTO)
     }
 
 

@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController
 class UserController(val users: UserService): UserAPI{
 
     override fun getAll(): List<UserDTO> = users.getAll().map{
-         UserDTO(it.id, it.name, it.email, it.address, SimpleInstitutionDTO(1, "test", "test"))
+         UserDTO(it.id, it.name, it.email, it.address)
     }
 
 
     override fun getLoggedUser(): UserDTO?{
         val auth: Authentication = SecurityContextHolder.getContext().authentication
         return users.findByName(auth.name)?.let {
-            UserDTO(it.id,it.name,it.email,it.address, SimpleInstitutionDTO(1, "test", "test"))
+            UserDTO(it.id,it.name,it.email,it.address)
         }
     }
 

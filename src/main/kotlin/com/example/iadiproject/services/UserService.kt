@@ -1,5 +1,6 @@
 package com.example.iadiproject.services
 
+import com.example.iadiproject.api.AddUserDTO
 import com.example.iadiproject.model.*
 import com.example.iadiproject.securityconfig.CustomUserDetails
 
@@ -13,9 +14,9 @@ import javax.transaction.Transactional
 
 @Service
 @Transactional
-class UserService(val users: UserRepository) : UserDetailsService{
+class UserService(val users: UserRepository, val institutions: InstitutionRepository, val regularUsers: RegularUserRepository) : UserDetailsService{
 
-    fun getAll(): MutableList<UserDAO> = users.findAll()
+    fun getAll(): List<UserDAO> = users.findAll()
 
     fun findByName(name: String): UserDAO? = users.findUserDAOByName(name).orElse(null)
 
@@ -25,6 +26,8 @@ class UserService(val users: UserRepository) : UserDetailsService{
         }
         return CustomUserDetails(user.id,user.name, user.password, mutableListOf())
     }
+
+    fun getAllRegularUsers(): List<UserDAO> = regularUsers.findAll()
 
     fun changePassword(name: String, oldpassword: String, newpassword: String){
 
@@ -41,25 +44,48 @@ class UserService(val users: UserRepository) : UserDetailsService{
         }
     }
 
-    fun verifyIfValuesAreUnique(user: UserDAO){
+    fun verifyIfValuesAreUnique(name: String, email: String){
 
-        if(users.findUserDAOByName(user.name).isPresent){
+        if(users.findUserDAOByName(name).isPresent){
             throw BadRequestExcepetion("This username already exists")
         }
-        if(users.findUserDAOByEmail(user.email).isPresent){
+        if(users.findUserDAOByEmail(email).isPresent){
             throw BadRequestExcepetion("This email already exists")
         }
 
     }
 
-    fun addUser(user: UserDAO) : Optional<UserDAO> {
+    fun addUser(user: AddUserDTO) : Optional<UserDAO> {
         val aUser = users.findById(user.id)
-
         return if ( aUser.isPresent )
             Optional.empty()
         else {
             user.password = BCryptPasswordEncoder().encode(user.password)
-            Optional.of(users.save(user))
+            addUserToCollection(user)
+        }
+    }
+
+    fun addUserToCollection(user: AddUserDTO):  Optional<UserDAO>{
+        when (user.type) {
+            "Student" -> {
+                val student = StudentDAO(user.id, user.name,user.password,user.email,user.address,
+                        institutions.getOne(user.institutionId), ByteArray(0), mutableListOf())
+                return Optional.of(users.save(student))
+            }
+            "Reviewer" -> {
+                val reviewer = ReviewerDAO(user.id,user.name,user.password,user.email,user.address,
+                institutions.getOne(user.institutionId), mutableListOf(), mutableListOf())
+                return Optional.of(users.save(reviewer))
+
+            }
+            "Sponsor" ->{
+                val sponsor = SponsorDAO(user.id,user.name,user.password,user.email,user.address,user.contact)
+                users.save(sponsor)
+                return Optional.of(users.save(sponsor))
+            }
+            else -> { // Note the block
+                throw BadRequestExcepetion("Type not match any user entity.")
+            }
         }
     }
 

@@ -36,7 +36,7 @@ interface ReviewerAPI {
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): ReviewerDTO
 
-
+/*
     @ApiOperation("Create a new reviewer")
     @ApiResponses(value = [
         ApiResponse(code = 201, message = "Successfully created a reviewer"),
@@ -46,5 +46,5 @@ interface ReviewerAPI {
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     fun addOne(@RequestBody reviewer: AddUserDTO)
-
+*/
 }

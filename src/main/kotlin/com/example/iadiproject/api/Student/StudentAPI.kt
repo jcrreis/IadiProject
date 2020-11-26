@@ -32,7 +32,7 @@ interface StudentAPI {
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): StudentDTO
 
-
+/*
     @ApiOperation("Get a student by id")
     @ApiResponses(value = [
         ApiResponse(code = 201, message = "Successfully created a new student"),
@@ -42,5 +42,6 @@ interface StudentAPI {
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     fun addOne(@RequestBody student: AddUserDTO)
+*/
 
 }

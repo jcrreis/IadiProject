@@ -30,7 +30,7 @@ data class InstitutionDTO(
        override val id: Long,
        override val name: String,
        override val contact: String,
-       val users: List<UserDTO>
+       val users: List<Long>
        //val reviewers: List<SimpleReviewerDTO>
 ) : EntityDTO(id,name,contact)
 
@@ -60,8 +60,7 @@ open class UserDTO(
         open val id: Number,
         open val name : String,
         open val email : String,
-        open val address: String,
-        open val institution: SimpleInstitutionDTO
+        open val address: String
 )
 
 
@@ -71,17 +70,11 @@ data class StudentDTO(
         override val name: String,
         override val email: String,
         override val address: String,
-        override val institution: SimpleInstitutionDTO,
+        val institution: SimpleInstitutionDTO,
         val password: String,
         val cv: ByteArray
-) : UserDTO(id,name,email,address,institution)
+) : UserDTO(id,name,email,address)
 
-data class SimpleStudentDTO(
-        val id: Long,
-        val name: String,
-        val email: String,
-        val address: String
-)
 
 
 data class ReviewerDTO(
@@ -89,11 +82,11 @@ data class ReviewerDTO(
         override val name: String,
         override val email: String,
         override val address: String,
-        override val institution: SimpleInstitutionDTO,
+        val institution: SimpleInstitutionDTO,
         val ePanels: List<Long>,
         val panelchairs: List<Long>,
         val reviews: List<Long>
-) : UserDTO(id,name,email,address,institution)
+) : UserDTO(id,name,email,address)
 
 
 data class SimpleReviewerDTO(
@@ -107,11 +100,17 @@ data class SimpleReviewerDTO(
 data class AddUserDTO(
         val id: Long,
         val name: String,
-        val password: String,
+        var password: String,
         val email: String,
         val address: String,
-        val institutionId: Long
-)
+        val institutionId: Long,
+        val contact: String,
+        val type: String
+){
+    constructor(): this(1L,"","","","",1L,"",""){
+
+    }
+}
 
 data class  SponsorDTO(
         override val id: Long,
@@ -119,16 +118,6 @@ data class  SponsorDTO(
         override val contact: String,
         val grantCalls: List<GrantCallDTO>
 ) : EntityDTO(id,name,contact)
-
-data class AddSponsorDTO(
-        val id: Long,
-        val name: String,
-        val password: String,
-        val email: String,
-        val address: String,
-        val contact: String
-)
-
 
 
 data class EvaluationPanelDTO(

@@ -1,5 +1,6 @@
 package com.example.iadiproject.ReviewerTests
 
+import com.example.iadiproject.api.AddUserDTO
 import com.example.iadiproject.model.InstitutionDAO
 import com.example.iadiproject.model.ReviewerDAO
 import com.example.iadiproject.services.InstitutionService
@@ -43,8 +44,7 @@ class ReviewerControllerTest {
     companion object {
         const val reviewersPath: String = "/reviewers"
         val reviewer = ReviewerDAO(1L,"joao","joao","joao","address", InstitutionDAO(1L,"FCT","FCT", mutableListOf()),mutableListOf(), mutableListOf())
-        val gson: Gson = Gson()
-    }
+  }
 
     @Test
     @WithMockUser(username = "user", password = "password")
@@ -68,14 +68,5 @@ class ReviewerControllerTest {
     }
 
 
-    //GETTING NOTFOUND BECAUSE NO INSTITUTION IS CREATED
-    @Test
-    fun `Test addOne()`(){
-      val jsonObject = gson.toJson(reviewer)
 
-        mvc.perform(post("$reviewersPath")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonObject))
-                .andExpect(status().isCreated)
-    }
 }

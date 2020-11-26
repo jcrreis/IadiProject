@@ -15,11 +15,10 @@ class SponsorService(val sponsors: SponsorRepository, val users: UserService) {
         NotFoundException("Application with id $id not found.")
     }
 
-    fun addOne(sponsor: SponsorDAO){
+    /*fun addOne(sponsor: SponsorDAO){
         sponsor.id = 0
-        users.verifyIfValuesAreUnique(sponsor)
         val encryptedPass: String = BCryptPasswordEncoder().encode(sponsor.password)
         sponsor.password = encryptedPass
         sponsors.save(sponsor)
-    }
+    }*/
 }

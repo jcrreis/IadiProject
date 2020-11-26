@@ -52,15 +52,6 @@ class StudentServiceTest{
                     Assert.assertEquals(std.email, student.email)
                     std
                 }
-        students.addOne(student)
-    }
-
-    @Test
-    fun `test getOne`(){
-
-
-
-
     }
 
 

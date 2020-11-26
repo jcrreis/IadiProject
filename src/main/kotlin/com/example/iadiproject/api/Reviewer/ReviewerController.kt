@@ -34,11 +34,5 @@ class ReviewerController (val reviewers: ReviewerService, val institutions: Inst
         })
     }
 
-    override fun addOne(reviewer: AddUserDTO) {
-        reviewers.addOne(ReviewerDAO(reviewer.id,reviewer.name,reviewer.password,reviewer.email,reviewer.address,
-                institutions.getOne(reviewer.institutionId), mutableListOf(),mutableListOf()))
-    }
-
-
 
 }

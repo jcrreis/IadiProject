@@ -39,7 +39,6 @@ interface UserRepository : JpaRepository<UserDAO, Long>{
 }
 
 
-/*
-interface AdminRepository: JpaRepository<AdminDAO, Long>{
+interface RegularUserRepository : JpaRepository<RegularUserDAO, Long>{
 
-}*/
+}

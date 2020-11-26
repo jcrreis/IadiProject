@@ -1,9 +1,6 @@
 package com.example.iadiproject.api.Sponsor
 
-import com.example.iadiproject.api.AddSponsorDTO
-import com.example.iadiproject.api.DataItemDTO
-import com.example.iadiproject.api.GrantCallDTO
-import com.example.iadiproject.api.SponsorDTO
+import com.example.iadiproject.api.*
 import com.example.iadiproject.model.DataItem
 import com.example.iadiproject.model.SponsorDAO
 import com.example.iadiproject.services.SponsorService
@@ -31,12 +28,5 @@ class SponsorController(val sponsors : SponsorService) : SponsorAPI {
     },it.sponsor.id,
             1)
     }) }
-
-    override fun addOne(sponsor: AddSponsorDTO) {
-        sponsors.addOne(SponsorDAO(sponsor.id,sponsor.name,sponsor.password,sponsor.email,sponsor.address,sponsor.contact))
-    }
-
-
-
 
 }

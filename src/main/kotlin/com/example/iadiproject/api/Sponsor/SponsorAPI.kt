@@ -1,13 +1,12 @@
 package com.example.iadiproject.api.Sponsor
 
-import com.example.iadiproject.api.AddSponsorDTO
+import com.example.iadiproject.api.AddUserDTO
 import com.example.iadiproject.api.SponsorDTO
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 import org.springframework.http.HttpStatus
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 
@@ -34,7 +33,7 @@ interface SponsorAPI {
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): SponsorDTO
 
-
+/*
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation("Create a new sponsor")
     @ApiResponses(value = [
@@ -44,6 +43,6 @@ interface SponsorAPI {
     ])
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addOne(@RequestBody sponsor: AddSponsorDTO)
-
+    fun addOne(@RequestBody sponsor: AddUserDTO)
+*/
 }

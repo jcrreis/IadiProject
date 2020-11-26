@@ -43,8 +43,6 @@ class StudentControllerTest {
         const val studentsPath: String = "/students"
         val institution = InstitutionDAO(1L,"","", mutableListOf())
         val student = StudentDAO(1L,"joao","joao","joao","address", institution,ByteArray(0),mutableListOf())
-        val studentDTO = AddUserDTO(1L,"joao","joao","joao","address",1L)
-        val gson: Gson = Gson()
     }
 
     @Test
@@ -69,17 +67,5 @@ class StudentControllerTest {
 
     fun <T>nonNullAny(t:Class<T>):T = Mockito.any(t)
 
-    //WOKING
-    @Test
-    fun `Test addOne()`(){
 
-        Mockito.`when`(students.addOne(nonNullAny(StudentDAO::class.java)))
-                .then {  it.getArgument(0) }
-        Mockito.`when`(institutions.getOne(1L)).thenReturn(institution)
-        val jsonObject = gson.toJson(studentDTO)
-        mvc.perform(post("$studentsPath")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonObject))
-                .andExpect(status().isCreated)
-    }
 }

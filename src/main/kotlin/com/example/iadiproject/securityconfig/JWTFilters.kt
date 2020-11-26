@@ -1,8 +1,10 @@
 package com.example.iadiproject.securityconfig
 
 
+import com.example.iadiproject.api.AddUserDTO
 import com.example.iadiproject.api.UserSignInDTO
 import com.example.iadiproject.model.UserDAO
+import com.example.iadiproject.services.BadRequestExcepetion
 import com.example.iadiproject.services.UserService
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.jsonwebtoken.Jwts
@@ -154,11 +156,11 @@ class UserPasswordSignUpFilterToJWT (
     override fun attemptAuthentication(request: HttpServletRequest?,
                                        response: HttpServletResponse?): Authentication? {
         //getting user from request body
-        val user = ObjectMapper().readValue(request!!.inputStream, UserDAO::class.java)
+        val user = ObjectMapper().readValue(request!!.inputStream, AddUserDTO::class.java)
+        users.verifyIfValuesAreUnique(user.name,user.email)
 
         return users
                 .addUser(user)
-                .orElse( null )
                 .let {
                     val auth = UserAuthToken(user.name)
                     SecurityContextHolder.getContext().authentication = auth

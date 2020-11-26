@@ -7,7 +7,17 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/sponsors
+
+POST http://localhost:8080/signup
+Content-Type: application/json
+
+{
+  "name": "sponsor22",
+  "password": "sponsor22"
+}
+
+###
+POST http://localhost:8080/signup
 Content-Type: application/json
 
 {
@@ -16,31 +26,40 @@ Content-Type: application/json
   "contact": "FCT22",
   "password": "sponsor22",
   "email": "fct@gmail2.com2",
-  "address": "Rua fct22"
+  "address": "Rua fct22",
+  "type": "Sponsor"
 }
 ###
-POST http://localhost:8080/reviewers
+POST http://localhost:8080/signup
 Content-Type: application/json
 
 {
 "id": 0,
-"name": "233",
-"password": "322",
-"email": "23111",
+"name": "233312312dasdasdasdadasdas",
+"password": "322321312",
+"email": "23111321312312dasdasdasdasdasdasdas",
 "address": "string",
-"institutionId": 1
+"institutionId": 1,
+  "type": "Reviewer"
 }
-
 ###
-
-POST http://localhost:8080/students
+POST http://localhost:8080/signup
 Content-Type: application/json
 
 {
   "id": 0,
-  "name": "student",
+  "name": "studentdasdasdas321312312",
   "password": "student",
-  "email": "student",
+  "email": "studentdasdasdas321312312",
   "address": "string",
-  "institutionId": 1
+  "institutionId": 1,
+  "type": "Student"
 }
+
+
+###
+
+GET http://localhost:8080/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Mjk5MDA5LCJpYXQiOjE2MDYyNjMwMDksInVzZXJuYW1lIjoiMjMzMzEyMzEyIn0.H7TjLKwKZt6-bhZU1shyv07SBSo5zsKN0XHt342WA4A
+Content-Type: application/json
+
