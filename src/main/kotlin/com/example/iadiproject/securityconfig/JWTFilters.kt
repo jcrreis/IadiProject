@@ -3,8 +3,6 @@ package com.example.iadiproject.securityconfig
 
 import com.example.iadiproject.api.AddUserDTO
 import com.example.iadiproject.api.UserSignInDTO
-import com.example.iadiproject.model.UserDAO
-import com.example.iadiproject.services.BadRequestExcepetion
 import com.example.iadiproject.services.UserService
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.jsonwebtoken.Jwts
@@ -12,8 +10,12 @@ import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.AuthorityUtils
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter
+import org.springframework.util.StringUtils
 import org.springframework.web.filter.GenericFilterBean
 import java.util.*
 import javax.servlet.FilterChain
@@ -22,6 +24,7 @@ import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import kotlin.collections.HashMap
+import kotlin.collections.LinkedHashMap
 
 object JWTSecret {
     private const val passphrase = "este é um grande segredo que tem que ser mantido escondido"
@@ -34,6 +37,7 @@ private fun addResponseToken(authentication: Authentication, response: HttpServl
 
     val claims = HashMap<String, Any?>()
     claims["username"] = authentication.name
+    claims["authorities"] = authentication.authorities
 
     val token = Jwts
             .builder()
@@ -79,9 +83,9 @@ class UserPasswordAuthenticationFilterToJWT (
     }
 }
 
-class UserAuthToken(private var login:String) : Authentication {
+class UserAuthToken(private var login:String, private var authorities: MutableCollection<out GrantedAuthority>?) : Authentication {
 
-    override fun getAuthorities() = null
+    override fun getAuthorities() = authorities
 
     override fun setAuthenticated(isAuthenticated: Boolean) {}
 
@@ -117,8 +121,13 @@ class JWTAuthenticationFilter: GenericFilterBean() {
                 (response as HttpServletResponse).sendError(HttpServletResponse.SC_UNAUTHORIZED) // RFC 6750 3.1
 
             else {
-
-                val authentication = UserAuthToken(claims["username"] as String)
+                val arr: ArrayList<*> = claims["authorities"] as ArrayList<*>
+                //print(arr)
+               // print(arr[0] as LinkedHashMap<*,*>)
+                val arry = arr[0] as LinkedHashMap<*,*>
+                val authorities = mutableListOf<GrantedAuthority>()
+                authorities.add(SimpleGrantedAuthority(arry["authority"] as String))
+                val authentication = UserAuthToken(claims["username"] as String,authorities)
                 // Can go to the database to get the actual user information (e.g. authorities)
 
                 SecurityContextHolder.getContext().authentication = authentication
@@ -133,6 +142,8 @@ class JWTAuthenticationFilter: GenericFilterBean() {
         }
     }
 }
+
+
 
 /**
  * Instructions:
@@ -162,7 +173,7 @@ class UserPasswordSignUpFilterToJWT (
         return users
                 .addUser(user)
                 .let {
-                    val auth = UserAuthToken(user.name)
+                    val auth = UserAuthToken(user.name,null)
                     SecurityContextHolder.getContext().authentication = auth
                     auth
                 }

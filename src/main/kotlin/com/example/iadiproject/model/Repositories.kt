@@ -15,7 +15,7 @@ interface StudentRepository: JpaRepository<StudentDAO, Long>{
 
 }
 interface SponsorRepository : JpaRepository<SponsorDAO, Long> {
-
+    fun findSponsorDAOByName(name: String): Optional<SponsorDAO>
 }
 
 interface ReviewerRepository: JpaRepository<ReviewerDAO, Long> {
@@ -41,4 +41,10 @@ interface UserRepository : JpaRepository<UserDAO, Long>{
 
 interface RegularUserRepository : JpaRepository<RegularUserDAO, Long>{
 
+}
+
+interface DataItemRepository: JpaRepository<DataItem, Long> {
+}
+
+interface DataItemAnswerRepository: JpaRepository<DataItemAnswer, Long> {
 }

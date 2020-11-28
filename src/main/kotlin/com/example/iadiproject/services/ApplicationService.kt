@@ -14,10 +14,10 @@ class ApplicationService(val applications: ApplicationRepository) {
 
     fun addOne(application: ApplicationDAO,answers: List<String>){
         application.id = 0
-        val dataItems: List<DataItem> = application.grantCall.dataItems
-        for((i, d) in dataItems.withIndex()){
+        //val dataItems: List<DataItem> = application.grantCall.dataItems
+        /*for((i, d) in dataItems.withIndex()){
             application.dataItemAnswers.add(DataItemAnswer(0,d,application,answers[i]))
-        }
+        }*/
         applications.save(application)
     }
 

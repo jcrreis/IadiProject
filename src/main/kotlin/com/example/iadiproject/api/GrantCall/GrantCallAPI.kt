@@ -35,7 +35,7 @@ interface GrantCallAPI {
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): GrantCallDTO
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_SPONSOR')")
     @ApiOperation("Create a new grant call")
     @ApiResponses(value = [
         ApiResponse(code = 201, message = "Successfully created a grant call"),

@@ -31,7 +31,6 @@ data class InstitutionDTO(
        override val name: String,
        override val contact: String,
        val users: List<Long>
-       //val reviewers: List<SimpleReviewerDTO>
 ) : EntityDTO(id,name,contact)
 
 
@@ -116,7 +115,7 @@ data class  SponsorDTO(
         override val id: Long,
         override val name: String,
         override val contact: String,
-        val grantCalls: List<GrantCallDTO>
+        val grantCalls: List<Long>
 ) : EntityDTO(id,name,contact)
 
 

@@ -15,18 +15,12 @@ class SponsorController(val sponsors : SponsorService) : SponsorAPI {
         var sponsorsList = sponsors.getAll()
 
         return sponsorsList.map { SponsorDTO(it.id,it.name,it.contact,it.grantCalls.map{
-            it1 -> GrantCallDTO(it1.id,it1.title,it1.description,it1.requirements,it1.funding,it1.openingDate,it1.closingDate,it1.dataItems.map{
-           it: DataItem -> DataItemDTO(it.mandatory,it.name,it.datatype)
-        },it1.sponsor.id,
-               1)
+            it.sponsor.id
         }) }
     }
 
     override fun getOne(id: Long): SponsorDTO = sponsors.getOne(id).let { SponsorDTO(it.id,it.name,it.contact,it.grantCalls.map{
-        GrantCallDTO(it.id,it.title,it.description,it.requirements,it.funding,it.openingDate,it.closingDate,it.dataItems.map{
-            it: DataItem -> DataItemDTO(it.mandatory,it.name,it.datatype)
-    },it.sponsor.id,
-            1)
+       it.sponsor.id
     }) }
 
 }
