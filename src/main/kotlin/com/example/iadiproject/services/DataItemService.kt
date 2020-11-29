@@ -26,10 +26,20 @@ class DataItemService(val dataItems: DataItemRepository, val grantCalls: GrantCa
            newDataItems.add(dataItem)
            this.dataItems.save(dataItem)
         }
-        val grantCallDAO = grantCalls.findById(grantCall.id).get()
-        grantCallDAO.dataItems = newDataItems
-        this.grantCalls.save(grantCallDAO)
     }
 
+    fun addDataItemAnswer(answer: DataItemAnswer){
+        dataItemAnswers.save(answer)
+    }
+
+    @Transactional
+    fun addApplicationToAnswer(application: ApplicationDAO){
+        val answerIds : List<Long> = application.dataItemAnswers.map{it.id}
+        for(i in answerIds){
+            val answer : DataItemAnswer = dataItemAnswers.getOne(i)
+            answer.application = application
+            this.dataItemAnswers.save(answer)
+        }
+    }
 
 }

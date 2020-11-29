@@ -4,8 +4,10 @@ package com.example.iadiproject.api.Application
 import com.example.iadiproject.api.ApplicationDTO
 import com.example.iadiproject.model.ApplicationDAO
 import com.example.iadiproject.model.GrantCallDAO
+import com.example.iadiproject.model.SponsorDAO
 import com.example.iadiproject.model.StudentDAO
 import com.example.iadiproject.services.*
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -30,9 +32,11 @@ class ApplicationController(val applications: ApplicationService, val grantCalls
 
 
     override fun addOne(application: ApplicationDTO) {
+        val student: StudentDAO = students.getStudentByName(SecurityContextHolder.getContext().authentication.name)
+
         val grantCall: GrantCallDAO = grantCalls.getOne(application.grantCallId)
-        val studentDAO: StudentDAO = students.getOne(application.studentId)
-        applications.addOne(ApplicationDAO(application.id, application.submissionDate,application.status,false,"",grantCall,studentDAO, mutableListOf(),0.0, mutableListOf()),application.answers)
+        applications.addOne(ApplicationDAO(application.id, application.submissionDate,application.status,false,application.justification,
+                grantCall,student, mutableListOf(), 0.0, mutableListOf()),application.answers)
     }
 
     override fun getApplicationsByGrantCall(idGrantCall: Long) = applications.getApplicationsByGrantCall(idGrantCall).map {

@@ -27,7 +27,7 @@ class UserService(val users: UserRepository, val institutions: InstitutionReposi
         return CustomUserDetails(user.id,user.name, user.password, mutableListOf())
     }
 
-    fun getAllRegularUsers(): List<UserDAO> = regularUsers.findAll()
+    //fun getAllRegularUsers(): List<UserDAO> = regularUsers.findAll()
 
     fun changePassword(name: String, oldpassword: String, newpassword: String){
 
@@ -68,13 +68,19 @@ class UserService(val users: UserRepository, val institutions: InstitutionReposi
     fun addUserToCollection(user: AddUserDTO):  Optional<UserDAO>{
         when (user.type) {
             "Student" -> {
+                val institution = institutions.findById(user.institutionId).orElseThrow(){
+                    NotFoundException("Institution with id ${user.institutionId} doesn't exist")
+                }
                 val student = StudentDAO(user.id, user.name,user.password,user.email,user.address,
-                        institutions.getOne(user.institutionId), ByteArray(0), mutableListOf())
+                        institution, ByteArray(0), mutableListOf())
                 return Optional.of(users.save(student))
             }
             "Reviewer" -> {
+                val institution = institutions.findById(user.institutionId).orElseThrow(){
+                    NotFoundException("Institution with id ${user.institutionId} doesn't exist")
+                }
                 val reviewer = ReviewerDAO(user.id,user.name,user.password,user.email,user.address,
-                institutions.getOne(user.institutionId), mutableListOf(), mutableListOf())
+                        institution, mutableListOf(), mutableListOf())
                 return Optional.of(users.save(reviewer))
 
             }
@@ -83,7 +89,7 @@ class UserService(val users: UserRepository, val institutions: InstitutionReposi
                 users.save(sponsor)
                 return Optional.of(users.save(sponsor))
             }
-            else -> { // Note the block
+            else -> {
                 throw BadRequestExcepetion("Type not match any user entity.")
             }
         }

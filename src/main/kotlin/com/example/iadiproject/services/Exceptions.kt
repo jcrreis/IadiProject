@@ -14,3 +14,6 @@ class BadRequestExcepetion(message: String = "Bad Request!!!") : RuntimeExceptio
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
 class ForbiddenException(message: String = "Forbidden!!!") : RuntimeException(message)
+
+@ResponseStatus(HttpStatus.UNAUTHORIZED)
+class UnauthorizedException(message: String = "Unauthorized!!"): RuntimeException(message)

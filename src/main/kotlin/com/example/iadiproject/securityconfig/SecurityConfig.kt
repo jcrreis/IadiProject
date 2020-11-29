@@ -34,9 +34,9 @@ class SecurityConfig(
         .antMatchers("/swagger-resources/**").permitAll()
         .antMatchers("/swagger-ui.html").permitAll()
         .antMatchers("/v2/api-docs").permitAll()
-        .antMatchers(HttpMethod.POST, "/students").permitAll()
-        .antMatchers(HttpMethod.POST, "/reviewers").permitAll()
-        .antMatchers(HttpMethod.POST, "/sponsors").permitAll()
+        //.antMatchers(HttpMethod.POST, "/students").permitAll()
+        //.antMatchers(HttpMethod.POST, "/reviewers").permitAll()
+        //.antMatchers(HttpMethod.POST, "/sponsors").permitAll()
         .anyRequest().authenticated()
         .and()
         .addFilterBefore(UserPasswordAuthenticationFilterToJWT ("/login", super.authenticationManagerBean()),

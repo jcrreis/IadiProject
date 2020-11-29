@@ -24,7 +24,7 @@ interface ApplicationAPI {
     @GetMapping("")
     fun getAll(): List<ApplicationDTO>
 
-    @PostAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.isStudentOwnerOfApplication(authentication.principal, #id)")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.isStudentOwnerOfApplication(principal, #id)")
     @ApiOperation("Get an application by id")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved application"),

@@ -15,7 +15,7 @@ class CustomUserDetails(
         private val aPassword:String,
         private val authorities: MutableCollection<out GrantedAuthority>) : UserDetails {
 
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority>? = authorities
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> = authorities
 
     override fun isEnabled(): Boolean = true
 

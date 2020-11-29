@@ -249,11 +249,29 @@ data class DataItemAnswer(
         var id: Long,
         @ManyToOne(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY)
         var dataItem: DataItem,
-        @ManyToOne(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY)
-        var application: ApplicationDAO,
         var value: String
         ){
-    constructor() : this(0,DataItem(),ApplicationDAO(),""){
+    @ManyToOne(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY)
+    lateinit var application: ApplicationDAO
+    constructor() : this(0,DataItem(),""){
 
     }
 }
+
+/*
+@Entity
+data class CurriculumDAO(
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        var id: Long,
+        @ManyToOne(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY)
+        var dataItem: DataItem,
+
+        var value: String
+){
+    @ManyToOne(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY)
+    lateinit var application: ApplicationDAO
+    constructor() : this(0,DataItem(),""){
+
+    }
+}*/

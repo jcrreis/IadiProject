@@ -8,6 +8,17 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "name": "admin",
+  "password": "admin"
+}
+
+###
+
+
 POST http://localhost:8080/signup
 Content-Type: application/json
 
@@ -22,10 +33,10 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "name": "sponsor22",
+  "name": "sponsor223",
   "contact": "FCT22",
   "password": "sponsor22",
-  "email": "fct@gmail2.com2",
+  "email": "fct@gmail2.com23",
   "address": "Rua fct22",
   "type": "Sponsor"
 }
@@ -35,20 +46,29 @@ Content-Type: application/json
 
 {
 "id": 0,
-"name": "233312312dasdasdasdadasdas",
+"name": "233312312dasdasdasdadasdas3",
 "password": "322321312",
-"email": "23111321312312dasdasdasdasdasdasdas",
+"email": "23111321312312dasdasdasdasdasdasdas3",
 "address": "string",
 "institutionId": 1,
   "type": "Reviewer"
 }
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "name": "233312312dasdasdasdadasdas",
+  "password": "322321312"
+}
+
 ###
 POST http://localhost:8080/signup
 Content-Type: application/json
 
 {
   "id": 0,
-  "name": "studentdasdasdas321312312",
+  "name": "student",
   "password": "student",
   "email": "studentdasdasdas321312312",
   "address": "string",
@@ -56,17 +76,25 @@ Content-Type: application/json
   "type": "Student"
 }
 
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "name": "student",
+  "password": "student"
+}
 
 ###
 
 GET http://localhost:8080/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2NTk3ODMyLCJpYXQiOjE2MDY1NjE4MzIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyIn0.riNxgUsPEY6SksiagjmUZEdzhnnKfuCiXAVsXvud_1k
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2NjU0MDU1LCJpYXQiOjE2MDY2NTM0NTUsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoic3R1ZGVudCJ9.JIgBpg-oSMi-PuTNVpoyX1EqXxilWEtF9fNsnPwa7Qk
 Content-Type: application/json
 
 ###
 
 POST http://localhost:8080/grantcalls
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2NjEwMDQ2LCJpYXQiOjE2MDY1NzQwNDYsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyIn0.nygcMgZ4I3lTTSZw0CP7QnSnaIa7yy6nN0o0JXSKHms
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2NjY4MTI2LCJpYXQiOjE2MDY2Njc1MjYsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyIn0.mVDWGJcBZT-PY6LNsYKcYOFsOhMnWtsEu6YrPpfo-uY
 Content-Type: application/json
 
 
@@ -112,5 +140,79 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8080/grantcalls/
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2NTk4Mzk5LCJpYXQiOjE2MDY1NjIzOTksImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyIn0.aBY8krgkb0ZfAi2EyZW3nSZWyB9Rf3YEFMB9sYRHZ1o
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Njc2MTc2LCJpYXQiOjE2MDY2NzU1NzYsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJ1c2VybmFtZSI6ImFkbWluIn0.0S2DnuPpmIUxnSw_gDFUHNc4wtZ5M9gWZilSYAXqPIs
 Content-Type: application/json
+
+###
+
+POST http://localhost:8080/applications
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Njc1ODU5LCJpYXQiOjE2MDY2NzUyNTksImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1JFVklFV0VSIn1dLCJ1c2VybmFtZSI6IjIzMzMxMjMxMmRhc2Rhc2Rhc2RhZGFzZGFzMyJ9.xForT7tlr09zgsVNiddjrT2J_mS1vryTd2ENh5XVOKY
+Content-Type: application/json
+
+{
+ "id": "0",
+  "submissionDate": "2020-11-27T15:32:46.000+00:00",
+  "status": "0",
+  "decision": "false",
+  "justification": "String",
+  "grantCallId": "1",
+  "studentId": "0",
+  "reviews": [],
+  "meanScores": "0",
+  "answers":[
+  "answer",
+    "answer","2","2","2"
+  ]
+}
+###
+GET http://localhost:8080/applications/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Njc2MTc2LCJpYXQiOjE2MDY2NzU1NzYsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJ1c2VybmFtZSI6ImFkbWluIn0.0S2DnuPpmIUxnSw_gDFUHNc4wtZ5M9gWZilSYAXqPIs
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/reviews
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Njc1OTg1LCJpYXQiOjE2MDY2NzUzODUsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyIn0.NoMe8r6UjTo62LD6HiDYyt73LWMy_pB61lmHuqdXD0E
+Content-Type: application/json
+
+{
+  "id": "0",
+  "applicationId": "1",
+  "reviewerId": "0",
+  "score": "2",
+  "observations": "Really good application"
+}
+
+###
+POST http://localhost:8080/evaluationpanels/1/reviewers
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2NjY3MjEyLCJpYXQiOjE2MDY2NjY2MTIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyIn0.76-0DuYUp1O5_dsKl0zrrhDJ2pDynWket176xqZNmVw
+Content-Type: application/json
+
+ {"id": "4"}
+
+
+
+###
+GET http://localhost:8080/users/current
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Njc4MzEwLCJpYXQiOjE2MDY2Nzc3MTAsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoic3R1ZGVudCJ9.dYCbb_-zC1tUzhViKNfq6mrW4xteYi5hxGaGERd03GM
+Content-Type: application/json
+
+
+###
+GET http://localhost:8080/reviewers/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2NjU0MjcyLCJpYXQiOjE2MDY2NTM2NzIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoic3R1ZGVudCJ9.a9NLlU2pejyuH9_Cz2IIyB3RyyaTyRKFHp3sQI4qvfw
+Content-Type: application/json
+
+###
+GET http://localhost:8080/reviews/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Njc4NTgxLCJpYXQiOjE2MDY2Nzc5ODEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyIn0.D470IOVRWBeZljprOufZIuAyWdbARhl0OUt6pvRkAPY
+Content-Type: application/json
+
+
+###
+
+GET http://localhost:8080/applications/student/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Njc4MzEwLCJpYXQiOjE2MDY2Nzc3MTAsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoic3R1ZGVudCJ9.dYCbb_-zC1tUzhViKNfq6mrW4xteYi5hxGaGERd03GM
+Content-Type: application/json
+
+

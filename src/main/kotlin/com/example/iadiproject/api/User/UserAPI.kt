@@ -2,11 +2,13 @@ package com.example.iadiproject.api.User
 
 
 import com.example.iadiproject.api.ChangePasswordDTO
+import com.example.iadiproject.api.CurrentUserDTO
 import com.example.iadiproject.api.UserDTO
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
+import org.springframework.security.access.prepost.PreAuthorize
 
 
 import org.springframework.web.bind.annotation.*
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*
 interface UserAPI {
 
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ApiOperation("Get the list of all users")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved list of users"),
@@ -33,7 +36,8 @@ interface UserAPI {
         ApiResponse(code = 403, message = "FORBIDDEN")
     ])
     @GetMapping("/current")
-    fun getLoggedUser(): UserDTO?
+    fun getLoggedUser(): CurrentUserDTO?
+
 
     @ApiOperation("Change user password")
     @ApiResponses(value = [
@@ -42,8 +46,7 @@ interface UserAPI {
         ApiResponse(code = 403, message = "FORBIDDEN")
     ])
     @PutMapping("/changepassword")
-    fun changePassword(@RequestBody passwords: ChangePasswordDTO){
-    }
+    fun changePassword(@RequestBody passwords: ChangePasswordDTO)
 
 
 }

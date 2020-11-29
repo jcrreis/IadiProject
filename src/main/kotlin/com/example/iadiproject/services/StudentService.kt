@@ -16,10 +16,9 @@ class StudentService(val users: UserService, val students: StudentRepository, va
         NotFoundException("Student with id $id not found.")
     }
 
-   /* fun addOne(student: StudentDAO){
-        student.id = 0
-        val encryptedPass: String = BCryptPasswordEncoder().encode(student.password)
-        student.password = encryptedPass
-        students.save(student)
-    }*/
+    fun getStudentByName(name: String): StudentDAO = students.findStudentDAOByName(name).orElseThrow(){
+        NotFoundException("Student with name $name not found.")
+
+    }
+
 }

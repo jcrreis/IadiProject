@@ -44,7 +44,5 @@ interface GrantCallAPI {
     ])
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addOne(@RequestBody grantCall: GrantCallDTO){
-
-    }
+    fun addOne(@RequestBody grantCall: GrantCallDTO)
 }

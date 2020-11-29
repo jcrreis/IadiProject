@@ -1,9 +1,8 @@
-package com.example.iadiproject.api.EvaluationPanel
+package com.example.iadiproject.api.Review
 
-import com.example.iadiproject.api.EvaluationPanelDTO
-import com.example.iadiproject.api.GrantCallDTO
+
 import com.example.iadiproject.api.ReviewDTO
-import com.example.iadiproject.api.ReviewerDTO
+
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
@@ -26,7 +25,8 @@ interface ReviewAPI {
     @GetMapping("")
     fun getAll(): List<ReviewDTO>
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    //  not working
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.doesReviewerBelongEpanelOfReview(authentication.principal,#id)")
     @ApiOperation("Get a review by id")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved the review"),
@@ -46,8 +46,6 @@ interface ReviewAPI {
     ])
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addOne(@RequestBody review: ReviewDTO){
-
-    }
+    fun addOne(@RequestBody review: ReviewDTO)
 
 }

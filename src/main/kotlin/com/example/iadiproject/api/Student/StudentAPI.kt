@@ -7,12 +7,14 @@ import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 import org.springframework.http.HttpStatus
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @Api(value="students", description = "'Student' management operations")
 @RequestMapping("/students")
 interface StudentAPI {
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_REVIEWER') ")
     @ApiOperation("Get the list of all students")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved list of students"),
@@ -23,6 +25,7 @@ interface StudentAPI {
     fun getAll(): List<StudentDTO>
 
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_REVIEWER') ")
     @ApiOperation("Get a student by id")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved list of students"),
@@ -31,17 +34,5 @@ interface StudentAPI {
     ])
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): StudentDTO
-
-/*
-    @ApiOperation("Get a student by id")
-    @ApiResponses(value = [
-        ApiResponse(code = 201, message = "Successfully created a new student"),
-        ApiResponse(code = 400, message = "BAD_REQUEST"),
-        ApiResponse(code = 409, message = "CONFLICT")
-    ])
-    @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    fun addOne(@RequestBody student: AddUserDTO)
-*/
 
 }

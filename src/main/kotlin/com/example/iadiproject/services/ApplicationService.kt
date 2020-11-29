@@ -4,7 +4,7 @@ import com.example.iadiproject.model.*
 import org.springframework.stereotype.Service
 
 @Service
-class ApplicationService(val applications: ApplicationRepository) {
+class ApplicationService(val applications: ApplicationRepository, val dataItems: DataItemService) {
 
     fun getAll() : Iterable<ApplicationDAO> = applications.findAll()
 
@@ -14,18 +14,27 @@ class ApplicationService(val applications: ApplicationRepository) {
 
     fun addOne(application: ApplicationDAO,answers: List<String>){
         application.id = 0
-        //val dataItems: List<DataItem> = application.grantCall.dataItems
-        /*for((i, d) in dataItems.withIndex()){
-            application.dataItemAnswers.add(DataItemAnswer(0,d,application,answers[i]))
-        }*/
+        val dataItems: List<DataItem> = application.grantCall.dataItems
+
+        if(answers.count() !== dataItems.count()){
+            throw BadRequestExcepetion("Mismatch in data items and respective answers")
+        }
+
+        for((i, d) in dataItems.withIndex()){
+            if(d.mandatory && answers[i] == ""){
+                throw BadRequestExcepetion("A mandatory field was sent empty")
+            }
+            val answer = DataItemAnswer(0,d,answers[i])
+            application.dataItemAnswers.add(answer)
+            this.dataItems.addDataItemAnswer(answer)
+        }
         applications.save(application)
+        this.dataItems.addApplicationToAnswer(application)
     }
 
     fun getApplicationsByGrantCall(grantCallId: Long) = applications.findApplicationDAOByGrantCallId(grantCallId)
 
     fun getApplicationsByStudent(studentId: Long) = applications.findApplicationDAOByStudentId(studentId)
-
-   // fun updateMeanScores(id: Long) = applications.findById(id).get().updateMeanScores()
 
     fun deleteApplicationById(id: Long) {
         applications.deleteById(id)

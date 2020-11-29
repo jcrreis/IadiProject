@@ -27,18 +27,14 @@ class EvaluationPanelController(val ePanels: EvaluationPanelService) : Evaluatio
         ePanels.addOne(EvaluationPanelDAO(ePanel.id,null,-1,null))
     }
 
-    override fun addReviewerToPanel(id: Long, reviewerId: Long) {
-        ePanels.addReviewerToPanel(id,reviewerId)
+    override fun addReviewerToPanel(id: Long, reviewerId: LongAsDTO) {
+        print("Este é o id: " +reviewerId.id)
+        ePanels.addReviewerToPanel(id,reviewerId.id)
     }
 
-    override fun addPanelChairToPanel(id: Long, reviewerId: Long) {
-        ePanels.addPanelChairToPanel(id, reviewerId)
+    override fun addPanelChairToPanel(id: Long, reviewerId: LongAsDTO) {
+        ePanels.addPanelChairToPanel(id, reviewerId.id)
     }
-
-
-
-
-
 
 
 }

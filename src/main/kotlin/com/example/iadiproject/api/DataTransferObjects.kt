@@ -62,6 +62,14 @@ open class UserDTO(
         open val address: String
 )
 
+data class CurrentUserDTO(
+        val id: Number,
+        val name : String,
+        val email : String,
+        val address: String,
+        val type: String
+)
+
 
 
 data class StudentDTO(
@@ -157,5 +165,10 @@ data class UserSignInDTO(
 
     }
 }
+
+
+data class LongAsDTO(
+        val id: Long
+)
 
 

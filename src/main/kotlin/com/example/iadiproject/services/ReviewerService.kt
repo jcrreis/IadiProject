@@ -16,13 +16,10 @@ class ReviewerService(val users: UserService,val reviewers : ReviewerRepository,
     fun getOne(id: Long): ReviewerDAO = reviewers.findById(id).orElseThrow() {
         NotFoundException("Reviewer with id $id not found.")
     }
-/*
-    fun addOne(reviewer: ReviewerDAO){
-        reviewer.id = 0
-        val encryptedPass: String = BCryptPasswordEncoder().encode(reviewer.password)
-        reviewer.password = encryptedPass
-        reviewers.save(reviewer)
-    }*/
+
+    fun getReviewerByName(name: String): ReviewerDAO = reviewers.findReviewerDAOByName(name).orElseThrow(){
+        NotFoundException("Reviewer with id $name not found.")
+    }
 
     fun addPanelToReviewer(reviewerDAO: ReviewerDAO, epanel: EvaluationPanelDAO){
         reviewerDAO.evaluationPanels.add(epanel)

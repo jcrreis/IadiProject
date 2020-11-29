@@ -12,13 +12,14 @@ interface InstitutionRepository : JpaRepository<InstitutionDAO, Long> {
 
 }
 interface StudentRepository: JpaRepository<StudentDAO, Long>{
-
+    fun findStudentDAOByName(name: String): Optional<StudentDAO>
 }
 interface SponsorRepository : JpaRepository<SponsorDAO, Long> {
     fun findSponsorDAOByName(name: String): Optional<SponsorDAO>
 }
 
 interface ReviewerRepository: JpaRepository<ReviewerDAO, Long> {
+    fun findReviewerDAOByName(name: String): Optional<ReviewerDAO>
 }
 
 interface GrantCallRepository : JpaRepository<GrantCallDAO, Long>{

@@ -2,6 +2,7 @@ package com.example.iadiproject.api.EvaluationPanel
 
 import com.example.iadiproject.api.EvaluationPanelDTO
 import com.example.iadiproject.api.GrantCallDTO
+import com.example.iadiproject.api.LongAsDTO
 import com.example.iadiproject.api.ReviewerDTO
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -44,9 +45,7 @@ interface EvaluationPanelAPI {
     ])
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addOne(@RequestBody ePanel: EvaluationPanelDTO){
-
-    }
+    fun addOne(@RequestBody ePanel: EvaluationPanelDTO)
 
     @ApiOperation("Add a reviewer to a evaluation panel")
     @ApiResponses(value = [
@@ -56,9 +55,7 @@ interface EvaluationPanelAPI {
     ])
     @PostMapping("{id}/reviewers")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addReviewerToPanel(@PathVariable id:Long,@RequestBody reviewerId: Long){
-
-    }
+    fun addReviewerToPanel(@PathVariable id:Long,@RequestBody reviewerId: LongAsDTO)
 
     @ApiOperation("Add a panel chair to a evaluation panel")
     @ApiResponses(value = [
@@ -68,8 +65,6 @@ interface EvaluationPanelAPI {
     ])
     @PostMapping("{id}/panelchair")
     @ResponseStatus(HttpStatus.OK)
-    fun addPanelChairToPanel(@PathVariable id:Long,@RequestBody reviewerId: Long){
-
-    }
+    fun addPanelChairToPanel(@PathVariable id:Long,@RequestBody reviewerId: LongAsDTO)
 
 }

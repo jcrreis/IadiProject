@@ -33,16 +33,4 @@ interface SponsorAPI {
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): SponsorDTO
 
-/*
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation("Create a new sponsor")
-    @ApiResponses(value = [
-        ApiResponse(code = 200, message = "Successfully created a new sponsor"),
-        ApiResponse(code = 400, message = "BAD_REQUEST"),
-        ApiResponse(code = 409, message = "CONFLICT")
-    ])
-    @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    fun addOne(@RequestBody sponsor: AddUserDTO)
-*/
 }

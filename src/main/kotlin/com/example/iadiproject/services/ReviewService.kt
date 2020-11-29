@@ -5,7 +5,7 @@ import com.example.iadiproject.model.*
 import org.springframework.stereotype.Service
 
 @Service
-class ReviewService(val reviews : ReviewRepository, val ePanels: EvaluationPanelRepository, val applications: ApplicationRepository) {
+class ReviewService(val reviews : ReviewRepository, val ePanels: EvaluationPanelRepository, val applications: ApplicationRepository, val reviewers: ReviewerRepository) {
 
     fun getAll() : Iterable<ReviewDAO> = reviews.findAll()
 
@@ -15,10 +15,18 @@ class ReviewService(val reviews : ReviewRepository, val ePanels: EvaluationPanel
 
     fun addOne(review: ReviewDAO){
         val application: ApplicationDAO = review.application
-        val ePanel: EvaluationPanelDAO = ePanels.findEvaluationPanelDAOByGrantCallId(application.grantCall.id)
+        val ePanel: EvaluationPanelDAO = this.ePanels.findEvaluationPanelDAOByGrantCallId(application.grantCall.id)
+        val reviews: List<ReviewDAO> = application.reviews
+
+        for(r in reviews) {
+            if(r.reviewer.id == review.reviewer.id)
+                throw ConflictException("This reviewer with ${review.reviewer.id} id already did a review for this application with id ${application.id}")
+        }
+
+
         if(ePanel.reviewers.contains(review.reviewer) || (ePanel.panelchair?.equals(review.reviewer) == true)){
             review.id = 0
-            reviews.save(review)
+            this.reviews.save(review)
             application.updateMeanScores()
             applications.save(application)
         }

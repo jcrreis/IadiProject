@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/reviewers")
 interface ReviewerAPI {
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_REVIEWER')")
     @ApiOperation("Get the list of all reviewers")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved list of reviewers"),
@@ -25,7 +26,7 @@ interface ReviewerAPI {
     @GetMapping("")
     fun getAll(): List<ReviewerDTO>
 
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_REVIEWER')")
     @ApiOperation("Get a reviewer by id")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved the reviewer"),
@@ -36,15 +37,5 @@ interface ReviewerAPI {
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): ReviewerDTO
 
-/*
-    @ApiOperation("Create a new reviewer")
-    @ApiResponses(value = [
-        ApiResponse(code = 201, message = "Successfully created a reviewer"),
-        ApiResponse(code = 403, message = "BAD REQUEST"),
-        ApiResponse(code = 409, message = "CONFLICT")
-    ])
-    @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    fun addOne(@RequestBody reviewer: AddUserDTO)
-*/
+
 }
