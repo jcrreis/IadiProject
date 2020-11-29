@@ -42,7 +42,7 @@ class ReviewerControllerTest {
   }
 
     @Test
-    @WithMockUser(username = "user", password = "password")
+    @WithMockUser(username = "user", password = "password", authorities= ["ROLE_REVIEWER"])
     fun `Test getOne()`() {
         Mockito.`when`(reviewers.getOne(1L)).thenReturn(reviewer)
 
@@ -53,7 +53,7 @@ class ReviewerControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user", password = "password")
+    @WithMockUser(username = "user", password = "password", authorities= ["ROLE_REVIEWER"])
     fun `Test getAll()`() {
         Mockito.`when`(reviewers.getAll()).thenReturn(emptyList())
 

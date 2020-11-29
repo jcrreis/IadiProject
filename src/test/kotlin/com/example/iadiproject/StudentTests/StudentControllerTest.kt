@@ -46,7 +46,7 @@ class StudentControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user", password = "password")
+    @WithMockUser(username = "joao", password = "joao", authorities=["ROLE_REVIEWER"])
     fun `Test getOne()`() {
         Mockito.`when`(students.getOne(1L)).thenReturn(student)
 
@@ -57,7 +57,7 @@ class StudentControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user", password = "password")
+    @WithMockUser(username = "user", password = "password", authorities= ["ROLE_REVIEWER"])
     fun `Test getAll()`() {
         Mockito.`when`(students.getAll()).thenReturn(emptyList())
         mvc.perform(get("$studentsPath"))
