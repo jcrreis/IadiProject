@@ -65,7 +65,6 @@ class UserPasswordAuthenticationFilterToJWT (
                                        response: HttpServletResponse?): Authentication? {
         //getting user from request body
         val user = ObjectMapper().readValue(request!!.inputStream, UserSignInDTO::class.java)
-        print(user.name)
 
         // perform the "normal" authentication
         val auth = anAuthenticationManager.authenticate(UsernamePasswordAuthenticationToken(user.name, user.password))
@@ -133,8 +132,6 @@ class JWTAuthenticationFilter: GenericFilterBean() {
 
             else {
                 val authoritiesArray: ArrayList<*> = claims["authorities"] as ArrayList<*>
-                //print(arr)
-               // print(arr[0] as LinkedHashMap<*,*>)
                 val authoritiesHashMap = authoritiesArray[0] as LinkedHashMap<*,*>
                 val authorities = mutableListOf<GrantedAuthority>()
                 authorities.add(SimpleGrantedAuthority(authoritiesHashMap["authority"] as String))
