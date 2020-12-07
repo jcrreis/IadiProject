@@ -4,7 +4,8 @@ import {UserLoginI} from "../DTOs";
 
 const InitialState: IStateStore = {
     user: undefined,
-    counter: 0
+    counter: 0,
+    institutions: []
 }
 
 const reducer = (
@@ -13,13 +14,9 @@ const reducer = (
 ): IStateStore => {
     switch (action.type) {
         case LOGIN_USER:
-            const user: UserLoginI = {
-                id: action.user.id, // not really unique
-                name: action.user.name,
-                address: action.user.address,
-                email: action.user.email,
-                type: action.user.type
-            }
+            const user: UserLoginI = action.user
+            console.log("O USER")
+            console.log(action.user)
             return {
                 ...state,
                 user: user

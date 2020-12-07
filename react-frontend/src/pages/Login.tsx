@@ -12,6 +12,8 @@ import {withRouter, RouteComponentProps} from "react-router";
 import {connect} from "react-redux";
 import {UserLoginI} from "../DTOs";
 import {IStateStore} from "../store/types";
+import {store} from "../index";
+import {LOGIN_USER} from "../store/consts";
 
 
 
@@ -35,7 +37,7 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
             token: ""
         }
         console.log(this.props.user)
-        console.log(this.props.counter)
+        console.log(this.props.institutions)
     }
 
     handleUsernameChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -61,7 +63,24 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
             this.setState({
                 token: r.headers.authorization
             })
-            this.props.history.push('/')
+            axios.get('/users/current',{
+                headers: {
+                    Authorization: this.state.token
+                }
+            }).then( r => {
+                const user: UserLoginI = {
+                    id: r.data.id,
+                    name: r.data.name,
+                    email: r.data.email,
+                    token: this.state.token,
+                    address: r.data.address,
+                    type: r.data.type
+
+                }
+                console.log(user)
+                store.dispatch({type: LOGIN_USER,user: user})
+                this.props.history.push('/')
+            })
         }).catch(() => {
             alert("Invalid credentials.")
             this.setState({
@@ -94,7 +113,8 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
 
 const mapStateToProps = (state: IStateStore) => ({
     user: state.user,
-    counter: state.counter
+    counter: state.counter,
+    institutions: state.institutions
 });
 
 export default withRouter(connect(mapStateToProps)(Login))

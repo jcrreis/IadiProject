@@ -45,6 +45,7 @@ export interface UserLoginI{
     name: string,
     email: string,
     address: string,
-    type: string
+    type: string,
+    token: string
 }
 

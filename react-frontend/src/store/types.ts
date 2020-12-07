@@ -1,4 +1,4 @@
-import {UserLoginI} from "../DTOs";
+import {InstitutionI, UserLoginI} from "../DTOs";
 
 export type UserLoginAction = {
     type: string
@@ -7,5 +7,6 @@ export type UserLoginAction = {
 
 export type IStateStore = {
     user: UserLoginI | undefined,
-    counter: number
+    counter: number,
+    institutions: InstitutionI[]
 }
