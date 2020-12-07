@@ -1,11 +1,25 @@
 import { IStateStore, UserLoginAction} from "./types";
 import {LOGIN_USER} from "./consts";
-import {UserLoginI} from "../DTOs";
+import {InstitutionI, UserLoginI} from "../DTOs";
+import axios from 'axios'
+
+
+
+function fetchInstitutions(): InstitutionI[]{
+    let institutions: InstitutionI[] = []
+    axios.get('/institutions').then(r => {
+
+        r.data.forEach( (institution: InstitutionI) => {
+            institutions.push(institution)
+        })
+    })
+    return institutions
+}
 
 const InitialState: IStateStore = {
     user: undefined,
     counter: 0,
-    institutions: []
+    institutions: fetchInstitutions()
 }
 
 const reducer = (
