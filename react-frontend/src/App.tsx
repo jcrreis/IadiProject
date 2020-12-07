@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import './App.css';
-import Login from "./Login";
+import Login from "./pages/Login";
 import {InstitutionI} from "./DTOs";
-import SignUp from "./SignUp";
+import SignUp from "./pages/SignUp";
 
-
+/*
 interface IProps {
 }
-
+/*
 interface IState {
   institutions: InstitutionI[];
-}
+}*/
 
-
+/*
 class App extends Component<IProps, IState>{
 
   constructor(props:any) {
@@ -72,3 +72,4 @@ class App extends Component<IProps, IState>{
 
 }
 export default App;
+*/

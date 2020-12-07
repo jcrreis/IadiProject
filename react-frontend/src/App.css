@@ -36,3 +36,50 @@
     transform: rotate(360deg);
   }
 }
+
+body{
+  background-color: #252525;
+
+}
+
+.loginCard{
+  width:500px;
+  height: 500px;
+  margin: 70px auto auto;
+}
+
+.loginContent{
+  background-color: #303030;
+  width:500px;
+  height: 500px;
+}
+
+.loginForm{
+
+}
+.MuiFormLabel-root {
+  color: white !important;
+}
+
+.MuiInputBase-input {
+  color: white !important;
+}
+
+.formControl{
+  margin-top: 20px !important;
+
+
+}
+
+.lsubmit{
+  margin-top: 30px !important;
+  width: 93px !important;
+  margin-left: 222px !important;
+
+}
+.loginContainer{
+  text-align: center;
+  margin-top: 50px;
+}
+
+

@@ -40,3 +40,11 @@ export interface AddUserI{
     type: string
 }
 
+export interface UserLoginI{
+    id: number,
+    name: string,
+    email: string,
+    address: string,
+    type: string
+}
+
