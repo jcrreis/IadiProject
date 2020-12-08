@@ -10,9 +10,14 @@ import reportWebVitals from './reportWebVitals';
 import Routes from "./routes"
 import {IStateStore, UserLoginAction} from "./store/types";
 
+
+// @ts-ignore
+const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose || compose;
+
+
 export const store: Store<IStateStore, UserLoginAction> & {
     dispatch: any
-} = createStore(reducer, applyMiddleware(thunk))
+} = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
 
 
 

@@ -49,3 +49,24 @@ export interface UserLoginI{
     token: string
 }
 
+
+export interface GrantCallI{
+    id: number,
+    title: string,
+    description: string,
+    requirements: string,
+    funding: number,
+    openingDate: Date,
+    closingDate: Date,
+    dataItems: DataItemI[],
+    sponsorId: number,
+    ePanelId: number,
+    applications: number[]
+}
+
+export interface DataItemI{
+    mandatory: boolean,
+    name: string,
+    datatype: string
+}
+

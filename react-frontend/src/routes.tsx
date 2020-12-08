@@ -6,6 +6,8 @@ import NavBar from './components/NavBar'
 import Login from './pages/Login'
 import SignUp from "./pages/SignUp";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
+import AGrantCalls from "./pages/AGrantCalls";
+import GrantCallView from "./pages/GrantCallView";
 
 
 const theme = createMuiTheme({palette: {
@@ -19,6 +21,8 @@ export default function Routes()
          <MuiThemeProvider theme={theme}>
            <NavBar/>
          <Switch>
+           <Route path="/grantcall/:id" component={GrantCallView}/>
+           <Route path="/grantcalls" component={AGrantCalls}/>
            <Route path="/login" component={Login}/>
            <Route path="/signup" component={SignUp}/>
            <Route path="/" component={Home}/>

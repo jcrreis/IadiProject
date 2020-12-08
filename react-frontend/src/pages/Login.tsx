@@ -2,7 +2,7 @@ import React, {ChangeEvent,MouseEvent, Component} from 'react';
 import axios from 'axios';
 import '../App.css';
 import Card from '@material-ui/core/Card';
-import {CardContent, FormControl} from "@material-ui/core";
+import {CardContent, CardHeader, FormControl} from "@material-ui/core";
 import { WithStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
@@ -92,6 +92,7 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
     render(){
         return(
           <Card className="loginCard">
+              <CardHeader className="cardHeader" title={"Login"}></CardHeader>
               <CardContent className="loginContent">
               <Container component="main" maxWidth="xs" className="loginContainer">
                   <FormControl className="formControl">
@@ -104,7 +105,6 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
                       <Button type="submit" variant="contained" color="primary" onClick={(e) => this.loginHandler(e)}>Login</Button>
                   </div>
               </Container>
-                  {this.state.token}
             </CardContent>
           </Card>
         )

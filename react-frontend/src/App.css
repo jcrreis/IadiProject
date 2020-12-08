@@ -39,19 +39,30 @@
 
 body{
   background-color: #252525;
-
 }
 
 .loginCard{
   width:500px;
-  height: 500px;
+  height: 370px;
   margin: 70px auto auto;
 }
 
 .loginContent{
   background-color: #303030;
   width:500px;
-  height: 500px;
+  height: 370px;
+}
+
+.registerCard{
+  width:500px;
+  height: 650px;
+  margin: 70px auto auto;
+}
+
+.registerContent{
+  background-color: #303030;
+  width:500px;
+  height: 650px;
 }
 
 .loginForm{
@@ -74,12 +85,84 @@ body{
 .lsubmit{
   margin-top: 30px !important;
   width: 93px !important;
-  margin-left: 222px !important;
-
-}
+  margin-left: 197px !important;
+ }
 .loginContainer{
   text-align: center;
-  margin-top: 50px;
+  max-width: 400px !important;
 }
 
+.institutionDrop{
+  width: 225px;
+}
 
+.homeCard{
+  width: 500px;
+  height: 200px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.cardHeader{
+  background-color: #303030;
+  color:white;
+  text-align: center;
+}
+
+.homeCardContent{
+  width: 500px;
+  height: 200px;
+  background-color: #303030;
+  text-align: center;
+}
+
+.tCardHome{
+  color: white;
+  margin-top: 50px !important;
+  margin-right: 100px !important;
+}
+
+.arrowIcon{
+  display: flex;
+  margin-top: -50px;
+  width: 36em !important;
+  height: 3em !important;
+}
+
+.userNameNav{
+  color:white
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
+
+.listObjects{
+  background-color: #353535 !important;
+  overflow:auto;
+  width: 700px;
+  height: 800px;
+  margin: 50px auto auto;
+}
+
+.object{
+  background-color: #505050 !important;
+  margin-top: 10px;
+  color: white !important;
+}
+
+.MuiSelect-select{
+  background-color: #303030;
+}
+
+.typography1{
+  color: white;
+  margin-top: 30px !important;
+}
+
+.grantcallsubmitB{
+  color: white !important;
+  background-color: green !important;
+  margin-top: 369px !important;
+  margin-left: 515px !important;
+}
