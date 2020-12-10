@@ -138,6 +138,7 @@ body{
 }
 
 .listObjects{
+  min-height: 500px;
   background-color: #353535 !important;
   overflow:auto;
   width: 700px;
@@ -167,7 +168,6 @@ body{
 }
 
 .grantcallsubmitB{
-
   margin-top: 100px !important;
   margin-left: 515px !important;
   margin-bottom: 50px !important;
@@ -182,4 +182,9 @@ body{
   width: 8em !important;
   margin-bottom: 70px !important;
   height: 8em !important;
+}
+
+.backButton{
+  color: white !important;
+  background-color: #1010ec !important;
 }

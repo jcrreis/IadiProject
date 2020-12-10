@@ -1,7 +1,8 @@
 import { IStateStore, UserLoginAction} from "./types";
-import {LOGIN_USER} from "./consts";
+import {LOGIN_USER, LOGOUT_USER} from "./consts";
 import {GrantCallI, InstitutionI, UserLoginI} from "../DTOs";
-import axios from 'axios'
+import axios, {AxiosResponse} from 'axios'
+import {store} from "../index";
 
 
 
@@ -28,6 +29,24 @@ function fetchGrantCalls(): GrantCallI[]{
     return grantCalls
 }
 
+export function fetchUserFromStorage(){
+    let user: UserLoginI
+    let userJson: string | null = localStorage.getItem('LOGIN_USER')
+
+    axios.get('/users/current').then((r: AxiosResponse) => {
+        if(userJson == null)
+            return undefined
+        user = JSON.parse(userJson)
+        console.log(user)
+        store.dispatch({type: LOGIN_USER,user: user})
+    })
+    store.dispatch({type: LOGIN_USER,user: undefined})
+}
+
+function cleanUserFromStorage(key: string) {
+    localStorage.removeItem(key);
+}
+
 const InitialState: IStateStore = {
     user: undefined,
     counter: 0,
@@ -46,6 +65,12 @@ const reducer = (
             return {
                 ...state,
                 user: user
+            }
+        case LOGOUT_USER:
+            cleanUserFromStorage("LOGIN_USER")
+            return{
+                ...state,
+                user: action.user
             }
     }
     return state

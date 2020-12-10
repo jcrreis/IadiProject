@@ -1,5 +1,5 @@
 import React, {ChangeEvent,MouseEvent, Component} from 'react';
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import '../App.css';
 import Card from '@material-ui/core/Card';
 import {CardContent, CardHeader, FormControl} from "@material-ui/core";
@@ -59,7 +59,7 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
         axios.post('/login',{
             "name": this.state.username,
             "password": this.state.password
-        }).then((r:any) => {
+        }).then((r:AxiosResponse) => {
             this.setState({
                 token: r.headers.authorization
             })
@@ -67,7 +67,7 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
                 headers: {
                     Authorization: this.state.token
                 }
-            }).then( r => {
+            }).then( (r: AxiosResponse) => {
                 const user: UserLoginI = {
                     id: r.data.id,
                     name: r.data.name,
@@ -79,6 +79,7 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
                 }
                 console.log(user)
                 store.dispatch({type: LOGIN_USER,user: user})
+                localStorage.setItem('LOGIN_USER',JSON.stringify(user))
                 this.props.history.push('/')
             })
         }).catch(() => {

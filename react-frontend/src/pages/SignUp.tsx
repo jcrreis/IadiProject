@@ -1,6 +1,6 @@
 import React, {ChangeEvent,MouseEvent, Component} from 'react';
 import {AddUserI, InstitutionI} from "../DTOs";
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {RouteComponentProps, withRouter} from "react-router";
 import Card from "@material-ui/core/Card";
 import {CardContent, CardHeader, FormControl} from "@material-ui/core";
@@ -22,8 +22,6 @@ interface IState {
     passwordConfirm: string
 
 }
-
-
 
 class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, IState> {
 
@@ -98,7 +96,7 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
     signUpHandler = (e:MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
         e.preventDefault();
         console.log(this.state.user)
-        axios.post('/signup',this.state.user).then((r:any) => {
+        axios.post('/signup',this.state.user).then((r:AxiosResponse) => {
             console.log(r)
         }).catch((e:any) => {
             console.log(e)

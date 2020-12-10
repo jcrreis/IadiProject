@@ -8,6 +8,8 @@ import '../App.css';
 import { RouteComponentProps, withRouter } from "react-router";
 import {IStateStore} from "../store/types";
 import {Typography} from "@material-ui/core";
+import {store} from "../index";
+import {LOGIN_USER, LOGOUT_USER} from "../store/consts";
 
 
 
@@ -34,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NavBar(props: RouteComponentProps<{}>) {
-    const store: IStateStore = useStore().getState()
+    const store: any = useStore()
+    const storeState: IStateStore = store.getState()
 
     const classes = useStyles()
     useEffect(()  =>{
@@ -55,11 +58,12 @@ function NavBar(props: RouteComponentProps<{}>) {
     }
 
     const handleLogout = () => {
-        alert("not implemented")
+        store.dispatch({type: LOGOUT_USER, user: undefined})
+        props.history.push('/')
     }
 
     const renderNavBar = () => {
-        if(store.user == undefined){
+        if(storeState.user == undefined){
             return(
               <AppBar position="static"  >
                 <Toolbar className={classes.appBar}>
@@ -71,7 +75,7 @@ function NavBar(props: RouteComponentProps<{}>) {
                 </Toolbar>
             </AppBar>)
         }
-        else if(store.user.type == 'Student'){
+        else if(storeState.user.type == 'Student'){
            return(
              <AppBar position="static"  >
                 <Toolbar className={classes.appBar}>
@@ -79,13 +83,13 @@ function NavBar(props: RouteComponentProps<{}>) {
                     <Button color="inherit" className={classes.title} onClick={() => alert("notimplemented")}>Grant Calls</Button>
                     <Button color="inherit" className={classes.title} onClick={() => redirectMyApplications()}>My Applications</Button>
                     <div className={classes.login}>
-                        <Typography className="userNameNav" title={store.user.name}/>
+                        <Typography className="userNameNav" title={storeState.user.name}/>
                         <Button color="inherit" onClick={() => handleLogout()}>Logout</Button>
                     </div>
                 </Toolbar>
             </AppBar>)
         }
-        else if(store.user.type == 'Reviewer'){
+        else if(storeState.user.type == 'Reviewer'){
            return(<AppBar position="static"  >
                 <Toolbar className={classes.appBar}>
                     <Button color="inherit" onClick={() => redirectHome()}>Home</Button>

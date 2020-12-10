@@ -4,7 +4,7 @@ import './index.css';
 import { createStore, applyMiddleware, Store,compose } from "redux"
 import { Provider } from "react-redux"
 import thunk from "redux-thunk"
-import reducer from "./store/reducer"
+import reducer, {fetchUserFromStorage} from "./store/reducer"
 
 import reportWebVitals from './reportWebVitals';
 import Routes from "./routes"
@@ -22,7 +22,9 @@ export const store: Store<IStateStore, UserLoginAction> & {
 
 
 ReactDOM.render(
+
   <Provider store={store}>
+      {fetchUserFromStorage()}
       <React.StrictMode>
         <Routes/>
       </React.StrictMode>

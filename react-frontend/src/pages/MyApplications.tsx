@@ -6,7 +6,7 @@ import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import {Button, Card, CardHeader, Container, Snackbar, Typography} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
-import axios from 'axios'
+import axios, {AxiosResponse} from 'axios'
 import DoneIcon from '@material-ui/icons/Done';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
 
@@ -41,7 +41,7 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
 
     fetchApplications() {
         let myApplications: ApplicationI[]
-        axios.get('/applications/student/' + this.props.user!!.id).then((r:any) =>{
+        axios.get('/applications/student/' + this.props.user!!.id).then((r:AxiosResponse) =>{
             myApplications = r.data
             console.log(myApplications)
             this.setState({
@@ -60,7 +60,7 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
     }
 
     handleOnClick(id: number) {
-        axios.post(`/applications/${id}`).then( (r: any) => {
+        axios.post(`/applications/${id}`).then( (r: AxiosResponse) => {
           console.log(r)
           const applications = this.state.myApplications
           applications.forEach((a: ApplicationI) => {

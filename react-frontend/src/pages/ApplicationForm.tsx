@@ -8,7 +8,7 @@ import {Button, Card, CardHeader, Checkbox, FormControlLabel, TextField} from "@
 import CardContent from "@material-ui/core/CardContent";
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import axios from 'axios'
+import axios, {AxiosResponse} from 'axios'
 import SuccessMessage from "../components/SuccessMessage";
 
 interface IProps {
@@ -94,13 +94,13 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
             meanScores: application.meanScores,
             answers: application.answers,
             justification: application.justification
-        }).then((r: any) => {
+        }).then((r: AxiosResponse) => {
             this.setState({
                 ...this.state,
                 success: true
             })
             console.log(r)
-        }).catch((e: any) => {
+        }).catch((e: AxiosResponse) => {
             console.log(e)
         })
     }
@@ -124,50 +124,50 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
 
         const dataItems =  this.state.dataItems.map((d: DataItemI,index) => {
 
-                            if(d.datatype.toLowerCase() == 'string'){
-                                 return( <TextField
-                                      required={d.mandatory}
-                                      style={{marginTop: '50px'}}
-                                      id={index.toString()}
-                                      label={d.name}
-                                      multiline
-                                      rows={4}
-                                      defaultValue=""
-                                      variant="outlined"
-                                      onChange={(e) => this.handleChange(e,index)}
-                                      />)
-                            }
+            if(d.datatype.toLowerCase() == 'string'){
+                 return( <TextField
+                      required={d.mandatory}
+                      style={{marginTop: '50px'}}
+                      id={index.toString()}
+                      label={d.name}
+                      multiline
+                      rows={4}
+                      defaultValue=""
+                      variant="outlined"
+                      onChange={(e) => this.handleChange(e,index)}
+                      />)
+            }
 
-                            if(d.datatype.toLowerCase() == 'boolean'){
-                                return(
-                                  <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                          color='primary'
-                                          icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                                          checkedIcon={<CheckBoxIcon fontSize="small" />}
-                                          checked={this.state.answers[index] == 'true'}
-                                          onChange={() => this.handleChangeBool(index)}
-                                        />
-                                    }
-                                    label={d.name}
-                                  />
-                            )
-                            }
-                            if(d.datatype.toLowerCase() == 'number'){
-                                return(
-                                  <TextField
-                                  required={d.mandatory}
-                                  style={{marginTop: '50px',width: '125px'}}
-                                  id={index.toString()}
-                                  label={d.name}
-                                  multiline
-                                  rows={1}
-                                  defaultValue=""
-                                  variant="outlined"
-                                  onChange={(e) => this.handleChange(e,index)}
-                                />)
-                            }
+            if(d.datatype.toLowerCase() == 'boolean'){
+                return(
+                  <FormControlLabel
+                    control={
+                        <Checkbox
+                          color='primary'
+                          icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                          checkedIcon={<CheckBoxIcon fontSize="small" />}
+                          checked={this.state.answers[index] == 'true'}
+                          onChange={() => this.handleChangeBool(index)}
+                        />
+                    }
+                    label={d.name}
+                  />
+            )
+            }
+            if(d.datatype.toLowerCase() == 'number'){
+                return(
+                  <TextField
+                  required={d.mandatory}
+                  style={{marginTop: '50px',width: '125px'}}
+                  id={index.toString()}
+                  label={d.name}
+                  multiline
+                  rows={1}
+                  defaultValue=""
+                  variant="outlined"
+                  onChange={(e) => this.handleChange(e,index)}
+                />)
+            }
 
 
         })

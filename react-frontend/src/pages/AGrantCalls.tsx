@@ -29,8 +29,8 @@ class AGrantCalls extends Component<IProps & RouteComponentProps<{}> & IStateSto
     }
 
 
-    renderCloseOrOpen(closingDate: Date): JSX.Element {
-        if(isCallOpen(closingDate)){
+    renderCloseOrOpen(openingDate: Date,closingDate: Date): JSX.Element {
+        if(isCallOpen(openingDate,closingDate)){
             return(
               <CheckIcon style={{ color: 'green',
                 marginLeft: 'auto',marginRight: '10px'}}
@@ -67,13 +67,13 @@ class AGrantCalls extends Component<IProps & RouteComponentProps<{}> & IStateSto
                                 {formatDate(grantCall.closingDate)}
                             </Typography>
                         </div>
-                        {this.renderCloseOrOpen(grantCall.closingDate)}
+                        {this.renderCloseOrOpen(grantCall.openingDate,grantCall.closingDate)}
                     </CardContent>
                   </Card>)
                 })
 
         const renderOpen = this.props.grantCalls.map((grantCall: GrantCallI)=>{
-            if(isCallOpen(grantCall.closingDate)){
+            if(isCallOpen(grantCall.openingDate,grantCall.closingDate)){
                 return(
                   <Card key={grantCall.id} className="object">
                       <CardContent  key={grantCall.id +"content"} style={{display: 'flex'}}>
