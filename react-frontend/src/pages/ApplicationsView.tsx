@@ -59,7 +59,7 @@ class ApplicationsView extends Component<IProps & RouteComponentProps<{id: strin
     }
 
     handleRedirectToReviews(application: ApplicationI){
-        this.props.history.push('/',{
+        this.props.history.push(`/application/${application.id}/reviews`,{
             application: application,
             grantCall: this.state.grantCall
         })
@@ -83,9 +83,7 @@ class ApplicationsView extends Component<IProps & RouteComponentProps<{id: strin
 
     }
 
-
     render() {
-        let button
         return(
           <>
               <Card className="listObjects">

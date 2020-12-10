@@ -188,3 +188,9 @@ body{
   color: white !important;
   background-color: #1010ec !important;
 }
+
+.reviewDetails{
+  color: white;
+  margin-left: 13px;
+  margin-top: 17px;
+}

@@ -84,3 +84,11 @@ export interface ApplicationI{
     justification: string
 }
 
+export interface ReviewI{
+    id: number,
+    applicationId: number,
+    reviewerId: number,
+    score: number,
+    observations: string
+}
+
