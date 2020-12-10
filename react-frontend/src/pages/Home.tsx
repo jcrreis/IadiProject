@@ -94,7 +94,6 @@ class Home extends Component<IProps & RouteComponentProps<{}> & IStateStore, ISt
   render(){
 
     return(<>
-
           {this.annonymousUserView()}
           {this.studentUserView()}
           </>

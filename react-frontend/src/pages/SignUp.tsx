@@ -112,6 +112,8 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
                 institutionId: e.target.value
             }
         }))
+        console.log(this.state.user?.institutionId)
+        console.log(this.props.institutions)
     }
 
     handlePasswordConfirmChange = (e:ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)  =>{
@@ -146,7 +148,7 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
                           <InputLabel htmlFor="outlined-age-native-simple">Institution</InputLabel>
                           <Select
                             native
-                            value={this.props.institutions[this.state.user!!.institutionId]}
+                            value={this.props.institutions[this.state.user!!.institutionId]?.name}
                             onChange={(e) => this.handleChange(e) }
                             label="Institution"
                             inputProps={{

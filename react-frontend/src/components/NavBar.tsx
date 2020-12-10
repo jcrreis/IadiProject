@@ -51,7 +51,7 @@ function NavBar(props: RouteComponentProps<{}>) {
     }
 
     const redirectMyApplications = () => {
-        props.history.push('/');
+        props.history.push('/myapplications');
     }
 
     const handleLogout = () => {

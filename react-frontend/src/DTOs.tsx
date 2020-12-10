@@ -70,3 +70,17 @@ export interface DataItemI{
     datatype: string
 }
 
+
+export interface ApplicationI{
+    id: number,
+    submissionDate: Date,
+    status: number,
+    decision: boolean,
+    grantCallId: number,
+    studentId: number,
+    reviews: number[],
+    meanScores: number,
+    answers: string[],
+    justification: string
+}
+

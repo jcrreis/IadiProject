@@ -141,8 +141,9 @@ body{
   background-color: #353535 !important;
   overflow:auto;
   width: 700px;
-  height: 800px;
-  margin: 50px auto auto;
+  height: auto;
+  margin: 50px auto 30px;
+
 }
 
 .object{
@@ -152,17 +153,33 @@ body{
 }
 
 .MuiSelect-select{
-  background-color: #303030;
+  background-color: #303030 !important;
 }
 
 .typography1{
   color: white;
-  margin-top: 30px !important;
+  margin-top: 80px !important;
+}
+
+.greenButton{
+  color: white !important;
+  background-color: green !important;
 }
 
 .grantcallsubmitB{
-  color: white !important;
-  background-color: green !important;
-  margin-top: 369px !important;
+
+  margin-top: 100px !important;
   margin-left: 515px !important;
+  margin-bottom: 50px !important;
+}
+
+.applicationSaveB{
+  margin: 60px auto 20px 604px !important;
+}
+
+.successIcon{
+  color: green !important;
+  width: 8em !important;
+  margin-bottom: 70px !important;
+  height: 8em !important;
 }
