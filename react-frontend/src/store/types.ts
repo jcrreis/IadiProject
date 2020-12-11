@@ -7,7 +7,6 @@ export type UserLoginAction = {
 
 export type IStateStore = {
     user: UserLoginI | undefined,
-    counter: number,
     institutions: InstitutionI[],
     grantCalls: GrantCallI[]
 }

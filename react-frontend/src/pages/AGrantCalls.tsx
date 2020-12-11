@@ -121,7 +121,6 @@ class AGrantCalls extends Component<IProps & RouteComponentProps<{}> & IStateSto
 
 const mapStateToProps = (state: IStateStore) => ({
     user: state.user,
-    counter: state.counter,
     institutions: state.institutions,
     grantCalls: state.grantCalls
 });

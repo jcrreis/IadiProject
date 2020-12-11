@@ -167,7 +167,6 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
 
 const mapStateToProps = (state: IStateStore) => ({
     user: state.user,
-    counter: state.counter,
     institutions: state.institutions,
     grantCalls: state.grantCalls
 });

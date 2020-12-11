@@ -80,7 +80,7 @@ function NavBar(props: RouteComponentProps<{}>) {
              <AppBar position="static"  >
                 <Toolbar className={classes.appBar}>
                     <Button color="inherit" onClick={() => redirectHome()}>Home</Button>
-                    <Button color="inherit" className={classes.title} onClick={() => alert("notimplemented")}>Grant Calls</Button>
+                    <Button color="inherit" className={classes.title} onClick={() => redirectAGrantCalls()}>Grant Calls</Button>
                     <Button color="inherit" className={classes.title} onClick={() => redirectMyApplications()}>My Applications</Button>
                     <div className={classes.login}>
                         <Typography className="userNameNav" title={storeState.user.name}/>
@@ -93,7 +93,7 @@ function NavBar(props: RouteComponentProps<{}>) {
            return(<AppBar position="static"  >
                 <Toolbar className={classes.appBar}>
                     <Button color="inherit" onClick={() => redirectHome()}>Home</Button>
-                    <Button color="inherit" className={classes.title} onClick={() => alert("notimplemented")}>Grant Calls</Button>
+                    <Button color="inherit" className={classes.title} onClick={() => redirectAGrantCalls()}>Grant Calls</Button>
                     <div className={classes.login}>
                         <Button color="inherit" onClick={() => handleLogout()}>Logout</Button>
                     </div>

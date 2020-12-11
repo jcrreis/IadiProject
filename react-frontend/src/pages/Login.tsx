@@ -132,7 +132,6 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
 
 const mapStateToProps = (state: IStateStore) => ({
     user: state.user,
-    counter: state.counter,
     institutions: state.institutions
 });
 

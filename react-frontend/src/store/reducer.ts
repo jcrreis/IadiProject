@@ -49,7 +49,6 @@ function cleanUserFromStorage(key: string) {
 
 const InitialState: IStateStore = {
     user: undefined,
-    counter: 0,
     institutions: fetchInstitutions(),
     grantCalls: fetchGrantCalls()
 }

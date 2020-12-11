@@ -1,5 +1,5 @@
 import React, {ChangeEvent,MouseEvent, Component} from 'react';
-import {AddUserI, InstitutionI} from "../DTOs";
+import {AddUserI, InstitutionI, UserLoginI} from "../DTOs";
 import axios, {AxiosResponse} from 'axios';
 import {RouteComponentProps, withRouter} from "react-router";
 import Card from "@material-ui/core/Card";
@@ -12,6 +12,8 @@ import Select from "@material-ui/core/Select";
 import {IStateStore} from "../store/types";
 import {connect} from "react-redux";
 import {Alert} from "@material-ui/lab";
+import {store} from "../index";
+import {LOGIN_USER} from "../store/consts";
 
 interface IProps {
     type: string
@@ -98,7 +100,6 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
 
     signUpHandler = (e:MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
         e.preventDefault();
-        console.log(this.state.user)
         if(this.state.user.password !== this.state.passwordConfirm){
             this.setState({
                 ...this.state,
@@ -124,7 +125,14 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
         }
 
         axios.post('/signup',this.state.user).then((r:AxiosResponse) => {
-            console.log(r)
+            const token = r.headers.authorization
+            console.log(token)
+            axios.get('/users/current').then((r: AxiosResponse) =>{
+                const user: UserLoginI = {...r.data, token: token}
+                store.dispatch({type: LOGIN_USER,user: user})
+                localStorage.setItem('LOGIN_USER',JSON.stringify(user))
+                this.props.history.push('/')
+            })
         }).catch((e:any) => {
             this.setState({
                 ...this.state,
@@ -137,11 +145,9 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
         this.setState((prevState: any)=> ({
             user:{
                 ...prevState.user,
-                institutionId: e.target.value
+                institutionId: e.target.value,
             }
         }))
-        console.log(this.state.user?.institutionId)
-        console.log(this.props.institutions)
     }
 
     handlePasswordConfirmChange = (e:ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)  =>{
@@ -188,7 +194,7 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
                           <InputLabel htmlFor="outlined-age-native-simple">Institution</InputLabel>
                           <Select
                             native
-                            value={this.props.institutions[this.state.user!!.institutionId]?.name}
+                            value={this.props.institutions[this.state.user.institutionId]}
                             onChange={(e) => this.handleChange(e) }
                             label="Institution"
                             inputProps={{
@@ -213,7 +219,6 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
 }
 const mapStateToProps = (state: IStateStore) => ({
     user: state.user,
-    counter: state.counter,
     institutions: state.institutions
 });
 

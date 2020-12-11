@@ -194,3 +194,7 @@ body{
   margin-left: 13px;
   margin-top: 17px;
 }
+
+option {
+  background-color: #303030 !important;
+}

@@ -60,7 +60,7 @@ export interface GrantCallI{
     closingDate: Date,
     dataItems: DataItemI[],
     sponsorId: number,
-    ePanelId: number,
+    evaluationPanelId: number,
     applications: number[]
 }
 
