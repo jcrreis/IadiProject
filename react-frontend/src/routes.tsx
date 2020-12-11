@@ -14,6 +14,7 @@ import ApplicationsView from "./pages/ApplicationsView";
 import ReviewForm from "./pages/ReviewForm";
 import ReviewsList from "./pages/ReviewsList";
 import ReviewDetails from "./pages/ReviewDetails";
+import EditApplicationForm from "./pages/EditApplicationForm";
 
 
 const theme = createMuiTheme({palette: {
@@ -28,6 +29,7 @@ export default function Routes()
          <MuiThemeProvider theme={theme}>
            <NavBar/>
          <Switch>
+           <Route path='/application/:id/edit' component={EditApplicationForm}/>
            <Route path='/review/:id' component={ReviewDetails}  />
            <Route path='/application/:id/reviews' component={ReviewsList}  />
            <Route path='/addreview/application/:id' component={ReviewForm}/>

@@ -3,7 +3,7 @@ import {AddUserI, InstitutionI} from "../DTOs";
 import axios, {AxiosResponse} from 'axios';
 import {RouteComponentProps, withRouter} from "react-router";
 import Card from "@material-ui/core/Card";
-import {CardContent, CardHeader, FormControl} from "@material-ui/core";
+import {CardContent, CardHeader, FormControl, Snackbar} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -11,15 +11,17 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import {IStateStore} from "../store/types";
 import {connect} from "react-redux";
+import {Alert} from "@material-ui/lab";
 
 interface IProps {
     type: string
 }
 
 interface IState {
-    user: AddUserI | undefined
+    user: AddUserI
     loading: boolean
     passwordConfirm: string
+    error: {show: boolean, message: string}
 
 }
 
@@ -40,7 +42,8 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
                 type: this.props.location.state.type
             },
             loading: false,
-            passwordConfirm: ""
+            passwordConfirm: "",
+            error: {show: false, message: ""}
 
         }
     }
@@ -96,10 +99,37 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
     signUpHandler = (e:MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
         e.preventDefault();
         console.log(this.state.user)
+        if(this.state.user.password !== this.state.passwordConfirm){
+            this.setState({
+                ...this.state,
+                error: {show: true, message: "Passwords don't match"}
+            })
+            return
+        }
+
+        if(this.state.user.name == "" || this.state.user.address == "" || this.state.user.email == "" ){
+            this.setState({
+                ...this.state,
+                error: {show: true, message: "A mandatory field was left blank..."}
+            })
+            return
+        }
+
+        if(this.state.user.institutionId < 0 || this.state.user.institutionId == Number("")){
+            this.setState({
+                ...this.state,
+                error: {show: true, message: "You need to select a valid institution"}
+            })
+            return
+        }
+
         axios.post('/signup',this.state.user).then((r:AxiosResponse) => {
             console.log(r)
         }).catch((e:any) => {
-            console.log(e)
+            this.setState({
+                ...this.state,
+                error: {show: true, message: "This email or username is already registered in the system.Please try again..."}
+            })
         })
     }
 
@@ -121,11 +151,23 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
         }))
     }
 
+    handleClose = () => {
+        this.setState({
+            ...this.state,
+            error: {show: false, message: ""}
+        })
+    }
     render(){
         return(
           <Card className="registerCard">
               <CardHeader className="cardHeader" title={"Creating an account as " + this.state.user?.type}></CardHeader>
               <CardContent className="registerContent">
+                  <Snackbar open={this.state.error.show} autoHideDuration={3000} onClose={this.handleClose}
+                            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                      <Alert onClose={this.handleClose} severity="error">
+                          {this.state.error.message}
+                      </Alert>
+                  </Snackbar>
                   <Container component="main" maxWidth="xs" className="loginContainer">
                       <FormControl className="formControl">
                           <TextField  variant="outlined" id="username" label="Username"  value={this.state.user?.name} onChange={(e) => this.handleUsernameChange(e)} />

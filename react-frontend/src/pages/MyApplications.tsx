@@ -9,6 +9,10 @@ import CardContent from "@material-ui/core/CardContent";
 import axios, {AxiosResponse} from 'axios'
 import DoneIcon from '@material-ui/icons/Done';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import EditApplicationForm from "./EditApplicationForm";
+import ApplicationForm from "./ApplicationForm";
 
 interface IProps {
 
@@ -79,12 +83,40 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
         })
     }
 
+    handleDeleteClick = (id: number) => {
+        let newState =  this.state.myApplications.filter((a: ApplicationI) => a.id !== id)
+        axios.delete(`/applications/${id}`).then((r: AxiosResponse) =>{
+            this.setState({
+                ...this.state,
+                myApplications: newState
+            })
+        })
+    }
+
+    handleOnClickEdit = (id: number) => {
+        const application: ApplicationI | undefined = this.state.myApplications.find((a: ApplicationI) => a.id == id)
+        if(application == undefined){
+            alert("a strange error occured please try again.")
+            return
+        }
+        this.props.history.push(`/application/${id}/edit`,{
+            application: application
+        })
+    }
+
+
     renderSubmittedOrToSubmit(id: number,status: number): JSX.Element{
         if(status == -1){
-            return (<Button onClick={()=>this.handleOnClick(id)} style={{backgroundColor: 'green',color:'white',height: '25px',width: '50px'}}>Submit</Button>)
+            return (
+              <div style={{display: 'flex', marginRight:'20px'}}>
+                  <EditIcon color='primary' style={{marginRight: '10px'}} onClick={() => this.handleOnClickEdit(id)}/>
+                  <DeleteIcon onClick={() => this.handleDeleteClick(id)} style={{color: 'red',marginRight: '10px'}}/>
+                  <Button onClick={()=>this.handleOnClick(id)} style={{backgroundColor: 'green',color:'white',height: '25px',width: '50px'}}>Submit</Button>
+              </div>
+            )
         }
         else {
-            return (<DoneIcon style={{color: 'green', width: '3em'}}/>)
+            return (<DoneIcon style={{color: 'green', width: '3em',marginLeft:'80px'}}/>)
         }
     }
 
@@ -104,7 +136,7 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
                     <Typography  key={a.id +"t1"} variant="body2" component="h2">
                         {a.id}
                     </Typography>
-                    <div style={{flexDirection: 'row-reverse',marginLeft:'500px'}}>
+                    <div style={{flexDirection: 'row-reverse',marginLeft:'430px'}}>
                      {this.renderSubmittedOrToSubmit(a.id,a.status)}
                     </div>
                 </CardContent>

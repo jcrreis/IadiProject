@@ -2,7 +2,7 @@ import React, {ChangeEvent,MouseEvent, Component} from 'react';
 import axios, {AxiosResponse} from 'axios';
 import '../App.css';
 import Card from '@material-ui/core/Card';
-import {CardContent, CardHeader, FormControl} from "@material-ui/core";
+import {CardContent, CardHeader, FormControl, Snackbar} from "@material-ui/core";
 import { WithStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
@@ -14,6 +14,7 @@ import {UserLoginI} from "../DTOs";
 import {IStateStore} from "../store/types";
 import {store} from "../index";
 import {LOGIN_USER} from "../store/consts";
+import {Alert} from "@material-ui/lab";
 
 
 
@@ -25,6 +26,7 @@ interface IState {
     username: string
     password: string
     token: string
+    showError: boolean
 }
 
 class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IState> {
@@ -34,7 +36,8 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
         this.state = {
             username: "",
             password: "",
-            token: ""
+            token: "",
+            showError: false
         }
         console.log(this.props.user)
         console.log(this.props.institutions)
@@ -83,10 +86,18 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
                 this.props.history.push('/')
             })
         }).catch(() => {
-            alert("Invalid credentials.")
             this.setState({
-                token: ""
+                ...this.state,
+                token: "",
+                showError: true
             })
+        })
+    }
+
+    handleClose = () => {
+        this.setState({
+            ...this.state,
+            showError: false
         })
     }
     
@@ -94,6 +105,12 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
         return(
           <Card className="loginCard">
               <CardHeader className="cardHeader" title={"Login"}></CardHeader>
+              <Snackbar open={this.state.showError} autoHideDuration={3000} onClose={this.handleClose}
+                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                  <Alert onClose={this.handleClose} severity="error">
+                      Invalid credentials, please try again with another credentials!
+                  </Alert>
+              </Snackbar>
               <CardContent className="loginContent">
               <Container component="main" maxWidth="xs" className="loginContainer">
                   <FormControl className="formControl">
@@ -106,6 +123,7 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
                       <Button type="submit" variant="contained" color="primary" onClick={(e) => this.loginHandler(e)}>Login</Button>
                   </div>
               </Container>
+
             </CardContent>
           </Card>
         )
