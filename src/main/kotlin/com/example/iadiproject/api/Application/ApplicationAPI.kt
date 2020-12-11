@@ -29,7 +29,8 @@ interface ApplicationAPI {
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved application"),
         ApiResponse(code = 401, message = "UNAUTHORIZED"),
-        ApiResponse(code = 403, message = "FORBIDDEN")
+        ApiResponse(code = 403, message = "FORBIDDEN"),
+        ApiResponse(code = 404, message = "NOT FOUND")
     ])
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): ApplicationDTO
@@ -68,7 +69,6 @@ interface ApplicationAPI {
     @GetMapping("/student/{studentId}")
     fun getApplicationsByStudent(@PathVariable studentId: Long): List<ApplicationDTO>
 
-    @PostAuthorize("@securityService.isStudentOwnerOfApplication(authentication.principal, #id) or hasAuthority('ROLE_ADMIN')")
     @ApiOperation("Delete an application")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully deleted an Application"),
@@ -76,8 +76,28 @@ interface ApplicationAPI {
         ApiResponse(code = 403, message = "FORBIDDEN")
     ])
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("@securityService.isStudentOwnerOfApplication(authentication.principal, #id) or hasAuthority('ROLE_ADMIN')")
     fun deleteApplicationById(@PathVariable id: Long)
 
 
+    @ApiResponses(value = [
+        ApiResponse(code = 200, message = "Successfully submitted application"),
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN"),
+        ApiResponse(code = 404, message = "NOT FOUND")
+    ])
+    @PreAuthorize("@securityService.isStudentOwnerOfApplication(authentication.principal, #id)")
+    @PostMapping("/{id}")
+    fun submitApplication(@PathVariable id: Long)
 
+    @ApiResponses(value = [
+        ApiResponse(code = 200, message = "Successfully edited application"),
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN"),
+        ApiResponse(code = 404, message = "NOT FOUND")
+    ])
+    @PreAuthorize("@securityService.isStudentOwnerOfApplication(authentication.principal, #id)")
+    @PutMapping("/{id}")
+    fun editApplication(@PathVariable id: Long, @RequestBody application: ApplicationDTO)
 }

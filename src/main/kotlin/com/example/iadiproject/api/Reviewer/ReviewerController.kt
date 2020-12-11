@@ -34,5 +34,7 @@ class ReviewerController (val reviewers: ReviewerService, val institutions: Inst
         })
     }
 
+    override fun getApplicationsReviewed(id: Long): List<Long> = reviewers.getAllApplicationsReviewed(id).map{it.id}
+
 
 }

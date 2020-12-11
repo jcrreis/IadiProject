@@ -151,22 +151,6 @@ class JWTAuthenticationFilter: GenericFilterBean() {
     }
 }
 
-
-
-/**
- * Instructions:
- *
- * http POST :8080/login username=user password=password
- *
- * Observe in the response:
- *
- * HTTP/1.1 200
- * Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNTcxNzc2MTM4LCJpYXQiOjE1NzE3NDAxMzgsInVzZXJuYW1lIjoidXNlciJ9.Mz18cn5xw-7rBXw8KwlWxUDSsfNCqlliiwoIpvYPDzk
- *
- * http :8080/pets Authorization:"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNTcxNzc2MTM4LCJpYXQiOjE1NzE3NDAxMzgsInVzZXJuYW1lIjoidXNlciJ9.Mz18cn5xw-7rBXw8KwlWxUDSsfNCqlliiwoIpvYPDzk"
- *
- */
-
 class UserPasswordSignUpFilterToJWT (
         defaultFilterProcessesUrl: String?,
         private val users: UserService
@@ -177,11 +161,20 @@ class UserPasswordSignUpFilterToJWT (
         //getting user from request body
         val user = ObjectMapper().readValue(request!!.inputStream, AddUserDTO::class.java)
         users.verifyIfValuesAreUnique(user.name,user.email)
-
+        var authority: String
+        authority = when(user.type) {
+            "Student" -> "ROLE_STUDENT"
+            "Reviewer" -> "ROLE_REVIEWER"
+            else -> { // if not reviewer nor student is a sponsor then
+                "ROLE_SPONSOR"
+            }
+        }
+        val authorities = mutableListOf<GrantedAuthority>()
+        authorities.add(SimpleGrantedAuthority(authority))
         return users
                 .addUser(user)
                 .let {
-                    val auth = UserAuthToken(user.name,null)
+                    val auth = UserAuthToken(user.name,authorities)
                     SecurityContextHolder.getContext().authentication = auth
                     auth
                 }

@@ -1,10 +1,7 @@
 package com.example.iadiproject.services
 
 
-import com.example.iadiproject.model.EvaluationPanelDAO
-import com.example.iadiproject.model.InstitutionRepository
-import com.example.iadiproject.model.ReviewerDAO
-import com.example.iadiproject.model.ReviewerRepository
+import com.example.iadiproject.model.*
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -31,5 +28,13 @@ class ReviewerService(val users: UserService,val reviewers : ReviewerRepository,
         reviewerDAO.panelsChairs.add(epanel)
         reviewers.save(reviewerDAO)
 
+    }
+
+    fun getAllApplicationsReviewed(id: Long): List<ApplicationDAO>{
+        val listReviews: List<ReviewDAO> = reviewers.findById(id).orElseThrow(){
+            NotFoundException("Reviewer with id $id not found.")
+        }.reviews
+
+        return listReviews.map{it.application}
     }
 }

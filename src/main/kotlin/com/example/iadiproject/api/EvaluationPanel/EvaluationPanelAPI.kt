@@ -53,7 +53,7 @@ interface EvaluationPanelAPI {
         ApiResponse(code = 400, message = "BAD_REQUEST"),
         ApiResponse(code = 409, message = "CONFLICT")
     ])
-    @PostMapping("{id}/reviewers")
+    @PostMapping("/{id}/reviewers")
     @ResponseStatus(HttpStatus.CREATED)
     fun addReviewerToPanel(@PathVariable id:Long,@RequestBody reviewerId: LongAsDTO)
 
@@ -63,7 +63,7 @@ interface EvaluationPanelAPI {
         ApiResponse(code = 400, message = "BAD_REQUEST"),
         ApiResponse(code = 409, message = "CONFLICT")
     ])
-    @PostMapping("{id}/panelchair")
+    @PostMapping("/{id}/panelchair")
     @ResponseStatus(HttpStatus.OK)
     fun addPanelChairToPanel(@PathVariable id:Long,@RequestBody reviewerId: LongAsDTO)
 

@@ -34,8 +34,8 @@ class SecurityConfig(
         .antMatchers("/swagger-resources/**").permitAll()
         .antMatchers("/swagger-ui.html").permitAll()
         .antMatchers("/v2/api-docs").permitAll()
-        //.antMatchers(HttpMethod.POST, "/students").permitAll()
-        //.antMatchers(HttpMethod.POST, "/reviewers").permitAll()
+        .antMatchers(HttpMethod.GET, "/institutions").permitAll()
+        .antMatchers(HttpMethod.GET, "/grantcalls").permitAll()
         //.antMatchers(HttpMethod.POST, "/sponsors").permitAll()
         .anyRequest().authenticated()
         .and()
@@ -45,6 +45,7 @@ class SecurityConfig(
                 BasicAuthenticationFilter::class.java)
         .addFilterBefore(JWTAuthenticationFilter(),
                 BasicAuthenticationFilter::class.java)
+        .logout()
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {

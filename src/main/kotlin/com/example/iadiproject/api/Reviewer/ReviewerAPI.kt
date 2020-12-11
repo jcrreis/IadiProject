@@ -37,5 +37,16 @@ interface ReviewerAPI {
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): ReviewerDTO
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_REVIEWER')")
+    @ApiOperation("Get all id of all applications reviewed")
+    @ApiResponses(value = [
+        ApiResponse(code = 200, message = "Successfully retrieved the list of applications id's"),
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN"),
+        ApiResponse(code = 404, message = "NOT_FOUND")
+    ])
+    @GetMapping("/{id}/applications")
+    fun getApplicationsReviewed(@PathVariable id: Long): List<Long>
+
 
 }

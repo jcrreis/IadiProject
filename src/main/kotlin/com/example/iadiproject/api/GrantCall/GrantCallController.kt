@@ -21,7 +21,7 @@ class GrantCallController(val grantCalls: GrantCallService,
         return grantCallList.map{
             GrantCallDTO(it.id,it.title,it.description,it.requirements, it.funding, it.openingDate, it.closingDate,it.dataItems.map{
                 it1->DataItemDTO(it1.mandatory,it1.name,it1.datatype)
-            }, it.sponsor.id, it.evaluationPanel.id)
+            }, it.sponsor.id, it.evaluationPanel.id,it.applications.map { it.id })
         }
     }
 
@@ -31,7 +31,7 @@ class GrantCallController(val grantCalls: GrantCallService,
         GrantCallDTO(it.id, it.title, it.description, it.requirements, it.funding, it.openingDate, it.closingDate,it.dataItems.map{
             it1->
             DataItemDTO(it1.mandatory,it1.name,it1.datatype)
-        },it.sponsor.id,it.evaluationPanel.id)
+        },it.sponsor.id,it.evaluationPanel.id,it.applications.map { it.id })
     }
     }
 
@@ -59,7 +59,13 @@ class GrantCallController(val grantCalls: GrantCallService,
         GrantCallDTO(it.id,it.title,it.description,it.requirements,it.funding,it.openingDate,it.closingDate,it.dataItems.map{
             it1->DataItemDTO(it1.mandatory,it1.name,it1.datatype)
         },it.sponsor.id
-        ,it.evaluationPanel.id)
+        ,it.evaluationPanel.id,it.applications.map{it.id})
+    }
+
+    override fun getAssignedCalls(idReviewer: Long): List<GrantCallDTO> = grantCalls.getCallsAssignedToReviewer(idReviewer).map{
+        GrantCallDTO(it!!.id,it!!.title,it!!.description,it!!.requirements,it!!.funding,it!!.openingDate,it!!.closingDate,
+                it!!.dataItems.map{ DataItemDTO(it.mandatory,it.name,it.datatype)},
+                it!!.sponsor.id,it!!.evaluationPanel.id,it!!.applications.map{ it.id })
     }
 
 

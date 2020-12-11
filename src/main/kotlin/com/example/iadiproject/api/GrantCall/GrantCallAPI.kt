@@ -45,4 +45,15 @@ interface GrantCallAPI {
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     fun addOne(@RequestBody grantCall: GrantCallDTO)
+
+
+    @ApiOperation("Get the list of all grant calls assigned to a reviewer")
+    @ApiResponses(value = [
+        ApiResponse(code = 200, message = "Successfully retrieved list of grant calls assigned to a Reviewer"),
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN")
+    ])
+    @GetMapping("/reviewer/{idReviewer}")
+    @PreAuthorize("hasAuthority('ROLE_REVIEWER')")
+    fun getAssignedCalls(@PathVariable idReviewer: Long): List<GrantCallDTO>
 }

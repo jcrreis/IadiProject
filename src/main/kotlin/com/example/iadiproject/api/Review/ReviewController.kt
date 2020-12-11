@@ -22,7 +22,6 @@ class ReviewController(val reviews: ReviewService, val applications: Application
 
     override fun addOne(review: ReviewDTO) {
         val reviewer: ReviewerDAO = reviewers.getReviewerByName(SecurityContextHolder.getContext().authentication.name)
-        print("application id: " + review.applicationId)
         val application: ApplicationDAO =  applications.getOne(review.applicationId)
         reviews.addOne(ReviewDAO(review.id,application,reviewer,review.score,review.observations))
     }

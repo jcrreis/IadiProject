@@ -34,7 +34,7 @@ class EvaluationPanelService(val ePanels: EvaluationPanelRepository, val grantCa
     fun addReviewerToPanel(id: Long, reviewerId: Long){
         val ePanel = getOne(id)
         val reviewer: ReviewerDAO = reviewers.getOne(reviewerId)
-        if(ePanel.reviewers.contains(reviewer) || (ePanel.panelchair?.equals(reviewer)==true)) {
+        if(ePanel.reviewers.map{it.id}.contains(reviewer.id)|| (ePanel.panelchair?.id == reviewer.id)) {
             return throw ConflictException("This reviewer with id $reviewer.id already belongs to this Panel")
         }
         ePanel.reviewers.add(reviewer)

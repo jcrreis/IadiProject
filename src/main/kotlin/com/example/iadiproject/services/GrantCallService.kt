@@ -1,13 +1,10 @@
 package com.example.iadiproject.services
 
-import com.example.iadiproject.model.DataItem
-import com.example.iadiproject.model.DataItemRepository
-import com.example.iadiproject.model.GrantCallDAO
-import com.example.iadiproject.model.GrantCallRepository
+import com.example.iadiproject.model.*
 import org.springframework.stereotype.Service
 
 @Service
-class GrantCallService(val grantCalls: GrantCallRepository, val dataItems: DataItemRepository) {
+class GrantCallService(val grantCalls: GrantCallRepository, val dataItems: DataItemRepository, val reviewers: ReviewerRepository) {
 
     fun getAll() : Iterable<GrantCallDAO> = grantCalls.findAll()
 
@@ -22,5 +19,23 @@ class GrantCallService(val grantCalls: GrantCallRepository, val dataItems: DataI
 
     fun getAllGrantCallsBySponsorId(id: Long): Iterable<GrantCallDAO>{
         return grantCalls.findGrantCallDAOBySponsorId(id)
+    }
+
+    fun getCallsAssignedToReviewer(id: Long): List<GrantCallDAO?> {
+        val reviewer: ReviewerDAO = reviewers.findById(id).orElseThrow(){
+            NotFoundException("Reviewer with id $id not found.")
+        }
+        val panels: List<EvaluationPanelDAO> = reviewer.evaluationPanels
+        val panelChairs: List<EvaluationPanelDAO> = reviewer.panelsChairs
+        val allPanels: MutableList<EvaluationPanelDAO> = mutableListOf()
+        allPanels.addAll(panels)
+        allPanels.addAll(panelChairs)
+        val assignedCallsToReviewer: MutableList<GrantCallDAO?> = mutableListOf()
+        for(eP in allPanels){
+            assignedCallsToReviewer.add(eP.grantCall)
+        }
+
+        return assignedCallsToReviewer
+
     }
 }

@@ -14,22 +14,23 @@ data class ApplicationDAO(
         var status: Int,
         var decision: Boolean,
         var justification: String,
-        @ManyToOne(cascade = arrayOf(CascadeType.ALL))
+        @ManyToOne
         var grantCall: GrantCallDAO,
-        @ManyToOne(cascade = arrayOf(CascadeType.ALL))
+        @ManyToOne
         var student: StudentDAO,
         @OneToMany(cascade = arrayOf(CascadeType.ALL), mappedBy = "application")
         var reviews: MutableList<ReviewDAO>,
         var meanScores: Double,
-        @OneToMany(fetch = FetchType.LAZY,mappedBy="application")
+        @OneToMany(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY,mappedBy="application")
         var dataItemAnswers: MutableList<DataItemAnswer>
 ) {
     constructor() : this(0, Date(), 1, true, "", GrantCallDAO(), StudentDAO(), mutableListOf(),0.0, mutableListOf()) {
 
     }
 
+
    fun updateMeanScores(){
-       this.meanScores = this.reviews.map { it.score }.average()
+     this.meanScores = this.reviews.map{it.score}.average()
     }
 }
 
@@ -63,7 +64,7 @@ abstract class RegularUserDAO(
         password: String,
         email: String,
         address: String,
-        @ManyToOne(cascade = arrayOf(CascadeType.ALL))
+        @ManyToOne()
         open var institution: InstitutionDAO,
         roles: String
 ) : UserDAO(id,name,password,email,address,roles){
@@ -231,7 +232,7 @@ data class DataItem(
         var mandatory: Boolean,
         var name: String,
         var datatype: String,
-        @OneToMany(cascade = arrayOf(CascadeType.REMOVE),fetch = FetchType.LAZY)
+        @OneToMany(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY, mappedBy = "dataItem")
         var answers: List<DataItemAnswer>
 
 ){
@@ -247,11 +248,11 @@ data class DataItemAnswer(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long,
-        @ManyToOne(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.LAZY)
         var dataItem: DataItem,
         var value: String
         ){
-    @ManyToOne(cascade = arrayOf(CascadeType.ALL),fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     lateinit var application: ApplicationDAO
     constructor() : this(0,DataItem(),""){
 

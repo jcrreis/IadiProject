@@ -52,7 +52,8 @@ data class GrantCallDTO(
         val closingDate: Date,
         val dataItems: List<DataItemDTO>,
         val sponsorId: Long,
-        val evaluationPanelId: Long
+        val evaluationPanelId: Long,
+        val applications: List<Long>
 )
 
 open class UserDTO(

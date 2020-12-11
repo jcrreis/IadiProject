@@ -1,5 +1,6 @@
 package com.example.iadiproject.services
 
+import com.example.iadiproject.api.ApplicationDTO
 import com.example.iadiproject.model.*
 import org.springframework.stereotype.Service
 
@@ -36,7 +37,28 @@ class ApplicationService(val applications: ApplicationRepository, val dataItems:
 
     fun getApplicationsByStudent(studentId: Long) = applications.findApplicationDAOByStudentId(studentId)
 
-    fun deleteApplicationById(id: Long) {
-        applications.deleteById(id)
+    fun deleteApplicationById(id: Long) = applications.deleteById(id)
+
+
+    fun submitApplication(id :Long){
+        val application: ApplicationDAO = applications.findById(id).orElseThrow(){
+            NotFoundException("Application with id $id not found.")
+        }
+        application.status = 0
+        applications.save(application)
     }
+
+    fun editApplication(id: Long, a: ApplicationDTO){
+        val application: ApplicationDAO = applications.findById(id).orElseThrow(){
+            NotFoundException("Application with id $id not found.")
+        }
+
+        for((i,d) in application.dataItemAnswers.withIndex()){
+            d.value = a.answers[i]
+        }
+
+        applications.save(application)
+
+    }
+
 }

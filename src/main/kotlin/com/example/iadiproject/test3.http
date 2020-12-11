@@ -2,7 +2,7 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "name": "sponsor22",
+  "name": "sponsor223",
   "password": "sponsor22"
 }
 
@@ -63,6 +63,13 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:8080/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA3NDYxMTM3LCJpYXQiOjE2MDc0NjA1MzcsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoic3R1ZGVudCJ9.WzVkwqSlMlxubGCVO8syHZjCtmHb72Ik2Jww_sgJUhE
+
+
+
+###
 POST http://localhost:8080/signup
 Content-Type: application/json
 
@@ -94,23 +101,24 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/grantcalls
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2NjY4MTI2LCJpYXQiOjE2MDY2Njc1MjYsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyIn0.mVDWGJcBZT-PY6LNsYKcYOFsOhMnWtsEu6YrPpfo-uY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA3NzA3NTgxLCJpYXQiOjE2MDc3MDY5ODEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.dNV5d4rT4UCHeHrL6w_PXOhCjNbHPCg3FhSs9bq6fHc
 Content-Type: application/json
 
 
 {
   "id": "0",
-  "title" : "GrantCall #1",
-  "description" : "A grantcall",
-  "requirements" : "requirements",
+  "title": "GrantCall #12",
+  "description": "A grantcall",
+  "requirements": "requirements",
   "funding": "500",
-  "openingDate": "Fri, 27 Nov 2020 15:32:46 GMT",
-  "closingDate": "Fri, 27 Nov 2020 15:32:46 GMT",
-  "dataItems": [{
-    "mandatory": "true",
-    "name": "name",
-    "datatype": "string"
-  },
+  "openingDate": "Fri, 27 Jan 2020 15:32:46 GMT",
+  "closingDate": "Fri, 27 Jan 2021 15:32:46 GMT",
+  "dataItems": [
+    {
+      "mandatory": "true",
+      "name": "name",
+      "datatype": "string"
+    },
     {
       "mandatory": "true",
       "name": "name",
@@ -131,10 +139,10 @@ Content-Type: application/json
       "name": "name",
       "datatype": "string"
     }
-
   ],
-  "sponsorId": "1",
-  "evaluationPanelId": -1
+  "sponsorId": "10",
+  "evaluationPanelId": -1,
+  "applications": []
 }
 
 ###
@@ -184,8 +192,8 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/evaluationpanels/1/reviewers
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2NjY3MjEyLCJpYXQiOjE2MDY2NjY2MTIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyIn0.76-0DuYUp1O5_dsKl0zrrhDJ2pDynWket176xqZNmVw
+POST http://localhost:8080/evaluationpanels/4/reviewers
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA3NzA3NTgxLCJpYXQiOjE2MDc3MDY5ODEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.dNV5d4rT4UCHeHrL6w_PXOhCjNbHPCg3FhSs9bq6fHc
 Content-Type: application/json
 
  {"id": "4"}
@@ -212,7 +220,21 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8080/applications/student/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Njc4MzEwLCJpYXQiOjE2MDY2Nzc3MTAsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoic3R1ZGVudCJ9.dYCbb_-zC1tUzhViKNfq6mrW4xteYi5hxGaGERd03GM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA3NDYxMTM3LCJpYXQiOjE2MDc0NjA1MzcsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoic3R1ZGVudCJ9.WzVkwqSlMlxubGCVO8syHZjCtmHb72Ik2Jww_sgJUhE
 Content-Type: application/json
 
 
+###
+POST http://localhost:8080/applications
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA3Njg1NzIwLCJpYXQiOjE2MDc2ODUxMjAsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoic3R1ZGVudCJ9.nz9-Jk5vwlo5dSakxUDZ4BAoJYPbjOLSOepQRF64CXI
+Content-Type: application/json
+
+{"id":0,"submissionDate":"2020-12-09T16:15:26.000Z","status":-1,"decision":false,"grantCallId":1,"studentId":2,"reviews":[],"meanScores":0,"answers":["adsdas","adsadsdas","adsads","daasd","adsads"],"justification":"adsdas"}
+
+###
+
+POST http://localhost:8080/evaluationpanels/2/panelchair
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA3NzAyODc1LCJpYXQiOjE2MDc3MDIyNzUsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.nOjDuQBM7qc_8wntDFL0qSWbS_UNPlRI44PiF7S-cpk
+Content-Type: application/json
+
+{"id": "4"}

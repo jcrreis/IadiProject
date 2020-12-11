@@ -28,7 +28,6 @@ class EvaluationPanelController(val ePanels: EvaluationPanelService) : Evaluatio
     }
 
     override fun addReviewerToPanel(id: Long, reviewerId: LongAsDTO) {
-        print("Este é o id: " +reviewerId.id)
         ePanels.addReviewerToPanel(id,reviewerId.id)
     }
 
