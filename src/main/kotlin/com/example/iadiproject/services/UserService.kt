@@ -72,7 +72,7 @@ class UserService(val users: UserRepository, val institutions: InstitutionReposi
                     NotFoundException("Institution with id ${user.institutionId} doesn't exist")
                 }
                 val student = StudentDAO(user.id, user.name,user.password,user.email,user.address,
-                        institution, ByteArray(0), mutableListOf())
+                        institution,mutableListOf(),null)
                 return Optional.of(users.save(student))
             }
             "Reviewer" -> {

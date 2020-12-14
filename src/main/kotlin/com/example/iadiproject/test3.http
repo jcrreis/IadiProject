@@ -88,8 +88,8 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "name": "student",
-  "password": "student"
+  "name": "1234",
+  "password": "1234"
 }
 
 ###
@@ -238,3 +238,44 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ
 Content-Type: application/json
 
 {"id": "4"}
+
+###
+
+GET http://localhost:8080/users/current
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA3NzMyMjkyLCJpYXQiOjE2MDc3MzE2OTIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoic3R1ZGVudCJ9.-4_80BuXeoRJ_BaWwn9tIi0ZNoG6aOY7zhpI3BqKp-k
+Content-Type: application/json
+
+
+###
+
+POST http://localhost:8080/students/18/cv
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA3ODcyNzE0LCJpYXQiOjE2MDc4NzIxMTQsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoiMTIzNCJ9.AsuLtheZyiH1ckuJvBJ3xzZ9104rVyWTNsgGPF0buFc
+Content-Type: application/json
+
+{
+   "id": "0",
+   "items": [
+     {
+      "id": "0",
+       "item": "OLA",
+       "value": "OLA"
+     },{
+       "id": "0",
+       "item": "OLA",
+       "value": "OLA"
+     }
+
+   ]
+
+}
+
+data class CVItemDTO(
+val id: Long,
+val item: String,
+val value: String
+)
+
+data class CurriculumDTO(
+val id: Long,
+val items: List<CVItemDTO>
+)

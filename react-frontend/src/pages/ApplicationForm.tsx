@@ -8,7 +8,7 @@ import {Button, Card, CardHeader, Checkbox, FormControlLabel, TextField} from "@
 import CardContent from "@material-ui/core/CardContent";
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import axios, {AxiosResponse} from 'axios'
+import axios, {AxiosError, AxiosResponse} from 'axios'
 import SuccessMessage from "../components/SuccessMessage";
 
 interface IProps {
@@ -66,7 +66,6 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
                 }
             }
         }
-        console.log(Date())
         const application: ApplicationI = {
             id: 0,
             submissionDate: new Date(Date()),
@@ -100,8 +99,8 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
                 success: true
             })
             console.log(r)
-        }).catch((e: AxiosResponse) => {
-            console.log(e)
+        }).catch((e: AxiosError) => {
+            console.log(e.response?.data)
         })
     }
 

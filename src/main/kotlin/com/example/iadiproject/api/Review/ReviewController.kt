@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class ReviewController(val reviews: ReviewService, val applications: ApplicationService, val reviewers: ReviewerService) : ReviewAPI {
 
-    override fun getAll(): List<ReviewDTO> = reviews.getAll().map{
-        ReviewDTO(it.id,it.application.id,it.reviewer.id,it.score,it.observations)
+    fun transformDAOIntoDTO(it: ReviewDAO): ReviewDTO{
+        return  ReviewDTO(it.id,it.application.id,it.reviewer.id,it.score,it.observations)
     }
 
-    override fun getOne(id: Long): ReviewDTO = reviews.getOne(id).let{
-        ReviewDTO(it.id,it.application.id,it.reviewer.id,it.score,it.observations)
-    }
+    override fun getAll(): List<ReviewDTO> = reviews.getAll().map{ transformDAOIntoDTO(it) }
+
+    override fun getOne(id: Long): ReviewDTO = transformDAOIntoDTO(reviews.getOne(id))
 
     override fun addOne(review: ReviewDTO) {
         val reviewer: ReviewerDAO = reviewers.getReviewerByName(SecurityContextHolder.getContext().authentication.name)

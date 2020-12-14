@@ -4,7 +4,7 @@ export interface StudentI{
     email: string
     password: string
     institution: InstitutionI
-    cv: string
+    cv: CurriculumI
 }
 
 export interface InstitutionI{
@@ -92,3 +92,13 @@ export interface ReviewI{
     observations: string
 }
 
+export interface CurriculumI{
+    id: number,
+    items: CvItemI[]
+}
+
+export interface CvItemI{
+    id: number,
+    item: string,
+    answer: string
+}

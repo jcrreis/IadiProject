@@ -1,9 +1,7 @@
 package com.example.iadiproject.api.EvaluationPanel
 
 import com.example.iadiproject.api.EvaluationPanelDTO
-import com.example.iadiproject.api.GrantCallDTO
 import com.example.iadiproject.api.LongAsDTO
-import com.example.iadiproject.api.ReviewerDTO
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse

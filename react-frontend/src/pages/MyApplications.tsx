@@ -4,9 +4,9 @@ import {ApplicationI} from "../DTOs";
 import {IStateStore} from "../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
-import {Button, Card, CardHeader, Container, Snackbar, Typography} from "@material-ui/core";
+import {Button, Card, CardHeader, CircularProgress, Container, Snackbar, Typography} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
-import axios, {AxiosResponse} from 'axios'
+import axios, {AxiosError, AxiosResponse} from 'axios'
 import DoneIcon from '@material-ui/icons/Done';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -21,6 +21,7 @@ interface IProps {
 interface IState {
     myApplications: ApplicationI[]
     showToast: boolean
+    loaded: boolean
 }
 
 function Alert(props: AlertProps) {
@@ -35,7 +36,8 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
 
         this.state = {
             myApplications: [],
-            showToast: false
+            showToast: false,
+            loaded: false
         }
     }
 
@@ -50,7 +52,8 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
             console.log(myApplications)
             this.setState({
                 ...this.state,
-                myApplications: myApplications
+                myApplications: myApplications,
+                loaded: true
             })
 
         })
@@ -78,7 +81,7 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
               }
           })
           this.updateApplicationsState(applications)
-        }).catch((e:any) => {
+        }).catch((e: AxiosError) => {
             console.log(e)
         })
     }
@@ -143,10 +146,13 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
             </Card>)
         })
 
+        let progress
+        if(!this.state.loaded){ progress = <CircularProgress />}
+
         return(
           <>
               <Card  className="listObjects">
-                  <CardHeader  style={{textAlign: 'center',color: 'white'}} title="Open Applications"/>
+                  <CardHeader  style={{textAlign: 'center',color: 'white'}} title="My Applications"/>
                   <CardContent  style={{display: 'flex'}}>
                       <Container style={{flexDirection: 'column'}}>
                           {applicationsRender}
@@ -157,6 +163,7 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
                           Application submitted successfully!
                       </Alert>
                   </Snackbar>
+                  {progress}
               </Card>
 
           </>

@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.*
 class InstitutionController(val institutions: InstitutionService): InstitutionAPI {
 
 
-
-    override fun getAll(): List<InstitutionDTO> = institutions.getAll().map { InstitutionDTO(it.id,it.name,it.contact,it.users.map {
-        it1 -> it1.id
-    })
+    fun transformDAOIntoDTO(it: InstitutionDAO): InstitutionDTO{
+        return InstitutionDTO(it.id,it.name,it.contact,it.users.map {
+            it1 -> it1.id
+        })
     }
 
-    override fun getOne(id: Long): InstitutionDTO = institutions.getOne(id).let {  InstitutionDTO(it.id,it.name,it.contact,it.users.map {
-        it1 -> it1.id
-    })
-    }
+    override fun getAll(): List<InstitutionDTO> = institutions.getAll().map { transformDAOIntoDTO(it) }
+
+    override fun getOne(id: Long): InstitutionDTO = transformDAOIntoDTO(institutions.getOne(id))
 
 
     override fun addOne(institution: SimpleInstitutionDTO) {

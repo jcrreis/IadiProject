@@ -42,7 +42,7 @@ class StudentControllerTest {
     companion object {
         const val studentsPath: String = "/students"
         val institution = InstitutionDAO(1L,"","", mutableListOf())
-        val student = StudentDAO(1L,"joao","joao","joao","address", institution,ByteArray(0),mutableListOf())
+        val student = StudentDAO(1L,"joao","joao","joao","address", institution,mutableListOf(),null)
     }
 
     @Test

@@ -1,6 +1,6 @@
 import React, {ChangeEvent,MouseEvent, Component} from 'react';
 import {AddUserI, InstitutionI, UserLoginI} from "../DTOs";
-import axios, {AxiosResponse} from 'axios';
+import axios, {AxiosError, AxiosResponse} from 'axios';
 import {RouteComponentProps, withRouter} from "react-router";
 import Card from "@material-ui/core/Card";
 import {CardContent, CardHeader, FormControl, Snackbar} from "@material-ui/core";
@@ -133,7 +133,7 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
                 localStorage.setItem('LOGIN_USER',JSON.stringify(user))
                 this.props.history.push('/')
             })
-        }).catch((e:any) => {
+        }).catch((e: AxiosError) => {
             this.setState({
                 ...this.state,
                 error: {show: true, message: "This email or username is already registered in the system.Please try again..."}

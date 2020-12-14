@@ -1,8 +1,6 @@
 package com.example.iadiproject.api.GrantCall
 
 import com.example.iadiproject.api.GrantCallDTO
-import com.example.iadiproject.api.InstitutionDTO
-import com.example.iadiproject.api.SimpleInstitutionDTO
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse

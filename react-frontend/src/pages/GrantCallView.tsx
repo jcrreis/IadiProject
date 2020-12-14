@@ -4,16 +4,18 @@ import {GrantCallI} from "../DTOs";
 import {IStateStore} from "../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
-import {Button, Card, CardHeader, Container, Typography} from "@material-ui/core";
+import {Button, Card, CardHeader, Container, Snackbar, Typography} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import {formatDate} from "../utils/utils";
-
+import axios, {AxiosResponse} from 'axios'
+import {Alert} from "@material-ui/lab";
 interface IProps {
 
 }
 
 interface IState {
     grantCall: GrantCallI | undefined
+    showError: boolean
 }
 
 
@@ -26,17 +28,36 @@ class GranCallView extends Component<IProps & RouteComponentProps<{id: string}> 
             /* try an http request to server */
         }
         this.state = {
-            grantCall: grantCall
+            grantCall: grantCall,
+            showError: false
+
         }
     }
 
     handleOnClick = () => {
-        this.props.history.push(`/grantcall/${this.props.match.params.id}/application`,
-          {
-            title: this.state.grantCall?.title,
-            dataItems: this.state.grantCall?.dataItems
+        axios.get(`/students/${this.props.user?.id}`).then((r: AxiosResponse) => {
+            if(r.data.cv == null){
+                this.setState({
+                    ...this.state,
+                    showError: true
+                })
+            }
+            else{
 
-          })
+                this.props.history.push(`/grantcall/${this.props.match.params.id}/application`,
+                  {
+                      title: this.state.grantCall?.title,
+                      dataItems: this.state.grantCall?.dataItems
+                  })
+            }
+        })
+    }
+
+    handleClose = () => {
+        this.setState({
+            ...this.state,
+            showError: false
+        })
     }
 
 
@@ -63,6 +84,11 @@ class GranCallView extends Component<IProps & RouteComponentProps<{id: string}> 
                              ClosingDate: {formatDate(this.state.grantCall!!.closingDate)}
                          </Typography>
                          <Button className='grantcallsubmitB greenButton' onClick={() => this.handleOnClick()}>APPLY</Button>
+                         <Snackbar open={this.state.showError} autoHideDuration={6000} onClose={this.handleClose}>
+                             <Alert onClose={this.handleClose} severity="error">
+                                 You need a cv in order to apply to a grant call.
+                             </Alert>
+                         </Snackbar>
                     </Container>
                  </CardContent>
              </Card>

@@ -80,7 +80,7 @@ data class StudentDTO(
         override val address: String,
         val institution: SimpleInstitutionDTO,
         val password: String,
-        val cv: ByteArray
+        val cv: CurriculumDTO?
 ) : UserDTO(id,name,email,address)
 
 
@@ -132,7 +132,6 @@ data class EvaluationPanelDTO(
         val id: Long,
         val reviewers: List<SimpleReviewerDTO>,
         val panelChairId: Long?,
-        //val winner: ApplicationDTO,
         val grantCallId: Long
 )
 
@@ -170,6 +169,17 @@ data class UserSignInDTO(
 
 data class LongAsDTO(
         val id: Long
+)
+
+data class CVItemDTO(
+        val id: Long,
+        val item: String,
+        val value: String
+)
+
+data class CurriculumDTO(
+        val id: Long,
+        val items: List<CVItemDTO>
 )
 
 

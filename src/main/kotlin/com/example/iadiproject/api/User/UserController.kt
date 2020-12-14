@@ -2,7 +2,6 @@ package com.example.iadiproject.api.User
 
 import com.example.iadiproject.api.ChangePasswordDTO
 import com.example.iadiproject.api.CurrentUserDTO
-import com.example.iadiproject.api.SimpleInstitutionDTO
 import com.example.iadiproject.api.UserDTO
 import com.example.iadiproject.model.ReviewerDAO
 import com.example.iadiproject.model.SponsorDAO

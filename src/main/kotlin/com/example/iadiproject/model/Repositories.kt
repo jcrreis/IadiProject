@@ -49,3 +49,11 @@ interface DataItemRepository: JpaRepository<DataItem, Long> {
 
 interface DataItemAnswerRepository: JpaRepository<DataItemAnswer, Long> {
 }
+
+interface CurriculumRepository: JpaRepository<CurriculumDAO, Long>{
+
+}
+
+interface CVItemRepository: JpaRepository<CVItemDAO, Long>{
+
+}

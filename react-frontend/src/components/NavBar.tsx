@@ -62,6 +62,10 @@ function NavBar(props: RouteComponentProps<{}>) {
         props.history.push('/')
     }
 
+    const redirectToCV = () => {
+        props.history.push('/cv')
+    }
+
     const renderNavBar = () => {
         if(storeState.user == undefined){
             return(
@@ -82,6 +86,7 @@ function NavBar(props: RouteComponentProps<{}>) {
                     <Button color="inherit" onClick={() => redirectHome()}>Home</Button>
                     <Button color="inherit" className={classes.title} onClick={() => redirectAGrantCalls()}>Grant Calls</Button>
                     <Button color="inherit" className={classes.title} onClick={() => redirectMyApplications()}>My Applications</Button>
+                    <Button color="inherit" className={classes.title} onClick={() => redirectToCV()}>CV</Button>
                     <div className={classes.login}>
                         <Typography className="userNameNav" title={storeState.user.name}/>
                         <Button color="inherit" onClick={() => handleLogout()}>Logout</Button>

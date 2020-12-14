@@ -8,23 +8,22 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class EvaluationPanelController(val ePanels: EvaluationPanelService) : EvaluationPanelAPI{
 
+    fun transformDAOIntoDTO(it: EvaluationPanelDAO): EvaluationPanelDTO{
+        return EvaluationPanelDTO(it.id,it.reviewers.map{
+            it1 -> SimpleReviewerDTO(it1.id,it1.name,it1.email,it1.address)
+        }, it.panelchair?.id,it.grantCall!!.id)
+    }
+
     override fun getAll(): List<EvaluationPanelDTO> {
-        return ePanels.getAll().map {
-            EvaluationPanelDTO(it.id,it.reviewers.map{
-                it1 -> SimpleReviewerDTO(it1.id,it1.name,it1.email,it1.address)
-            }, it.panelchair?.id,it.grantCall!!.id)
-        }
+        return ePanels.getAll().map { transformDAOIntoDTO(it) }
     }
 
     override fun getOne(id: Long): EvaluationPanelDTO {
-        return ePanels.getOne(id).let{EvaluationPanelDTO(it.id,it.reviewers.map{
-            it1 -> SimpleReviewerDTO(it1.id,it1.name,it1.email,it1.address)
-        }, it.panelchair?.id,it.grantCall!!.id)
-        }
+        return transformDAOIntoDTO(ePanels.getOne(id))
     }
 
     override fun addOne(ePanel: EvaluationPanelDTO){
-        ePanels.addOne(EvaluationPanelDAO(ePanel.id,null,-1,null))
+        ePanels.addOne(EvaluationPanelDAO(ePanel.id,null,null))
     }
 
     override fun addReviewerToPanel(id: Long, reviewerId: LongAsDTO) {

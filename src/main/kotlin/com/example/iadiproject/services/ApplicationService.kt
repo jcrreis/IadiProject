@@ -17,6 +17,10 @@ class ApplicationService(val applications: ApplicationRepository, val dataItems:
         application.id = 0
         val dataItems: List<DataItem> = application.grantCall.dataItems
 
+        if(application.student.cv == null){
+            throw BadRequestExcepetion("Student need to have a cv inorder to apply to a Grant Call")
+        }
+
         if(answers.count() !== dataItems.count()){
             throw BadRequestExcepetion("Mismatch in data items and respective answers")
         }
