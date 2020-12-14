@@ -5,6 +5,98 @@ import java.util.*
 import javax.persistence.*
 
 
+
+interface EntityI{
+  var id: Long
+  var name: String
+  var contact: String
+}
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+abstract class UserDAO(
+        @Id
+        @GeneratedValue(strategy = GenerationType.TABLE)
+        open var id: Long,
+        @Column(nullable = false, unique = true)
+        open var name: String,
+        @Column(nullable = false)
+        open var password: String,
+        @Column(nullable = false,unique=true)
+        open var email: String,
+        open var address: String,
+        open var roles: String
+){
+  constructor() : this(0, "", "", "", "", "")
+
+  fun changePassword(password: String){
+    this.password = password
+  }
+}
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+abstract class RegularUserDAO(
+        id: Long,
+        name: String,
+        password: String,
+        email: String,
+        address: String,
+        @ManyToOne()
+        open var institution: InstitutionDAO,
+        roles: String
+) : UserDAO(id,name,password,email,address,roles){
+  constructor() : this(0, "", "", "", "", InstitutionDAO(), "")
+
+}
+
+@Entity
+data class StudentDAO(
+        override var id: Long,
+        override var name: String,
+        override var password: String,
+        override var email: String,
+        override var address: String,
+        @ManyToOne
+        override var institution: InstitutionDAO,
+        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "student")
+        var applications: MutableList<ApplicationDAO>,
+        @OneToOne(cascade = [CascadeType.ALL],fetch = FetchType.LAZY, optional = true)
+        var cv: CurriculumDAO?
+
+
+) : RegularUserDAO(id, name, password, email, address, institution,"ROLE_STUDENT") {
+
+  constructor() : this(0, "", "", "", "", InstitutionDAO(), mutableListOf(), null) {
+
+  }
+}
+
+
+@Entity
+data class ReviewerDAO(
+
+        override var id: Long,
+        override var name: String,
+        override var password: String,
+        override var email: String,
+        override var address: String,
+        @ManyToOne
+        override var institution: InstitutionDAO,
+        @OneToMany(cascade = [CascadeType.ALL])
+        var panelsChairs: MutableList<EvaluationPanelDAO>,
+        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "reviewer")
+        var reviews: MutableList<ReviewDAO>
+
+): RegularUserDAO(id, name, password, email, address, institution, "ROLE_REVIEWER"){
+  @ManyToMany(cascade = [CascadeType.ALL], mappedBy = "reviewers")
+  var evaluationPanels: MutableList<EvaluationPanelDAO> = mutableListOf()
+  constructor() : this(0, "", "", "", "", InstitutionDAO(), mutableListOf(),mutableListOf()) {
+
+  }
+}
+
+
 @Entity
 data class ApplicationDAO(
         @Id
@@ -34,95 +126,8 @@ data class ApplicationDAO(
     }
 }
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-abstract class UserDAO(
-        @Id
-        @GeneratedValue(strategy = GenerationType.TABLE)
-        open var id: Long,
-        @Column(nullable = false, unique = true)
-        open var name: String,
-        @Column(nullable = false)
-        open var password: String,
-        @Column(nullable = false,unique=true)
-        open var email: String,
-        open var address: String,
-        open var roles: String
-){
-    constructor() : this(0, "", "", "", "", "")
-
-    fun changePassword(password: String){
-        this.password = password
-    }
-}
-
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-abstract class RegularUserDAO(
-        id: Long,
-        name: String,
-        password: String,
-        email: String,
-        address: String,
-        @ManyToOne()
-        open var institution: InstitutionDAO,
-        roles: String
-) : UserDAO(id,name,password,email,address,roles){
-    constructor() : this(0, "", "", "", "", InstitutionDAO(), "")
-
-}
 
 
-interface EntityI{
-        var id: Long
-        var name: String
-        var contact: String
-}
-
-@Entity
-data class StudentDAO(
-        override var id: Long,
-        override var name: String,
-        override var password: String,
-        override var email: String,
-        override var address: String,
-        @ManyToOne
-        override var institution: InstitutionDAO,
-        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "student")
-        var applications: MutableList<ApplicationDAO>,
-        @OneToOne(cascade = [CascadeType.ALL],fetch = FetchType.LAZY, optional = true)
-        var cv: CurriculumDAO?
-
-
-) : RegularUserDAO(id, name, password, email, address, institution,"ROLE_STUDENT") {
-
-    constructor() : this(0, "", "", "", "", InstitutionDAO(), mutableListOf(),null) {
-
-    }
-}
-
-@Entity
-data class ReviewerDAO(
-
-        override var id: Long,
-        override var name: String,
-        override var password: String,
-        override var email: String,
-        override var address: String,
-        @ManyToOne
-        override var institution: InstitutionDAO,
-        @OneToMany(cascade = [CascadeType.ALL])
-        var panelsChairs: MutableList<EvaluationPanelDAO>,
-        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "reviewer")
-        var reviews: MutableList<ReviewDAO>
-
-): RegularUserDAO(id, name, password, email, address, institution, "ROLE_REVIEWER"){
-    @ManyToMany(cascade = [CascadeType.ALL], mappedBy = "reviewers")
-    var evaluationPanels: MutableList<EvaluationPanelDAO> = mutableListOf()
-    constructor() : this(0, "", "", "", "", InstitutionDAO(), mutableListOf(),mutableListOf()) {
-
-    }
-}
 
 @Entity
 data class InstitutionDAO(

@@ -17,7 +17,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 class SecurityConfig(
         val customUserDetails: CustomUserDetailsService,
         val users: UserService
-) : WebSecurityConfigurerAdapter() {
+) : WebSecurityConfigurerAdapter()
+{
 
     @Bean
     fun passwordEncoder(): PasswordEncoder {

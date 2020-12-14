@@ -4,7 +4,10 @@ import com.example.iadiproject.model.*
 import org.springframework.stereotype.Service
 
 @Service
-class GrantCallService(val grantCalls: GrantCallRepository, val dataItems: DataItemRepository, val reviewers: ReviewerRepository) {
+class GrantCallService(val grantCalls: GrantCallRepository,
+                       val dataItems: DataItemRepository,
+                       val reviewers: ReviewerRepository)
+{
 
     fun getAll() : Iterable<GrantCallDAO> = grantCalls.findAll()
 

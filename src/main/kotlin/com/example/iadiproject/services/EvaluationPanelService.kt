@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
 @Service
-class EvaluationPanelService(val ePanels: EvaluationPanelRepository, val grantCalls: GrantCallRepository, val reviewers: ReviewerService) {
+class EvaluationPanelService(val ePanels: EvaluationPanelRepository,
+                             val grantCalls: GrantCallRepository,
+                             val reviewers: ReviewerService)
+{
 
     fun getAll() : Iterable<EvaluationPanelDAO> = ePanels.findAll()
 

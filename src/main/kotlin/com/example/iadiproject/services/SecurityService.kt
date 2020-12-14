@@ -14,8 +14,7 @@ class SecurityService(
         val grantCalls: GrantCallRepository,
         val reviewers: ReviewerRepository,
         val students: StudentRepository,
-        val sponsors: SponsorRepository
-)
+        val sponsors: SponsorRepository)
 {
 
     fun isUserOwnerOfResource(principal: UserAuthToken, id: Long): Boolean{

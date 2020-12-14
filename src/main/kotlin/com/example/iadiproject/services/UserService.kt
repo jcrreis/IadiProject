@@ -14,7 +14,9 @@ import javax.transaction.Transactional
 
 @Service
 @Transactional
-class UserService(val users: UserRepository, val institutions: InstitutionRepository, val regularUsers: RegularUserRepository) : UserDetailsService{
+class UserService(val users: UserRepository,
+                  val institutions: InstitutionRepository) : UserDetailsService
+{
 
     fun getAll(): List<UserDAO> = users.findAll()
 
@@ -40,17 +42,17 @@ class UserService(val users: UserRepository, val institutions: InstitutionReposi
             users.save(user)
         }
         else{
-            throw BadRequestExcepetion("Old password is invalid")
+            throw BadRequestException("Old password is invalid")
         }
     }
 
     fun verifyIfValuesAreUnique(name: String, email: String){
 
         if(users.findUserDAOByName(name).isPresent){
-            throw BadRequestExcepetion("This username already exists")
+            throw BadRequestException("This username already exists")
         }
         if(users.findUserDAOByEmail(email).isPresent){
-            throw BadRequestExcepetion("This email already exists")
+            throw BadRequestException("This email already exists")
         }
 
     }
@@ -90,7 +92,7 @@ class UserService(val users: UserRepository, val institutions: InstitutionReposi
                 return Optional.of(users.save(sponsor))
             }
             else -> {
-                throw BadRequestExcepetion("Type not match any user entity.")
+                throw BadRequestException("Type not match any user entity.")
             }
         }
     }

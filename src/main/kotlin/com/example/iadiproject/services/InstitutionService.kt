@@ -7,7 +7,8 @@ import com.example.iadiproject.model.InstitutionRepository
 import org.springframework.stereotype.Service
 
 @Service
-class InstitutionService(val institutions: InstitutionRepository) {
+class InstitutionService(val institutions: InstitutionRepository)
+{
 
     fun getAll() : Iterable<InstitutionDAO> = institutions.findAll()
 

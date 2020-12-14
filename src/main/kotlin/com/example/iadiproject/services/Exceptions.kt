@@ -10,7 +10,7 @@ class NotFoundException(message:String = "Not Found!!") : RuntimeException(messa
 class ConflictException(message:String = "Conflict!!!") : RuntimeException(message)
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-class BadRequestExcepetion(message: String = "Bad Request!!!") : RuntimeException(message)
+class BadRequestException(message: String = "Bad Request!!!") : RuntimeException(message)
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
 class ForbiddenException(message: String = "Forbidden!!!") : RuntimeException(message)

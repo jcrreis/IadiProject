@@ -9,7 +9,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class StudentService(val users: UserService, val students: StudentRepository, val institutions: InstitutionRepository, val curriculums: CurriculumService) {
+class StudentService(val users: UserService,
+                     val students: StudentRepository,
+                     val institutions: InstitutionRepository,
+                     val curriculums: CurriculumService)
+{
+
 
     fun getAll() : Iterable<StudentDAO> = students.findAll()
 

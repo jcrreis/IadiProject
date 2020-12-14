@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
 @Service
-class DataItemService(val dataItems: DataItemRepository, val grantCalls: GrantCallRepository, val dataItemAnswers: DataItemAnswerRepository) {
+class DataItemService(val dataItems: DataItemRepository,
+                      val grantCalls: GrantCallRepository,
+                      val dataItemAnswers: DataItemAnswerRepository)
+{
 
 
     fun addOne(dataItem: DataItem){

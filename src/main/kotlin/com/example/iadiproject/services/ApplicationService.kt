@@ -5,7 +5,9 @@ import com.example.iadiproject.model.*
 import org.springframework.stereotype.Service
 
 @Service
-class ApplicationService(val applications: ApplicationRepository, val dataItems: DataItemService) {
+class ApplicationService(val applications: ApplicationRepository,
+                         val dataItems: DataItemService)
+{
 
     fun getAll() : Iterable<ApplicationDAO> = applications.findAll()
 
@@ -18,16 +20,16 @@ class ApplicationService(val applications: ApplicationRepository, val dataItems:
         val dataItems: List<DataItem> = application.grantCall.dataItems
 
         if(application.student.cv == null){
-            throw BadRequestExcepetion("Student need to have a cv inorder to apply to a Grant Call")
+            throw BadRequestException("Student need to have a cv inorder to apply to a Grant Call")
         }
 
         if(answers.count() !== dataItems.count()){
-            throw BadRequestExcepetion("Mismatch in data items and respective answers")
+            throw BadRequestException("Mismatch in data items and respective answers")
         }
 
         for((i, d) in dataItems.withIndex()){
             if(d.mandatory && answers[i] == ""){
-                throw BadRequestExcepetion("A mandatory field was sent empty")
+                throw BadRequestException("A mandatory field was sent empty")
             }
             val answer = DataItemAnswer(0,d,answers[i])
             application.dataItemAnswers.add(answer)

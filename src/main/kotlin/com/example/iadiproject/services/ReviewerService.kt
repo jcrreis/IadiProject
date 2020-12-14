@@ -6,7 +6,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class ReviewerService(val users: UserService,val reviewers : ReviewerRepository, val institutions: InstitutionRepository) {
+class ReviewerService(val users: UserService,
+                      val reviewers : ReviewerRepository,
+                      val institutions: InstitutionRepository)
+{
 
     fun getAll() : Iterable<ReviewerDAO> = reviewers.findAll()
 

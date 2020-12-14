@@ -4,7 +4,10 @@ import com.example.iadiproject.model.*
 import org.springframework.stereotype.Service
 
 @Service
-class CurriculumService(val curriculums: CurriculumRepository,val students: StudentRepository, val cvItems: CVItemRepository ){
+class CurriculumService(val curriculums: CurriculumRepository,
+                        val students: StudentRepository,
+                        val cvItems: CVItemRepository )
+{
 
   fun addOne(curriculum: CurriculumDAO) {
     for(i in curriculum.items){

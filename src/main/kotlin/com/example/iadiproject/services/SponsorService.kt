@@ -7,7 +7,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class SponsorService(val sponsors: SponsorRepository, val users: UserService) {
+class SponsorService(val sponsors: SponsorRepository,
+                     val users: UserService)
+{
 
     fun getAll() : Iterable<SponsorDAO> = sponsors.findAll()
 
