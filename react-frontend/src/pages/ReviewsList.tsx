@@ -68,7 +68,7 @@ class ReviewsList extends Component<IProps & RouteComponentProps<{id: string},an
                                         {r.id}
                                     </Typography>
                                     <div style={{flexDirection: 'row-reverse',marginLeft:'600px'}}>
-                                        0
+                                        {r.score}
                                     </div>
                                 </CardContent>
                             </Card>

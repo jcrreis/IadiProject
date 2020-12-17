@@ -101,7 +101,7 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/grantcalls
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA3NzA3NTgxLCJpYXQiOjE2MDc3MDY5ODEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.dNV5d4rT4UCHeHrL6w_PXOhCjNbHPCg3FhSs9bq6fHc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4MjA2NjM4LCJpYXQiOjE2MDgyMDYwMzgsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.GLhyzaKplJldCgJNBVFDk1jEJsykSts9h8CgjFUOLwg
 Content-Type: application/json
 
 
@@ -192,11 +192,11 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/evaluationpanels/4/reviewers
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA3NzA3NTgxLCJpYXQiOjE2MDc3MDY5ODEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.dNV5d4rT4UCHeHrL6w_PXOhCjNbHPCg3FhSs9bq6fHc
+POST http://localhost:8080/evaluationpanels/2/reviewers
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4MjA2NzExLCJpYXQiOjE2MDgyMDYxMTEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.d7BlNiLhwQ_nja9dOvY5_MfGBET9xioemJot_o0FQGA
 Content-Type: application/json
 
- {"id": "4"}
+ {"id": "3"}
 
 
 
@@ -234,10 +234,10 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/evaluationpanels/2/panelchair
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA3NzAyODc1LCJpYXQiOjE2MDc3MDIyNzUsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.nOjDuQBM7qc_8wntDFL0qSWbS_UNPlRI44PiF7S-cpk
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4MjA2NzExLCJpYXQiOjE2MDgyMDYxMTEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.d7BlNiLhwQ_nja9dOvY5_MfGBET9xioemJot_o0FQGA
 Content-Type: application/json
 
-{"id": "4"}
+{"id": "3"}
 
 ###
 

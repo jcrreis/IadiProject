@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
-class ApplicationController(val applications: ApplicationService, val grantCalls: GrantCallService, val students: StudentService) : ApplicationAPI {
+class  ApplicationController(val applications: ApplicationService,
+                             val grantCalls: GrantCallService,
+                             val students: StudentService) : ApplicationAPI
+{
 
 
     fun transformDAOIntoDTO(it: ApplicationDAO): ApplicationDTO{
@@ -45,5 +48,6 @@ class ApplicationController(val applications: ApplicationService, val grantCalls
     override fun submitApplication(id: Long) = applications.submitApplication(id)
 
     override fun editApplication(id: Long, application: ApplicationDTO) = applications.editApplication(id, application)
+
 
 }

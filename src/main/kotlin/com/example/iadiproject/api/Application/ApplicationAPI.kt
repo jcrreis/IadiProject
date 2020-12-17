@@ -100,4 +100,7 @@ interface ApplicationAPI {
     @PreAuthorize("@securityService.isStudentOwnerOfApplication(authentication.principal, #id)")
     @PutMapping("/{id}")
     fun editApplication(@PathVariable id: Long, @RequestBody application: ApplicationDTO)
+
+
+
 }

@@ -8,7 +8,10 @@ import com.example.iadiproject.services.*
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class ReviewerController (val reviewers: ReviewerService, val institutions: InstitutionService, val users: UserService): ReviewerAPI{
+class ReviewerController (val reviewers: ReviewerService,
+                          val institutions: InstitutionService,
+                          val users: UserService): ReviewerAPI
+{
 
     fun transformDAOIntoDTO(it: ReviewerDAO): ReviewerDTO{
         return ReviewerDTO(it.id,it.name,it.email,it.address, SimpleInstitutionDTO(it.institution.id,it.institution.name,

@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import '../App.css';
 import {RouteComponentProps, withRouter} from "react-router";
-import {Button, Card, CardHeader, FormControlLabel, FormGroup, Switch, Typography} from "@material-ui/core";
+import {Card, Typography} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 
 interface IProps {
     message: string
     path: string
+    state: object
 }
 
 
@@ -19,7 +20,7 @@ class SuccessMessage extends Component<IProps & RouteComponentProps<{}>>{
     }
 
     componentDidMount() {
-        setTimeout(() => this.props.history.push(this.props.path), 3000)
+        setTimeout(() => this.props.history.push(this.props.path,this.props.state), 3000)
     }
 
     render(){

@@ -2,11 +2,14 @@ package com.example.iadiproject.api
 
 import com.example.iadiproject.api.EvaluationPanel.EvaluationPanelAPI
 import com.example.iadiproject.model.EvaluationPanelDAO
+import com.example.iadiproject.services.ApplicationService
 import com.example.iadiproject.services.EvaluationPanelService
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class EvaluationPanelController(val ePanels: EvaluationPanelService) : EvaluationPanelAPI{
+class EvaluationPanelController(val ePanels: EvaluationPanelService,
+                                val applications: ApplicationService) : EvaluationPanelAPI
+{
 
     fun transformDAOIntoDTO(it: EvaluationPanelDAO): EvaluationPanelDTO{
         return EvaluationPanelDTO(it.id,it.reviewers.map{
@@ -33,6 +36,8 @@ class EvaluationPanelController(val ePanels: EvaluationPanelService) : Evaluatio
     override fun addPanelChairToPanel(id: Long, reviewerId: LongAsDTO) {
         ePanels.addPanelChairToPanel(id, reviewerId.id)
     }
+
+    override fun grantFunding(idApplication: Long) = applications.grantFunding(idApplication)
 
 
 }

@@ -65,4 +65,14 @@ interface EvaluationPanelAPI {
     @ResponseStatus(HttpStatus.OK)
     fun addPanelChairToPanel(@PathVariable id:Long,@RequestBody reviewerId: LongAsDTO)
 
+
+    @ApiResponses(value = [
+        ApiResponse(code = 200, message = "Successfully submitted application"),
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN"),
+        ApiResponse(code = 404, message = "NOT FOUND")
+    ])
+    @PreAuthorize("@securityService.isUserChairOfPanel(authentication.principal, #idApplication)")
+    @PostMapping("/applications/{idApplication}/grantfunding")
+    fun grantFunding(@PathVariable idApplication: Long)
 }

@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-class ReviewController(val reviews: ReviewService, val applications: ApplicationService, val reviewers: ReviewerService) : ReviewAPI {
+class ReviewController(val reviews: ReviewService,
+                       val applications: ApplicationService,
+                       val reviewers: ReviewerService) : ReviewAPI
+{
 
     fun transformDAOIntoDTO(it: ReviewDAO): ReviewDTO{
         return  ReviewDTO(it.id,it.application.id,it.reviewer.id,it.score,it.observations)

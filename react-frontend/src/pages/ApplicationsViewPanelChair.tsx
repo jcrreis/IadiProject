@@ -5,9 +5,11 @@ import {IStateStore} from "../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import axios, {AxiosResponse} from 'axios'
-import {Button, Card, CardHeader, Link, Modal, Typography} from "@material-ui/core";
+import {Button, Card, CardHeader, Link, Modal, Snackbar, Typography} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
-
+import {Alert} from "@material-ui/lab";
+import CancelIcon from '@material-ui/icons/Cancel';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 interface IProps {
 
 }
@@ -17,6 +19,8 @@ interface IState {
     applications: ApplicationI[]
     grantCall: GrantCallI
     modal: {openModal: boolean, candidate: ApplicationI | undefined}
+    showToast: boolean
+
 }
 
 
@@ -28,7 +32,8 @@ class ApplicationsViewPanelChair extends Component<IProps & RouteComponentProps<
             grantCallId: Number(this.props.match.params.id),
             applications: [],
             grantCall: this.props.location.state.grantCall,
-            modal: {openModal: false, candidate: undefined}
+            modal: {openModal: false, candidate: undefined},
+            showToast: false
         }
     }
 
@@ -69,7 +74,27 @@ class ApplicationsViewPanelChair extends Component<IProps & RouteComponentProps<
 
 
     grantApplicationFunding = () =>{
-        console.log(this.state.modal.candidate)
+        axios.post(`/evaluationpanels/applications/${this.state.modal.candidate!!.id}/grantfunding`).then((r: AxiosResponse) => {
+            const newArray: ApplicationI[] = this.state.applications
+            newArray.forEach((a: ApplicationI) => {
+                if(a.id == this.state.modal.candidate?.id){
+                    a.status = 2
+                    this.setState({
+                        ...this.state,
+                        applications: newArray,
+                        showToast: true,
+                        modal: {openModal: false, candidate: this.state.modal.candidate}
+                    })
+                    return
+                }
+            })
+        })
+    }
+
+    handleOnClose(){
+        this.setState({
+            showToast: false
+        })
     }
 
     render() {
@@ -114,11 +139,18 @@ class ApplicationsViewPanelChair extends Component<IProps & RouteComponentProps<
                                         </Link>
                                     </div>
                                     <div style={{flexDirection: 'row-reverse',display:'flex',marginLeft:'500px'}}>
-                                        <Button style={{ height:'21px'}} className="greenButton" onClick={() => this.handleOnSelectClick(a)}>SELECT</Button>
+                                        {a.status == 0 ? (<Button style={{ height:'21px'}} className="greenButton" onClick={() => this.handleOnSelectClick(a)}>SELECT</Button>) : <></>}
+                                        {a.status == 2 ? (<CheckCircleIcon style={{marginLeft: '39px', color:'green'}}></CheckCircleIcon>): <></>}
+                                        {a.status == -1 || a.status == 1 ? (<CancelIcon style={{marginLeft: '39px', color:'red'}}></CancelIcon>) : <></>}
                                         <Typography  key={a.id +"t1"} variant="body2" component="h2" style={{marginRight: '20px'}}>
                                             0
                                         </Typography>
                                     </div>
+                                    <Snackbar open={this.state.showToast} autoHideDuration={6000} onClose={() => this.handleOnClose()}>
+                                        <Alert onClose={() => this.handleOnClose()} severity="success">
+                                            Granted fund to this application with id {this.state.modal.candidate?.id} successfully!
+                                        </Alert>
+                                    </Snackbar>
                                 </CardContent>
                             </Card>)
                       })}

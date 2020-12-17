@@ -78,7 +78,6 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
                     token: this.state.token,
                     address: r.data.address,
                     type: r.data.type
-
                 }
                 console.log(user)
                 store.dispatch({type: LOGIN_USER,user: user})

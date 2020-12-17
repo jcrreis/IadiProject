@@ -70,6 +70,7 @@ data class StudentDAO(
   constructor() : this(0, "", "", "", "", InstitutionDAO(), mutableListOf(), null) {
 
   }
+
 }
 
 
@@ -123,7 +124,8 @@ data class ApplicationDAO(
 
    fun updateMeanScores(){
      this.meanScores = this.reviews.map{it.score}.average()
-    }
+   }
+
 }
 
 
@@ -145,6 +147,8 @@ data class InstitutionDAO(
     constructor() : this(0, "", "", mutableListOf()) {
 
     }
+
+
 }
 
 @Entity
@@ -164,6 +168,7 @@ data class SponsorDAO(
     constructor() : this(0, "", "", "", "", "") {
 
     }
+
 }
 
 @Entity
@@ -189,6 +194,7 @@ data class GrantCallDAO(
     constructor() : this(0, "", "", "", 0.0, Date(), Date(), mutableListOf(),SponsorDAO(), EvaluationPanelDAO(), mutableListOf()) {
 
     }
+
 }
 
 
@@ -208,6 +214,7 @@ data class EvaluationPanelDAO(
     constructor() : this(0, null, null) {
 
     }
+
 }
 
 @Entity
@@ -226,6 +233,8 @@ data class ReviewDAO(
     constructor() : this(0, ApplicationDAO(), ReviewerDAO(), 0, ""){
 
     }
+
+
 }
 
 @Entity
@@ -245,6 +254,8 @@ data class DataItem(
     constructor() : this(0,true,"","",mutableListOf()){
 
     }
+
+
 }
 
 @Entity
@@ -261,6 +272,7 @@ data class DataItemAnswer(
     constructor() : this(0,DataItem(),""){
 
     }
+
 }
 
 @Entity
@@ -275,6 +287,8 @@ data class CVItemDAO(
   @ManyToOne
   lateinit var cv: CurriculumDAO
   constructor(): this(0,"","")
+
+
 }
 
 @Entity
@@ -282,7 +296,7 @@ data class CurriculumDAO(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long,
-        @OneToMany(cascade = [CascadeType.ALL])
+        @OneToMany(cascade = [CascadeType.REMOVE])
         var items: List<CVItemDAO>
 
 ){
@@ -291,4 +305,5 @@ data class CurriculumDAO(
     constructor() : this(0, mutableListOf<CVItemDAO>()){
 
     }
+
 }

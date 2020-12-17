@@ -142,6 +142,8 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
     }
 
     handleChange(e: React.ChangeEvent<{ name?: string; value: unknown }>){
+        console.log(e.target.value)
+        console.log(this.props.institutions)
         this.setState((prevState: any)=> ({
             user:{
                 ...prevState.user,
@@ -197,10 +199,6 @@ class SignUp extends Component<IProps & RouteComponentProps<{}> & IStateStore, I
                             value={this.props.institutions[this.state.user.institutionId]}
                             onChange={(e) => this.handleChange(e) }
                             label="Institution"
-                            inputProps={{
-                                name: 'age',
-                                id: 'outlined-age-native-simple',
-                            }}
                           >
                               <option></option>
                               {this.props.institutions.map( (institution: InstitutionI) => {

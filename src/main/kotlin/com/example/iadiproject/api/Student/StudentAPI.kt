@@ -6,6 +6,7 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
+import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
@@ -35,14 +36,27 @@ interface StudentAPI {
     fun getOne(@PathVariable id: Long): StudentDTO
 
 
-    @ApiOperation("Get a student by id")
+    @ApiOperation("Create a cv")
     @ApiResponses(value = [
-        ApiResponse(code = 200, message = "Successfully retrieved list of students"),
+        ApiResponse(code = 201, message = "Successfully created a cv"),
         ApiResponse(code = 401, message = "UNAUTHORIZED"),
         ApiResponse(code = 403, message = "FORBIDDEN")
     ])
     @PostMapping("/{id}/cv")
     @PreAuthorize( "@securityService.isUserOwnerOfResource(authentication.principal,#id)")
+    @ResponseStatus(HttpStatus.CREATED)
     fun addCvToStudent(@PathVariable id: Long, @RequestBody cv: CurriculumDTO)
+
+    @ApiOperation("Update CV")
+    @ApiResponses(value = [
+        ApiResponse(code = 200, message = "Successfully updated a cv"),
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN")
+    ])
+    @PutMapping("/{id}/cv")
+    @PreAuthorize( "@securityService.isUserOwnerOfResource(authentication.principal,#id)")
+    fun updateStudentCV(@PathVariable id: Long, @RequestBody cv: CurriculumDTO)
+
+
 
 }

@@ -32,4 +32,8 @@ class StudentService(val users: UserService,
         curriculums.addCvToStudent(curriculum,id)
     }
 
+    fun updateStudentCV(curriculum: CurriculumDAO, id: Long){
+        curriculums.updateCV(curriculum,id)
+    }
+
 }

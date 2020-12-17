@@ -11,7 +11,10 @@ import org.apache.catalina.valves.StuckThreadDetectionValve
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class StudentController(val students: StudentService, val institutions: InstitutionService,val users: UserService) : StudentAPI {
+class StudentController(val students: StudentService,
+                        val institutions: InstitutionService,
+                        val users: UserService) : StudentAPI
+{
 
     fun transformDAOIntoDTO(it: StudentDAO): StudentDTO{
         return StudentDTO(it.id,it.name,it.email,it.address,SimpleInstitutionDTO(it.institution.id,it.institution.name,
@@ -26,5 +29,10 @@ class StudentController(val students: StudentService, val institutions: Institut
     override fun addCvToStudent(id: Long, cv: CurriculumDTO) = students.addCvToStudent(CurriculumDAO(cv.id,cv.items.map{
         CVItemDAO(it.id,it.item,it.value)
     }),id)
+
+    override fun updateStudentCV(id: Long, cv: CurriculumDTO) = students.updateStudentCV(CurriculumDAO(cv.id,cv.items.map{
+        CVItemDAO(it.id,it.item,it.value)
+    }), id)
+
 
 }

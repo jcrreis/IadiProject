@@ -8,14 +8,14 @@ import reducer, {fetchUserFromStorage} from "./store/reducer"
 
 import reportWebVitals from './reportWebVitals';
 import Routes from "./routes"
-import {IStateStore, UserLoginAction} from "./store/types";
+import {IStateStore, UserAction} from "./store/types";
 
 
 // @ts-ignore
 const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose || compose;
 
 
-export const store: Store<IStateStore, UserLoginAction> & {
+export const store: Store<IStateStore,UserAction> & {
     dispatch: any
 } = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
 

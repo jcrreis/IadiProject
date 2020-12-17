@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
-class UserController(val users: UserService): UserAPI{
+class UserController(val users: UserService): UserAPI
+{
 
     override fun getAll(): List<UserDTO> = users.getAll().map{
          UserDTO(it.id, it.name, it.email, it.address)

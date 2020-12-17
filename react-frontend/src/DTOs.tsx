@@ -100,5 +100,5 @@ export interface CurriculumI{
 export interface CvItemI{
     id: number,
     item: string,
-    answer: string
+    value: string
 }

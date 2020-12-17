@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-class SponsorController(val sponsors : SponsorService) : SponsorAPI {
+class SponsorController(val sponsors : SponsorService) : SponsorAPI
+{
 
     fun transformDAOIntoDTO(it: SponsorDAO): SponsorDTO{
         return SponsorDTO(it.id,it.name,it.contact,it.grantCalls.map{

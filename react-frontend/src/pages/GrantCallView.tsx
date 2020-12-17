@@ -60,7 +60,6 @@ class GranCallView extends Component<IProps & RouteComponentProps<{id: string}> 
         })
     }
 
-
     render(){
         return(
          <>

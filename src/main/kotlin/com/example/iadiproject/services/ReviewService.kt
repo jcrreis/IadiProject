@@ -22,6 +22,7 @@ class ReviewService(val reviews : ReviewRepository,
         val ePanel: EvaluationPanelDAO = this.ePanels.findEvaluationPanelDAOByGrantCallId(application.grantCall.id)
         val reviews: List<ReviewDAO> = application.reviews
 
+
         for(r in reviews) {
             if(r.reviewer.id == review.reviewer.id)
                 throw ConflictException("This reviewer with ${review.reviewer.id} id already did a review for this application with id ${application.id}")
@@ -31,6 +32,7 @@ class ReviewService(val reviews : ReviewRepository,
         if(ePanel.reviewers.contains(review.reviewer) || (ePanel.panelchair?.equals(review.reviewer) == true)){
             review.id = 0
             this.reviews.save(review)
+            application.reviews.add(review)
             application.updateMeanScores()
             applications.save(application)
         }

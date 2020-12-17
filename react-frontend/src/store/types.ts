@@ -1,6 +1,6 @@
 import {GrantCallI, InstitutionI, UserLoginI} from "../DTOs";
 
-export type UserLoginAction = {
+export type UserAction = {
     type: string
     user: UserLoginI
 }

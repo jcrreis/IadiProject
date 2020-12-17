@@ -2,6 +2,7 @@ package com.example.iadiproject.services
 
 import com.example.iadiproject.model.*
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CurriculumService(val curriculums: CurriculumRepository,
@@ -33,6 +34,23 @@ class CurriculumService(val curriculums: CurriculumRepository,
     else{
       throw ConflictException("This student with id $idStudent already have a cv.")
     }
+  }
+
+  fun updateCV(cv: CurriculumDAO, idStudent: Long){
+    val student: StudentDAO = students.getOne(idStudent)
+    val curriculum: CurriculumDAO = curriculums.getOne(cv.id)
+
+    for(i in cv.items){
+      addOneCvItem(i)
+    }
+    for(i in cv.items){
+      i.cv = cv
+      cvItems.save(i)
+    }
+    curriculum.items = cv.items
+    student.cv = cv
+    students.save(student)
+    curriculums.save(curriculum)
   }
 }
 

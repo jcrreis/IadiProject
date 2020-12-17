@@ -5,7 +5,7 @@ import {IStateStore} from "../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import axios, {AxiosResponse} from 'axios'
-import {Button, Card, CardHeader, Typography} from "@material-ui/core";
+import {Button, Card, CardHeader, Link, Typography} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 
 interface IProps {
@@ -82,6 +82,10 @@ class ApplicationsView extends Component<IProps & RouteComponentProps<{id: strin
               </Button>)
 
     }
+    handleOnClick(a: ApplicationI){
+        this.props.history.push(`/application/`)
+    }
+
 
     render() {
         return(
@@ -94,9 +98,17 @@ class ApplicationsView extends Component<IProps & RouteComponentProps<{id: strin
                           return (
                             <Card key={a.id} className="object">
                                 <CardContent  key={a.id +"content"} style={{display: 'flex'}}>
-                                    <Typography  key={a.id +"t1"} variant="body2" component="h2">
-                                        {a.id}
-                                    </Typography>
+                                    <Link
+                                      component="button"
+                                      variant="body2"
+                                      style={{color: "#62ddfa"}}
+                                      onClick={() => this.handleOnClick(a)}
+                                    >
+                                        <Typography  key={a.id +"t1"} variant="body2" component="h2">
+
+                                            {a.id}
+                                        </Typography>
+                                    </Link>
                                     <div style={{flexDirection: 'row-reverse',marginLeft:'500px'}}>
                                         {this.renderButton(a)}
                                     </div>

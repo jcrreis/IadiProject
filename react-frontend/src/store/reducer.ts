@@ -1,4 +1,4 @@
-import { IStateStore, UserLoginAction} from "./types";
+import {IStateStore, UserAction} from "./types";
 import {LOGIN_USER, LOGOUT_USER} from "./consts";
 import {GrantCallI, InstitutionI, UserLoginI} from "../DTOs";
 import axios, {AxiosResponse} from 'axios'
@@ -55,7 +55,7 @@ const InitialState: IStateStore = {
 
 const reducer = (
   state: IStateStore = InitialState,
-  action: UserLoginAction
+  action: UserAction
 ): IStateStore => {
     switch (action.type) {
         case LOGIN_USER:

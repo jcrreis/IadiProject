@@ -4,12 +4,13 @@ import {ApplicationI, DataItemI} from "../DTOs";
 import {IStateStore} from "../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
-import {Button, Card, CardHeader, Checkbox, FormControlLabel, TextField} from "@material-ui/core";
+import {Button, Card, CardHeader, Checkbox, FormControlLabel, Snackbar, TextField} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import axios, {AxiosError, AxiosResponse} from 'axios'
 import SuccessMessage from "../components/SuccessMessage";
+import {Alert} from "@material-ui/lab";
 
 interface IProps {
 
@@ -21,6 +22,8 @@ interface IState {
     dataItems: DataItemI[]
     answers: string[]
     success: boolean
+    errorField: boolean
+    errorConflict: boolean
 }
 
 
@@ -42,7 +45,9 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
             title: this.props.location.state.title,
             dataItems: dataItems,
             answers: answers,
-            success: false
+            success: false,
+            errorField: false,
+            errorConflict: false
         }
     }
 
@@ -61,7 +66,10 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
             if(this.state.dataItems[i].mandatory == true){
                 console.log(this.state.answers[i])
                 if(this.state.answers[i] == ""){
-                    alert("A mandatory field is empty")
+                    this.setState({
+                        ...this.state,
+                        errorField: true
+                    })
                     return;
                 }
             }
@@ -78,29 +86,17 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
             answers: this.state.answers,
             justification: "adsdas"
         }
-        let data = JSON.stringify(application)
-        console.log(data)
-        const token = this.props.user!!.token
-
-        axios.post('/applications',{
-            id: application.id,
-            submissionDate: application.submissionDate,
-            decision: application.decision,
-            status: application.status,
-            grantCallId: application.grantCallId,
-            studentId: application.studentId,
-            reviews: application.reviews,
-            meanScores: application.meanScores,
-            answers: application.answers,
-            justification: application.justification
-        }).then((r: AxiosResponse) => {
+        axios.post('/applications',application).then((r: AxiosResponse) => {
             this.setState({
                 ...this.state,
                 success: true
             })
-            console.log(r)
         }).catch((e: AxiosError) => {
-            console.log(e.response?.data)
+            this.setState({
+                ...this.state,
+                errorConflict: true
+            })
+            console.log(e)
         })
     }
 
@@ -117,6 +113,21 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
             answers: newArray
         })
     }
+
+    handleCloseErrorField(){
+        this.setState({
+            ...this.state,
+            errorField: false
+        })
+    }
+
+    handleErrorConflict(){
+        this.setState({
+            ...this.state,
+            errorConflict: false
+        })
+    }
+
 
 
     render() {
@@ -171,7 +182,9 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
 
         })
         let renderSuccessMessage = <SuccessMessage path='/myapplications' message=
-                                    {`Your Application to grantCall ${this.state.title} was saved with success. You'll be redirected to your applications page shortly`}/>
+                                    {`Your Application to grantCall ${this.state.title} was saved with success. You'll be redirected to your applications page shortly`}
+                                    state={{}}
+        />
 
         if(!this.state.success) {
             return (
@@ -180,6 +193,16 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
                   <CardContent key={this.state.id + "content"} style={{display: 'flex', flexDirection: 'column'}}>
                       {dataItems}
                       <Button className='greenButton applicationSaveB' onClick={this.handleOnClick}>Save</Button>
+                      <Snackbar open={this.state.errorField} autoHideDuration={3000} onClose={this.handleCloseErrorField.bind(this)}>
+                          <Alert onClose={this.handleCloseErrorField.bind(this)} severity="error">
+                              A mandatory field was left blank, please try again..
+                          </Alert>
+                      </Snackbar>
+                      <Snackbar open={this.state.errorConflict} autoHideDuration={3000} onClose={this.handleErrorConflict.bind(this)}>
+                          <Alert onClose={this.handleErrorConflict.bind(this)} severity="error">
+                              You already have an application for this grant call!
+                          </Alert>
+                      </Snackbar>
                   </CardContent>
               </Card>
 

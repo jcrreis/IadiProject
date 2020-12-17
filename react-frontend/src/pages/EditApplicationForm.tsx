@@ -83,18 +83,7 @@ class EditApplicationForm extends Component<IProps & RouteComponentProps<{id: st
             justification: ""
         }
 
-        axios.put(`/applications/${application.id}`,{
-            id: application.id,
-            submissionDate: application.submissionDate,
-            decision: application.decision,
-            status: application.status,
-            grantCallId: application.grantCallId,
-            studentId: application.studentId,
-            reviews: application.reviews,
-            meanScores: application.meanScores,
-            answers: application.answers,
-            justification: application.justification
-        }).then((r: AxiosResponse) => {
+        axios.put(`/applications/${application.id}`,application).then((r: AxiosResponse) => {
             this.setState({
                 ...this.state,
                 success: true
@@ -179,7 +168,9 @@ class EditApplicationForm extends Component<IProps & RouteComponentProps<{id: st
 
         })
         let renderSuccessMessage = <SuccessMessage path='/myapplications' message=
-          {`Your Application to grantCall ${this.state.title} was edited with success. You'll be redirected to your applications page shortly`}/>
+          {`Your Application to grantCall ${this.state.title} was edited with success. You'll be redirected to your applications page shortly`}
+            state={{}}
+        />
 
         if(!this.state.success) {
             return (

@@ -18,6 +18,11 @@ class ApplicationService(val applications: ApplicationRepository,
     fun addOne(application: ApplicationDAO,answers: List<String>){
         application.id = 0
         val dataItems: List<DataItem> = application.grantCall.dataItems
+        val studentsApplied: List<StudentDAO> = application.grantCall.applications.map{ it.student }
+
+        if(studentsApplied.contains(application.student)){
+            throw ConflictException("A student can only have a single application for each grant call.")
+        }
 
         if(application.student.cv == null){
             throw BadRequestException("Student need to have a cv inorder to apply to a Grant Call")
@@ -65,6 +70,12 @@ class ApplicationService(val applications: ApplicationRepository,
 
         applications.save(application)
 
+    }
+
+    fun grantFunding(id: Long){
+        val application: ApplicationDAO = applications.getOne(id)
+        application.status = 2
+        applications.save(application)
     }
 
 }
