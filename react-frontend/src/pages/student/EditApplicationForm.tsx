@@ -1,7 +1,7 @@
 import React, {ChangeEvent, Component} from 'react';
-import '../App.css';
-import {ApplicationI, DataItemI, GrantCallI} from "../DTOs";
-import {IStateStore} from "../store/types";
+import '../../App.css';
+import {ApplicationI, DataItemI, GrantCallI} from "../../DTOs";
+import {IStateStore} from "../../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import {Button, Card, CardHeader, Checkbox, FormControlLabel, TextField} from "@material-ui/core";
@@ -9,7 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import axios, {AxiosResponse} from 'axios'
-import SuccessMessage from "../components/SuccessMessage";
+import SuccessMessage from "../../components/SuccessMessage";
 
 interface IProps {
 

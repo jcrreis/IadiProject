@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import '../App.css';
-import {ApplicationI, GrantCallI} from "../DTOs";
-import {IStateStore} from "../store/types";
+import '../../App.css';
+import {ApplicationI, GrantCallI} from "../../DTOs";
+import {IStateStore} from "../../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import axios, {AxiosResponse} from 'axios'

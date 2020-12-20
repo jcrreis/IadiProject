@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import '../App.css';
-import {ApplicationI} from "../DTOs";
-import {IStateStore} from "../store/types";
+import '../../App.css';
+import {ApplicationI} from "../../DTOs";
+import {IStateStore} from "../../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import {Button, Card, CardHeader, CircularProgress, Container, Snackbar, Typography} from "@material-ui/core";

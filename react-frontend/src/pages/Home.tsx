@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import {Button, Card, CardHeader, Checkbox, FormControlLabel, FormGroup, Switch, Typography} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import {ArrowForwardRounded} from "@material-ui/icons";
-import AGrantCalls from "./AGrantCalls";
+import AGrantCalls from "./anonymous/AGrantCalls";
 import {formatDate, isCallOpen} from "../utils/utils";
 import axios, {AxiosResponse} from 'axios'
 
@@ -109,8 +109,7 @@ class Home extends Component<IProps & RouteComponentProps<{}> & IStateStore, ISt
                   return(
                     <Card key={grantCall.id} className="object" onClick={() => this.handleGrantCallClickStudent(grantCall.id)}>
                       <CardContent  key={grantCall.id +"content"} style={{display: 'flex'}}>
-                      <Typography  key={grantCall.id +"t1"} variant="body2" component="h2">
-                        {grantCall.title}
+                      <Typography  style={{overflowX: 'hidden',whiteSpace: 'nowrap'}}key={grantCall.id +"t1"} variant="body2" component="h2">                      {grantCall.title}
                       </Typography>
                       <Typography key={grantCall.id +"t2"} variant="body2" component="h2" style={{marginLeft:'333px'}}>
                         {formatDate(grantCall.openingDate)}

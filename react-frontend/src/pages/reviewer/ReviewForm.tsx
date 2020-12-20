@@ -1,7 +1,7 @@
 import React, {ChangeEvent, Component} from 'react';
-import '../App.css';
-import {ApplicationI, GrantCallI, ReviewI} from "../DTOs";
-import {IStateStore} from "../store/types";
+import '../../App.css';
+import {ApplicationI, GrantCallI, ReviewI, StudentI} from "../../DTOs";
+import {IStateStore} from "../../store/types";
 
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
@@ -15,7 +15,10 @@ import {
 } from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import axios, {AxiosResponse} from 'axios'
-import SuccessMessage from "../components/SuccessMessage";
+import SuccessMessage from "../../components/SuccessMessage";
+import { Link } from '@material-ui/core';
+
+
 
 interface IProps {
 
@@ -24,23 +27,39 @@ interface IProps {
 interface IState {
     grantCall: GrantCallI
     application: ApplicationI
+    student: StudentI | undefined
     observations: string
     score: number
     successMessage: boolean
 }
 
 
-class ReviewForm extends Component<IProps & RouteComponentProps<{},any,{application: ApplicationI, grantCall: GrantCallI}> & IStateStore, IState>{
+class ReviewForm extends Component<IProps & RouteComponentProps<{},any,{application: ApplicationI, grantCall: GrantCallI, student: StudentI | undefined}> & IStateStore, IState>{
 
-    constructor(props: IProps & RouteComponentProps<{},any,{application: ApplicationI, grantCall: GrantCallI}> & IStateStore) {
+    constructor(props: IProps & RouteComponentProps<{},any,{application: ApplicationI, grantCall: GrantCallI, student: StudentI | undefined}> & IStateStore) {
         super(props);
         this.state = {
             grantCall: this.props.location.state.grantCall,
             application: this.props.location.state.application,
             observations: "",
             score: 0,
-            successMessage: false
+            successMessage: false,
+            student: undefined
         }
+    }
+
+    componentDidMount() {
+        this.fetchStudent()
+    }
+
+    fetchStudent(){
+        axios.get(`/students/${this.state.application.studentId}`).then((r: AxiosResponse) => {
+            console.log(r.data)
+            this.setState({
+                ...this.state,
+                student: r.data
+            })
+        })
     }
 
     handleOnChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -76,6 +95,15 @@ class ReviewForm extends Component<IProps & RouteComponentProps<{},any,{applicat
         })
     }
 
+    redirectToStudentPage = () => {
+        this.props.history.push(`/student/${this.state.student?.id}`,{
+            application: this.state.application,
+            grantCall: this.state.grantCall,
+            student: this.state.student
+        })
+    }
+
+
     render(){
         const renderSuccessMessage = <SuccessMessage
           message={`Your Review to application ${this.state.application.id} was submited with success..
@@ -108,7 +136,15 @@ class ReviewForm extends Component<IProps & RouteComponentProps<{},any,{applicat
             <Card className="listObjects">
                 <CardHeader title={this.state.grantCall.title} style={{textAlign: 'center',color: 'white',marginTop: '10px'}}>
                 </CardHeader>
-                <Typography variant="h6" style={{marginLeft: '20px',color:'white'}}>ApplicationID: {this.state.application.id}</Typography>
+                <div>
+                    <Typography variant="h6" style={{marginLeft: '20px',color:'white'}}>ApplicationID: {this.state.application.id}</Typography>
+                    <Link style={{display: 'flex',flexDirection: 'row-reverse'}} onClick={() => this.redirectToStudentPage()}>
+                        <Typography variant="h6" color='primary' style={{
+                            marginTop: '-31px',
+                            marginRight: '20px'
+                        }}>Student: {this.state.student?.name}</Typography>
+                    </Link>
+                </div>
                 <CardContent style={{display: 'grid'}}>
                     {renderDataItemAnswers}
                     <Divider  style={{backgroundColor: 'black', marginTop:'20px'}}/>

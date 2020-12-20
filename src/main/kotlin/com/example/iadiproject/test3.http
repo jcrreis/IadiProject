@@ -1,3 +1,26 @@
+
+[
+  {
+    "id": 3,
+    "name": "233312312dasdasdasdadasdas3",
+    "email": "23111321312312dasdasdasdasdasdasdas3",
+    "address": "string"
+  },
+  {
+    "id": 2,
+    "name": "student",
+    "email": "studentdasdasdas321312312",
+    "address": "string"
+  },
+  {
+    "id": 1,
+    "name": "sponsor223",
+    "email": "fct@gmail2.com23",
+    "address": "Rua fct22"
+  }
+]
+
+###
 POST http://localhost:8080/login
 Content-Type: application/json
 
@@ -101,18 +124,18 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/grantcalls
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4MjA2NjM4LCJpYXQiOjE2MDgyMDYwMzgsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.GLhyzaKplJldCgJNBVFDk1jEJsykSts9h8CgjFUOLwg
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4NDMwNTA2LCJpYXQiOjE2MDg0Mjk5MDYsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.Zg3NhPMIRHM9e6KN0KDvaWiu-jDCstvQ1LWLy2ZJEk0
 Content-Type: application/json
 
 
 {
   "id": "0",
-  "title": "GrantCall #12",
+  "title": "Different GrantCall",
   "description": "A grantcall",
   "requirements": "requirements",
   "funding": "500",
-  "openingDate": "Fri, 27 Jan 2020 15:32:46 GMT",
-  "closingDate": "Fri, 27 Jan 2021 15:32:46 GMT",
+  "openingDate": "Fri, 31 Oct 2020 15:32:46 GMT",
+  "closingDate": "Fri, 31 Mar 2022 15:32:46 GMT",
   "dataItems": [
     {
       "mandatory": "true",
@@ -121,23 +144,23 @@ Content-Type: application/json
     },
     {
       "mandatory": "true",
-      "name": "name",
-      "datatype": "string"
+      "name": "some boolean",
+      "datatype": "boolean"
     },
     {
       "mandatory": "true",
-      "name": "name",
+      "name": "some number",
+      "datatype": "number"
+    },
+    {
+      "mandatory": "false",
+      "name": "some string",
       "datatype": "string"
     },
     {
-      "mandatory": "true",
-      "name": "name",
-      "datatype": "string"
-    },
-    {
-      "mandatory": "true",
-      "name": "name",
-      "datatype": "string"
+      "mandatory": "false",
+      "name": "number of something",
+      "datatype": "number"
     }
   ],
   "sponsorId": "10",
@@ -148,7 +171,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8080/grantcalls/
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Njc2MTc2LCJpYXQiOjE2MDY2NzU1NzYsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJ1c2VybmFtZSI6ImFkbWluIn0.0S2DnuPpmIUxnSw_gDFUHNc4wtZ5M9gWZilSYAXqPIs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4NDMwNjExLCJpYXQiOjE2MDg0MzAwMTEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.UcWxeMrgKhh_GaxD5VEP91c_lK8KQwcf1YoX9cw7kqM
 Content-Type: application/json
 
 ###
@@ -192,17 +215,17 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/evaluationpanels/2/reviewers
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4MjA2NzExLCJpYXQiOjE2MDgyMDYxMTEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.d7BlNiLhwQ_nja9dOvY5_MfGBET9xioemJot_o0FQGA
+POST http://localhost:8080/evaluationpanels/9/reviewers
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4NDMxNDU0LCJpYXQiOjE2MDg0MzA4NTQsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.kfb2g5-qlT7DjQyJx4kTwCEpPsK8qB_tNaFCwwRSZVg
 Content-Type: application/json
 
- {"id": "3"}
+ {"id": "4"}
 
 
 
 ###
-GET http://localhost:8080/users/current
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Njc4MzEwLCJpYXQiOjE2MDY2Nzc3MTAsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoic3R1ZGVudCJ9.dYCbb_-zC1tUzhViKNfq6mrW4xteYi5hxGaGERd03GM
+GET http://localhost:8080/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4NDI2NjMxLCJpYXQiOjE2MDg0MjYwMzEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJ1c2VybmFtZSI6ImFkbWluIn0.3mifj7rkNWUtFb5XU16qFH_u8GpBESHpugjWmetwTPQ
 Content-Type: application/json
 
 
@@ -233,8 +256,8 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/evaluationpanels/2/panelchair
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4MjA2NzExLCJpYXQiOjE2MDgyMDYxMTEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.d7BlNiLhwQ_nja9dOvY5_MfGBET9xioemJot_o0FQGA
+POST http://localhost:8080/evaluationpanels/8/panelchair
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4NDMwNjc1LCJpYXQiOjE2MDg0MzAwNzUsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.iqNo5F3sSCUqX1ikR0VtiBswbDgL2K0Pj3dS7DvefPg
 Content-Type: application/json
 
 {"id": "3"}

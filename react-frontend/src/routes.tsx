@@ -6,18 +6,19 @@ import NavBar from './components/NavBar'
 import Login from './pages/Login'
 import SignUp from "./pages/SignUp";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
-import AGrantCalls from "./pages/AGrantCalls";
+import AGrantCalls from "./pages/anonymous/AGrantCalls";
 import GrantCallView from "./pages/GrantCallView";
-import ApplicationForm from "./pages/ApplicationForm";
-import MyApplications from "./pages/MyApplications";
-import ApplicationsView from "./pages/ApplicationsView";
-import ReviewForm from "./pages/ReviewForm";
+import ApplicationForm from "./pages/student/ApplicationForm";
+import MyApplications from "./pages/student/MyApplications";
+import ApplicationsView from "./pages/reviewer/ApplicationsView";
+import ReviewForm from "./pages/reviewer/ReviewForm";
 import ReviewsList from "./pages/ReviewsList";
 import ReviewDetails from "./pages/ReviewDetails";
-import EditApplicationForm from "./pages/EditApplicationForm";
-import ApplicationsViewPanelChair from "./pages/ApplicationsViewPanelChair";
-import StudentCV from "./pages/StudentCV";
-import ApplicationDetails from "./pages/ApplicationDetails";
+import EditApplicationForm from "./pages/student/EditApplicationForm";
+import ApplicationsViewPanelChair from "./pages/reviewer/ApplicationsViewPanelChair";
+import StudentCV from "./pages/student/StudentCV";
+import ApplicationDetails from "./pages/reviewer/ApplicationDetails";
+import StudentDetailPage from "./pages/reviewer/StudentDetailPage";
 
 
 const theme = createMuiTheme({palette: {
@@ -32,6 +33,7 @@ export default function Routes()
          <MuiThemeProvider theme={theme}>
            <NavBar/>
          <Switch>
+           <Route path='/student/:id' component={StudentDetailPage}/>
            <Route path='/cv'  component={StudentCV}/>
            <Route path='/grantcall/:id/applications/panelchair' component={ApplicationsViewPanelChair}/>
            <Route path='/application/:id/edit' component={EditApplicationForm}/>

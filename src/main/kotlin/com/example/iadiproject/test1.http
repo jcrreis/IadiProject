@@ -1,6 +1,7 @@
 
 ###
 POST http://localhost:8080/institutions
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4NDI2MTkxLCJpYXQiOjE2MDg0MjU1OTEsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJ1c2VybmFtZSI6ImFkbWluIn0.eFwkYxpFqi7HOauIcyMF29wvnPdctw5CdMev8GQDSaY
 Content-Type: application/json
 
 {

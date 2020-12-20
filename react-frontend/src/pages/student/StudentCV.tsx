@@ -1,10 +1,10 @@
 import React, {ChangeEvent, Component} from 'react';
-import '../App.css';
+import '../../App.css';
 
-import {IStateStore} from "../store/types";
+import {IStateStore} from "../../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
-import {CurriculumI, CvItemI, StudentI} from "../DTOs";
+import {CurriculumI, CvItemI, StudentI} from "../../DTOs";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {Button, Card, CardHeader, Modal, Snackbar, TextField} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
@@ -275,7 +275,7 @@ class StudentCV extends Component<IProps & RouteComponentProps<{id: string}> & I
 
         const renderCvNotNull =
         <>
-            <EditIcon color='primary' onClick={() => this.handleOnClickEdit()}/>
+            <EditIcon color='primary' style={{ marginBottom: '10px'}} onClick={() => this.handleOnClickEdit()}/>
             {this.state.canEdit ? (<IconButton onClick={() => this.handleOnClickAddItem()}  style={{width: '100px'}}>
                 <AddCircleOutlineRoundedIcon color='primary'/>
             </IconButton>): <></>}
@@ -289,7 +289,9 @@ class StudentCV extends Component<IProps & RouteComponentProps<{id: string}> & I
                     }}/>): <></>}
                     <TextField
                           id={i.item + index}
-
+                          style={{
+                              marginTop: '10px'
+                          }}
                           label={i.item}
                           InputProps={{
                               readOnly: !this.state.canEdit,

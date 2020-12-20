@@ -1,7 +1,7 @@
 import React, {ChangeEvent, Component} from 'react';
-import '../App.css';
-import {ApplicationI, DataItemI} from "../DTOs";
-import {IStateStore} from "../store/types";
+import '../../App.css';
+import {ApplicationI, DataItemI} from "../../DTOs";
+import {IStateStore} from "../../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import {Button, Card, CardHeader, Checkbox, FormControlLabel, Snackbar, TextField} from "@material-ui/core";
@@ -9,7 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import axios, {AxiosError, AxiosResponse} from 'axios'
-import SuccessMessage from "../components/SuccessMessage";
+import SuccessMessage from "../../components/SuccessMessage";
 import {Alert} from "@material-ui/lab";
 
 interface IProps {
@@ -150,7 +150,7 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
 
             if(d.datatype.toLowerCase() == 'boolean'){
                 return(
-                  <FormControlLabel
+                  <FormControlLabel style={{marginTop: '50px', color:'white'}}
                     control={
                         <Checkbox
                           color='primary'

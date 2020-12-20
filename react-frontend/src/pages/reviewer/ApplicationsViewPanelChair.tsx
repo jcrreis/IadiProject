@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import '../App.css';
-import {ApplicationI, GrantCallI} from "../DTOs";
-import {IStateStore} from "../store/types";
+import '../../App.css';
+import {ApplicationI, GrantCallI} from "../../DTOs";
+import {IStateStore} from "../../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import axios, {AxiosResponse} from 'axios'
@@ -143,7 +143,7 @@ class ApplicationsViewPanelChair extends Component<IProps & RouteComponentProps<
                                         {a.status == 2 ? (<CheckCircleIcon style={{marginLeft: '39px', color:'green'}}></CheckCircleIcon>): <></>}
                                         {a.status == -1 || a.status == 1 ? (<CancelIcon style={{marginLeft: '39px', color:'red'}}></CancelIcon>) : <></>}
                                         <Typography  key={a.id +"t1"} variant="body2" component="h2" style={{marginRight: '20px'}}>
-                                            0
+                                            {a.meanScores}
                                         </Typography>
                                     </div>
                                     <Snackbar open={this.state.showToast} autoHideDuration={6000} onClose={() => this.handleOnClose()}>
