@@ -111,8 +111,8 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "name": "1234",
-  "password": "1234"
+  "name": "student",
+  "password": "student"
 }
 
 ###
@@ -177,7 +177,7 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/applications
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA2Njc1ODU5LCJpYXQiOjE2MDY2NzUyNTksImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1JFVklFV0VSIn1dLCJ1c2VybmFtZSI6IjIzMzMxMjMxMmRhc2Rhc2Rhc2RhZGFzZGFzMyJ9.xForT7tlr09zgsVNiddjrT2J_mS1vryTd2ENh5XVOKY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4NDY3NDA1LCJpYXQiOjE2MDg0NjY4MDUsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NUVURFTlQifV0sInVzZXJuYW1lIjoic3R1ZGVudCJ9.f7_N-mmNyYwIVBmYY8pxHIR28WtLkLmphByANWKrJds
 Content-Type: application/json
 
 {
@@ -186,7 +186,7 @@ Content-Type: application/json
   "status": "0",
   "decision": "false",
   "justification": "String",
-  "grantCallId": "1",
+  "grantCallId": "8",
   "studentId": "0",
   "reviews": [],
   "meanScores": "0",

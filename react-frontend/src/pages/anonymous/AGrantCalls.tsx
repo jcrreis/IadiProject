@@ -4,7 +4,7 @@ import {GrantCallI, InstitutionI} from "../../DTOs";
 import {IStateStore} from "../../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
-import {Button, Card, CardHeader, FormControlLabel, FormGroup, Switch, Typography} from "@material-ui/core";
+import {Button, Card, CardHeader, FormControlLabel, FormGroup, Link, Switch, Typography} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import CloseIcon from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';
@@ -51,14 +51,27 @@ class AGrantCalls extends Component<IProps & RouteComponentProps<{}> & IStateSto
         })
     };
 
+    handleOnClick = (grantCall: GrantCallI) => {
+        this.props.history.push(`/grantcall/${grantCall.id}/fundedapplications`,{
+            grantCall: grantCall
+        })
+    }
+
     render(){
         const renderAll = this.props.grantCalls.map((grantCall: GrantCallI) => {
                 return (
                   <Card key={grantCall.id} className="object">
                     <CardContent  key={grantCall.id +"content"} style={{display: 'flex'}}>
-                        <Typography  key={grantCall.id +"t1"} variant="body2" component="h2">
+                        {isCallOpen(grantCall.openingDate,grantCall.closingDate) ?
+                          <Typography  key={grantCall.id +"t1"} variant="body2" component="h2">
                             {grantCall.title}
-                        </Typography>
+                          </Typography> :
+                          <Link color='primary' onClick={ () => this.handleOnClick(grantCall)}>
+                              <Typography  key={grantCall.id +"t1"} variant="body2" component="h2" >
+                                  {grantCall.title}
+                              </Typography>
+                          </Link>
+                        }
                         <Typography key={grantCall.id +"t2"} variant="body2" component="h2" style={{marginLeft:'230px'}}>
                             {formatDate(grantCall.openingDate)}
                         </Typography>

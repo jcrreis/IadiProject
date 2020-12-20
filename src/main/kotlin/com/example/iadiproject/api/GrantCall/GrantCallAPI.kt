@@ -1,6 +1,8 @@
 package com.example.iadiproject.api.GrantCall
 
+import com.example.iadiproject.api.ApplicationDTO
 import com.example.iadiproject.api.GrantCallDTO
+import com.example.iadiproject.model.ApplicationDAO
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
@@ -54,4 +56,13 @@ interface GrantCallAPI {
     @GetMapping("/reviewer/{idReviewer}")
     @PreAuthorize("hasAuthority('ROLE_REVIEWER')")
     fun getAssignedCalls(@PathVariable idReviewer: Long): List<GrantCallDTO>
+
+    @ApiOperation("Get the list of all applications funded")
+    @ApiResponses(value = [
+        ApiResponse(code = 200, message = "Successfully retrieved list of funded applications for a grantcall"),
+        ApiResponse(code = 401, message = "UNAUTHORIZED"),
+        ApiResponse(code = 403, message = "FORBIDDEN")
+    ])
+    @GetMapping("/{id}/fundedapplications")
+    fun getFundedApplications(@PathVariable id: Long): List<ApplicationDTO>
 }

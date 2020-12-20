@@ -36,8 +36,7 @@ class SecurityConfig(
         .antMatchers("/swagger-ui.html").permitAll()
         .antMatchers("/v2/api-docs").permitAll()
         .antMatchers(HttpMethod.GET, "/institutions").permitAll()
-        .antMatchers(HttpMethod.GET, "/grantcalls").permitAll()
-        //.antMatchers(HttpMethod.POST, "/sponsors").permitAll()
+        .antMatchers(HttpMethod.GET, "/grantcalls/**").permitAll()
         .anyRequest().authenticated()
         .and()
         .addFilterBefore(UserPasswordAuthenticationFilterToJWT ("/login", super.authenticationManagerBean()),

@@ -19,6 +19,7 @@ import ApplicationsViewPanelChair from "./pages/reviewer/ApplicationsViewPanelCh
 import StudentCV from "./pages/student/StudentCV";
 import ApplicationDetails from "./pages/reviewer/ApplicationDetails";
 import StudentDetailPage from "./pages/reviewer/StudentDetailPage";
+import FundedApplications from "./pages/anonymous/FundedApplications";
 
 
 const theme = createMuiTheme({palette: {
@@ -33,6 +34,7 @@ export default function Routes()
          <MuiThemeProvider theme={theme}>
            <NavBar/>
          <Switch>
+           <Route path='/grantcall/:id/fundedapplications' component={FundedApplications}/>
            <Route path='/student/:id' component={StudentDetailPage}/>
            <Route path='/cv'  component={StudentCV}/>
            <Route path='/grantcall/:id/applications/panelchair' component={ApplicationsViewPanelChair}/>

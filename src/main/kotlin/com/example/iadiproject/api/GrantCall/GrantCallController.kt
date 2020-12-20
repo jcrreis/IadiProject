@@ -1,10 +1,7 @@
 package com.example.iadiproject.api
 
 import com.example.iadiproject.api.GrantCall.GrantCallAPI
-import com.example.iadiproject.model.DataItem
-import com.example.iadiproject.model.EvaluationPanelDAO
-import com.example.iadiproject.model.GrantCallDAO
-import com.example.iadiproject.model.SponsorDAO
+import com.example.iadiproject.model.*
 import com.example.iadiproject.services.*
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
@@ -51,9 +48,12 @@ class  GrantCallController(val grantCalls: GrantCallService,
         dataItems.addGrantCallToDataItems(grantCallDAO)
     }
 
-    fun getSponsorGrantCalls(id: Long): List<GrantCallDTO> = grantCalls.getAllGrantCallsBySponsorId(id).map { transformDAOIntoDTO(it) }
-
     override fun getAssignedCalls(idReviewer: Long): List<GrantCallDTO> = grantCalls.getCallsAssignedToReviewer(idReviewer).map{ transformDAOIntoDTO(it!!) }
+
+    override fun getFundedApplications(id: Long): List<ApplicationDTO> = grantCalls.getFundedApplications(id).map{
+        ApplicationDTO(it.id,it.submissionDate,it.status,it.decision,it.justification,it.grantCall.id,
+                it.student.id, mutableListOf(),it.meanScores, mutableListOf())
+    }
 
 
 }

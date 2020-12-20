@@ -58,17 +58,6 @@ class SecurityService(
         return ePanel.panelchair?.id == reviewer.id || ePanel.reviewers.contains(reviewer)
     }
 
-    fun isSponsorOwnerOfReviewGrantCall(principal: UserAuthToken, idReview: Long): Boolean{
-        val review: ReviewDAO = reviews.getOne(idReview)
-        val grantCall: GrantCallDAO = review.application.grantCall
-        print(grantCall)
-        val sponsor: SponsorDAO = sponsors.findSponsorDAOByName(principal.name).orElseThrow(){
-            ForbiddenException("Not a Sponsor")
-        }
-
-        return grantCall.sponsor.id == sponsor.id
-    }
-
     fun isUserChairOfPanel(principal: UserAuthToken, idApplication: Long): Boolean{
         val reviewer: ReviewerDAO = reviewers.findReviewerDAOByName(principal.name).orElseThrow(){
             ForbiddenException("Not a reviewer")

@@ -41,4 +41,15 @@ class GrantCallService(val grantCalls: GrantCallRepository,
         return assignedCallsToReviewer
 
     }
+
+    fun getFundedApplications(id: Long): List<ApplicationDAO>{
+        val fundedApplications: MutableList<ApplicationDAO> = mutableListOf()
+        val  grantCall: GrantCallDAO = grantCalls.getOne(id)
+        for(a in grantCall.applications){
+            if( a.status == 2){
+                fundedApplications.add(a)
+            }
+        }
+        return fundedApplications
+    }
 }
