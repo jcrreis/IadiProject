@@ -154,6 +154,14 @@ class ApplicationsViewPanelChair extends Component<IProps & RouteComponentProps<
                             </Card>)
                       })}
                   </CardContent>
+                  <Button className='backButton'
+                          style={{
+                              marginTop: '247px',
+                              marginLeft: '25px',
+                              marginBottom: '25px'
+                          }}
+                          onClick={() => this.props.history.goBack()}>BACK
+                  </Button>
               </Card>
           </>
         )
