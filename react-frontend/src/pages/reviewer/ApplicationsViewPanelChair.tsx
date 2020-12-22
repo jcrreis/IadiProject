@@ -39,7 +39,6 @@ class ApplicationsViewPanelChair extends Component<IProps & RouteComponentProps<
 
     componentDidMount() {
         axios.get(`/applications/grantcall/${this.state.grantCallId}`).then((r: AxiosResponse) => {
-            console.log(r.data)
             this.setState({
                 ...this.state,
                 applications: r.data

@@ -53,9 +53,12 @@ class ReviewDetails extends Component<IProps & RouteComponentProps<{id: string},
                                     <Typography  variant="body2" component="h2">
                                         ReviewId: {this.state.review.id}
                                     </Typography>
-                                    <Typography  variant="body2" component="h2">
-                                          Reviewer: {this.state.reviewer?.name}
-                                    </Typography>
+                                      {this.state.reviewer !== undefined ?
+                                        <Typography variant="body2" component="h2">
+                                            Reviewer: {this.state.reviewer?.name}
+                                        </Typography> :
+                                        <></>
+                                      }
                                     <TextField
                                         id="outlined-read-only-input"
                                         label="Observations"

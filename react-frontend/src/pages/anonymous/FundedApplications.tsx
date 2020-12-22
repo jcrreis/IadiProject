@@ -1,23 +1,17 @@
-import React, {ChangeEvent, Component} from 'react';
+import React, { Component} from 'react';
 import '../../App.css';
-import {ApplicationI, CvItemI, GrantCallI, ReviewI, StudentI} from "../../DTOs";
+import {ApplicationI, GrantCallI} from "../../DTOs";
 import {IStateStore} from "../../store/types";
-
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import {
     Button,
     Card,
-    CardHeader, Divider,
-    Slider,
-    TextField,
+    CardHeader,
     Typography
 } from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import axios, {AxiosResponse} from 'axios'
-import SuccessMessage from "../../components/SuccessMessage";
-import { Link } from '@material-ui/core';
-import {formatDate, isCallOpen} from "../../utils/utils";
 
 
 
@@ -43,7 +37,6 @@ class StudentDetailPage extends Component<IProps & RouteComponentProps<{},any,{g
 
     componentDidMount() {
         axios.get(`/grantcalls/${this.state.grantCall.id}/fundedapplications`).then((r: AxiosResponse) => {
-            console.log(r.data)
             this.setState({
                 ...this.state,
                 fundedApplications: r.data

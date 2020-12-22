@@ -21,6 +21,8 @@ interface IState {
     dataItems: DataItemI[]
     application: ApplicationI
     success: boolean
+    errorField: boolean
+
 }
 
 
@@ -35,7 +37,8 @@ class EditApplicationForm extends Component<IProps & RouteComponentProps<{id: st
             title: "",
             dataItems: [],
             application: this.props.location.state.application,
-            success: false
+            success: false,
+            errorField: false
         }
     }
 
@@ -57,15 +60,16 @@ class EditApplicationForm extends Component<IProps & RouteComponentProps<{id: st
             ...this.state,
             application: {...this.state.application, answers: newAnswersArray}
         })
-        console.log(this.state.application.answers)
     }
 
     handleOnClick = () => {
         for(let i = 0; i < this.state.dataItems.length; i++){
             if(this.state.dataItems[i].mandatory == true){
-                console.log(this.state.application.answers[i])
                 if(this.state.application.answers[i] == ""){
-                    alert("A mandatory field is empty")
+                    this.setState({
+                        ...this.state,
+                        errorField: true
+                    })
                     return;
                 }
             }
@@ -88,7 +92,6 @@ class EditApplicationForm extends Component<IProps & RouteComponentProps<{id: st
                 ...this.state,
                 success: true
             })
-            console.log(r)
         }).catch((e: AxiosResponse) => {
             console.log(e)
         })
@@ -111,6 +114,13 @@ class EditApplicationForm extends Component<IProps & RouteComponentProps<{id: st
     handleOnClickDelete = () => {
         axios.delete(`/applications/${this.state.application.id}`).then((r: AxiosResponse) => {
             this.props.history.goBack()
+        })
+    }
+
+    handleCloseErrorField(){
+        this.setState({
+            ...this.state,
+            errorField: false
         })
     }
 

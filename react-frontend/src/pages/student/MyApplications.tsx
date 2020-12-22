@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../../App.css';
-import {ApplicationI} from "../../DTOs";
+import {ApplicationI, GrantCallI} from "../../DTOs";
 import {IStateStore} from "../../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
@@ -11,8 +11,8 @@ import DoneIcon from '@material-ui/icons/Done';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import EditApplicationForm from "./EditApplicationForm";
-import ApplicationForm from "./ApplicationForm";
+import {CheckCircle} from "@material-ui/icons";
+import CancelIcon from '@material-ui/icons/Cancel';
 
 interface IProps {
 
@@ -22,6 +22,7 @@ interface IState {
     myApplications: ApplicationI[]
     showToast: boolean
     loaded: boolean
+    evalApplications: boolean
 }
 
 function Alert(props: AlertProps) {
@@ -29,15 +30,15 @@ function Alert(props: AlertProps) {
 }
 
 
-class MyApplications extends Component<IProps & RouteComponentProps<{id: string}> & IStateStore, IState>{
+class MyApplications extends Component<IProps & RouteComponentProps<{id: string},any,{application: ApplicationI, grantCall: GrantCallI | undefined}> & IStateStore, IState>{
 
-    constructor(props: IProps & RouteComponentProps<{id: string}> & IStateStore) {
+    constructor(props: IProps & RouteComponentProps<{id: string},any,{application: ApplicationI, grantCall: GrantCallI}> & IStateStore) {
         super(props);
-
         this.state = {
             myApplications: [],
             showToast: false,
-            loaded: false
+            loaded: false,
+            evalApplications: false
         }
     }
 
@@ -49,7 +50,6 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
         let myApplications: ApplicationI[]
         axios.get('/applications/student/' + this.props.user!!.id).then((r:AxiosResponse) =>{
             myApplications = r.data
-            console.log(myApplications)
             this.setState({
                 ...this.state,
                 myApplications: myApplications,
@@ -68,7 +68,6 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
 
     handleOnClick(id: number) {
         axios.post(`/applications/${id}`).then( (r: AxiosResponse) => {
-          console.log(r)
           const applications = this.state.myApplications
           applications.forEach((a: ApplicationI) => {
               if(a.id == id){
@@ -99,11 +98,13 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
     handleOnClickEdit = (id: number) => {
         const application: ApplicationI | undefined = this.state.myApplications.find((a: ApplicationI) => a.id == id)
         if(application == undefined){
+            /* Application should never be undefined....*/
             alert("a strange error occured please try again.")
             return
         }
         this.props.history.push(`/application/${id}/edit`,{
-            application: application
+            application: application,
+            grantCall: undefined
         })
     }
 
@@ -130,6 +131,25 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
         })
     }
 
+    handleOnClickButton  = () => {
+        this.setState({
+            ...this.state,
+            evalApplications: !this.state.evalApplications
+        })
+    }
+
+    handleOnClickEvaluatedApplication = (a: ApplicationI) => {
+        const grantCall: GrantCallI | undefined = this.props.grantCalls.find(grantCall => grantCall.id == a.grantCallId)
+        if(grantCall == undefined) {
+            /* Grant Call should never be undefined...*/
+            alert("A strange error occured.....")
+            return
+        }
+        this.props.history.push(`/application/:id/reviews`,{
+            application: a,
+            grantCall: grantCall
+        })
+    }
 
     render(){
         const applicationsRender =  this.state.myApplications.map((a: ApplicationI) => {
@@ -146,6 +166,31 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
             </Card>)
         })
 
+        const evaluatedApplicationsArray = this.state.myApplications.filter( function(a: ApplicationI){
+            return a.status == 2 || a.status == 1
+        })
+
+        const evaluatedApplicationsRender = evaluatedApplicationsArray.map((a: ApplicationI) => {
+            return(
+                  <Card key={a.id} className="object" onClick={() => this.handleOnClickEvaluatedApplication(a)}>
+                      <CardContent  key={a.id +"content"} style={{display: 'flex'}}>
+                          <Typography  key={a.id +"t1"} variant="body2" component="h2">
+                              {a.id}
+                          </Typography>
+                          <div style={{flexDirection: 'row-reverse',marginLeft:'430px'}}>
+                              {a.status == 2 ? <CheckCircle style={{
+                                  marginLeft: '90px',
+                                  color: 'green'
+                              }}/> : <CancelIcon style={{
+                                  marginLeft: '90px',
+                                  color: 'red'
+                              }}/>}
+                          </div>
+                      </CardContent>
+                  </Card>
+              )
+        })
+
         let progress
         if(!this.state.loaded){ progress = <CircularProgress />}
 
@@ -153,9 +198,15 @@ class MyApplications extends Component<IProps & RouteComponentProps<{id: string}
           <>
               <Card  className="listObjects">
                   <CardHeader  style={{textAlign: 'center',color: 'white'}} title="My Applications"/>
+                  <Button style={{color: 'white', backgroundColor: '#0081b8',
+                      marginLeft: '40px',marginTop: '25px'}}
+                      onClick={() => this.handleOnClickButton()}>
+                      {!this.state.evalApplications ? <> Evaluated Applications </>
+                        : <> All  Applications </>}
+                  </Button>
                   <CardContent  style={{display: 'flex'}}>
                       <Container style={{flexDirection: 'column'}}>
-                          {applicationsRender}
+                          {!this.state.evalApplications ? applicationsRender : evaluatedApplicationsRender}
                       </Container>
                   </CardContent>
                   <Snackbar open={this.state.showToast} autoHideDuration={6000} onClose={() => this.handleOnClose()}>
@@ -177,4 +228,5 @@ const mapStateToProps = (state: IStateStore) => ({
     institutions: state.institutions,
     grantCalls: state.grantCalls
 });
+// @ts-ignore
 export default withRouter(connect(mapStateToProps)(MyApplications))

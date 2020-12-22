@@ -34,7 +34,6 @@ class ApplicationsView extends Component<IProps & RouteComponentProps<{id: strin
 
     componentDidMount() {
         axios.get(`/applications/grantcall/${this.state.grantCallId}`).then((r: AxiosResponse) => {
-            console.log(r.data)
             this.setState({
                 ...this.state,
                 applications: r.data
@@ -42,7 +41,6 @@ class ApplicationsView extends Component<IProps & RouteComponentProps<{id: strin
         })
 
         axios.get(`/reviewers/${this.props.user?.id}/applications`).then((r: AxiosResponse) => {
-            console.log(r)
             this.setState({
                 ...this.state,
                 applicationsReviewed: r.data
@@ -66,7 +64,6 @@ class ApplicationsView extends Component<IProps & RouteComponentProps<{id: strin
     }
 
     renderButton(a: ApplicationI): JSX.Element{
-        console.log(this.state.applicationsReviewed.includes(a.id))
         if(!this.state.applicationsReviewed.includes(a.id)){
             return(
               <Button style={{color: 'white',backgroundColor: 'green',width: '109px',height: '22px'}}
@@ -83,7 +80,10 @@ class ApplicationsView extends Component<IProps & RouteComponentProps<{id: strin
 
     }
     handleOnClick(a: ApplicationI){
-        this.props.history.push(`/application/`)
+        this.props.history.push(`/application/${a.id}`,{
+            application: a,
+            grantCall: this.state.grantCall
+        })
     }
 
 
@@ -102,10 +102,8 @@ class ApplicationsView extends Component<IProps & RouteComponentProps<{id: strin
                                       component="button"
                                       variant="body2"
                                       style={{color: "#62ddfa"}}
-                                      onClick={() => this.handleOnClick(a)}
-                                    >
+                                      onClick={() => this.handleOnClick(a)}>
                                         <Typography  key={a.id +"t1"} variant="body2" component="h2">
-
                                             {a.id}
                                         </Typography>
                                     </Link>

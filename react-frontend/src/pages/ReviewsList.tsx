@@ -28,7 +28,6 @@ class ReviewsList extends Component<IProps & RouteComponentProps<{id: string},an
             grantCall: this.props.location.state.grantCall,
             reviews: []
         }
-        console.log(this.props.location.state.grantCall)
     }
 
     componentDidMount() {

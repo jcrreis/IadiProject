@@ -1,19 +1,18 @@
 import React, {ChangeEvent,MouseEvent, Component} from 'react';
 import axios, {AxiosResponse} from 'axios';
-import '../App.css';
+import '../../App.css';
 import Card from '@material-ui/core/Card';
 import {CardContent, CardHeader, FormControl, Snackbar} from "@material-ui/core";
 import { WithStyles } from "@material-ui/core/styles";
-
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import {withRouter, RouteComponentProps} from "react-router";
 import {connect} from "react-redux";
-import {UserLoginI} from "../DTOs";
-import {IStateStore} from "../store/types";
-import {store} from "../index";
-import {LOGIN_USER} from "../store/consts";
+import {UserLoginI} from "../../DTOs";
+import {IStateStore} from "../../store/types";
+import {store} from "../../index";
+import {LOGIN_USER} from "../../store/consts";
 import {Alert} from "@material-ui/lab";
 
 
@@ -39,8 +38,6 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
             token: "",
             showError: false
         }
-        console.log(this.props.user)
-        console.log(this.props.institutions)
     }
 
     handleUsernameChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -79,7 +76,6 @@ class Login extends Component<IProps & RouteComponentProps<{}> & IStateStore, IS
                     address: r.data.address,
                     type: r.data.type
                 }
-                console.log(user)
                 store.dispatch({type: LOGIN_USER,user: user})
                 localStorage.setItem('LOGIN_USER',JSON.stringify(user))
                 this.props.history.push('/')

@@ -8,8 +8,7 @@ import '../App.css';
 import { RouteComponentProps, withRouter } from "react-router";
 import {IStateStore} from "../store/types";
 import {Typography} from "@material-ui/core";
-import {store} from "../index";
-import {LOGIN_USER, LOGOUT_USER} from "../store/consts";
+import {LOGOUT_USER} from "../store/consts";
 
 
 

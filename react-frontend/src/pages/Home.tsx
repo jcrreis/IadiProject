@@ -4,10 +4,9 @@ import {GrantCallI, InstitutionI} from "../DTOs";
 import {IStateStore} from "../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
-import {Button, Card, CardHeader, Checkbox, FormControlLabel, FormGroup, Switch, Typography} from "@material-ui/core";
+import {Card, CardHeader, Checkbox, FormControlLabel, Typography} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import {ArrowForwardRounded} from "@material-ui/icons";
-import AGrantCalls from "./anonymous/AGrantCalls";
 import {formatDate, isCallOpen} from "../utils/utils";
 import axios, {AxiosResponse} from 'axios'
 
@@ -43,7 +42,6 @@ class Home extends Component<IProps & RouteComponentProps<{}> & IStateStore, ISt
     if(this.props.user?.type == 'Reviewer') {
       axios.get(`grantcalls/reviewer/${this.props.user?.id}`).then((r: AxiosResponse) => {
         const grantCalls: GrantCallI[] = r.data
-        console.log(grantCalls)
         grantCalls.forEach((call: GrantCallI) => {
           axios.get(`/evaluationpanels/${call.evaluationPanelId}`).then((r: AxiosResponse) => {
             if(r.data.panelChairId == this.props.user!!.id){

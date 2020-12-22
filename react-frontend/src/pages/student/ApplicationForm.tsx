@@ -58,13 +58,11 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
             ...this.state,
             answers: newAnswersArray
         })
-        console.log(this.state.answers)
     }
 
     handleOnClick = () => {
         for(let i = 0; i < this.state.dataItems.length; i++){
             if(this.state.dataItems[i].mandatory == true){
-                console.log(this.state.answers[i])
                 if(this.state.answers[i] == ""){
                     this.setState({
                         ...this.state,
@@ -84,7 +82,7 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
             reviews: [],
             meanScores: 0,
             answers: this.state.answers,
-            justification: "adsdas"
+            justification: ""
         }
         axios.post('/applications',application).then((r: AxiosResponse) => {
             this.setState({
@@ -96,7 +94,6 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
                 ...this.state,
                 errorConflict: true
             })
-            console.log(e)
         })
     }
 
@@ -201,6 +198,11 @@ class ApplicationForm extends Component<IProps & RouteComponentProps<{id: string
                       <Snackbar open={this.state.errorConflict} autoHideDuration={3000} onClose={this.handleErrorConflict.bind(this)}>
                           <Alert onClose={this.handleErrorConflict.bind(this)} severity="error">
                               You already have an application for this grant call!
+                          </Alert>
+                      </Snackbar>
+                      <Snackbar open={this.state.errorField} autoHideDuration={3000} onClose={() => this.handleCloseErrorField()}>
+                          <Alert onClose={() => this.handleCloseErrorField()} severity="error">
+                              A mandatory field was left empty....
                           </Alert>
                       </Snackbar>
                   </CardContent>

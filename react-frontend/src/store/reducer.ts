@@ -37,7 +37,6 @@ export function fetchUserFromStorage(){
         if(userJson == null)
             return undefined
         user = JSON.parse(userJson)
-        console.log(user)
         store.dispatch({type: LOGIN_USER,user: user})
     })
     store.dispatch({type: LOGIN_USER,user: undefined})
@@ -60,7 +59,6 @@ const reducer = (
     switch (action.type) {
         case LOGIN_USER:
             const user: UserLoginI = action.user
-            console.log(action.user)
             return {
                 ...state,
                 user: user

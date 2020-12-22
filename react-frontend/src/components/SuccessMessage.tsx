@@ -24,14 +24,16 @@ class SuccessMessage extends Component<IProps & RouteComponentProps<{}>>{
     }
 
     render(){
-        return(<>
+        return(
+          <>
             <Card className="listObjects">
                 <CardContent style={{ height: '500px',textAlign: 'center'}}>
                     <CheckBoxOutlinedIcon style={{color: 'green'}} className='successIcon'/>
                     <Typography variant='h5' style={{color: 'white'}}>{this.props.message}</Typography>
                 </CardContent>
             </Card>
-               </>)
+          </>
+        )
     }
 
 }

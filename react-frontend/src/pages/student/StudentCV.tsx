@@ -1,6 +1,5 @@
 import React, {ChangeEvent, Component} from 'react';
 import '../../App.css';
-
 import {IStateStore} from "../../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
@@ -26,6 +25,8 @@ interface IState {
     fieldName: string
     canEdit: boolean
     updateSuccess: boolean
+    invalidCV: boolean
+    cvCreated: boolean
 }
 
 
@@ -41,7 +42,9 @@ class StudentCV extends Component<IProps & RouteComponentProps<{id: string}> & I
             openModal: false,
             fieldName: "",
             canEdit: false,
-            updateSuccess: false
+            updateSuccess: false,
+            invalidCV: false,
+            cvCreated: false
         }
     }
 
@@ -55,7 +58,6 @@ class StudentCV extends Component<IProps & RouteComponentProps<{id: string}> & I
     }
 
     componentDidUpdate(prevProps: Readonly<IProps & RouteComponentProps<{ id: string }> & IStateStore>, prevState: Readonly<IState>, snapshot?: any) {
-        console.log(this.state.curriculum)
 
     }
 
@@ -110,7 +112,6 @@ class StudentCV extends Component<IProps & RouteComponentProps<{id: string}> & I
             ...this.state,
             fieldName: e.target.value
         })
-        console.log(this.state.fieldName)
     }
 
     handleOnChange(e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>, index: number){
@@ -138,11 +139,17 @@ class StudentCV extends Component<IProps & RouteComponentProps<{id: string}> & I
 
     handleCreateCVClick() {
         if(!this.verifyIfCvIsValid()){
-            alert("invalid cv")
+            this.setState({
+                ...this.state,
+                invalidCV: true
+            })
             return
         }
         axios.post(`/students/${this.props.user!!.id}/cv`,this.state.curriculum).then((r: AxiosResponse) => {
-            console.log(r)
+            this.setState({
+                ...this.state,
+                cvCreated: true
+            })
         }).catch((e: AxiosError) => {
             console.log(e)
         })
@@ -156,11 +163,13 @@ class StudentCV extends Component<IProps & RouteComponentProps<{id: string}> & I
 
     handleUpdateCV() {
         if(!this.verifyIfCvIsValid()){
-            alert("invalid cv")
+            this.setState({
+                ...this.state,
+                invalidCV: true
+            })
             return
         }
         axios.put(`/students/${this.props.user!!.id}/cv`,this.state.curriculum).then((r:AxiosResponse) => {
-            console.log(r)
             this.setState({
                 ...this.state,
                 updateSuccess: true
@@ -178,7 +187,6 @@ class StudentCV extends Component<IProps & RouteComponentProps<{id: string}> & I
     handleDelete(index: number){
         const newArray: CvItemI[] = this.state.curriculum!!.items
         newArray.splice(index,1)
-        console.log(newArray)
         this.setState({
             ...this.state,
             curriculum:{
@@ -193,6 +201,20 @@ class StudentCV extends Component<IProps & RouteComponentProps<{id: string}> & I
             return false
         }
         else return true
+    }
+
+    handleCloseInvalidCV(){
+        this.setState({
+            ...this.state,
+            invalidCV: false
+        })
+    }
+
+    handleCloseCvCreated(){
+        this.setState({
+            ...this.state,
+            cvCreated: false
+        })
     }
 
 
@@ -309,7 +331,6 @@ class StudentCV extends Component<IProps & RouteComponentProps<{id: string}> & I
         </>
         let content
         if(this.doesStudentHaveCV()){
-            console.log(this.state.curriculum)
             content = renderCvNotNull
         }
         else{
@@ -325,9 +346,19 @@ class StudentCV extends Component<IProps & RouteComponentProps<{id: string}> & I
                   <CardContent key={"content"} style={{display: 'flex', flexDirection: 'column'}}>
                       {content}
                       {modalFieldName}
+                      <Snackbar open={this.state.cvCreated} autoHideDuration={3000} onClose={() => this.handleCloseCvCreated()}>
+                          <Alert onClose={() => this.handleCloseCvCreated()} severity="success">
+                              CV was created successfully!
+                          </Alert>
+                      </Snackbar>
                       <Snackbar open={this.state.updateSuccess} autoHideDuration={3000} onClose={() => this.handleOnCloseSuccessToast()}>
                           <Alert onClose={() => this.handleOnCloseSuccessToast()} severity="success">
                               CV was updated successfully!
+                          </Alert>
+                      </Snackbar>
+                      <Snackbar open={this.state.invalidCV} autoHideDuration={3000} onClose={() => this.handleCloseInvalidCV()}>
+                          <Alert onClose={() => this.handleCloseInvalidCV()} severity="error">
+                              Invalid CV !!!!
                           </Alert>
                       </Snackbar>
                   </CardContent>

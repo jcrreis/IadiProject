@@ -1,22 +1,16 @@
-import React, {ChangeEvent, Component} from 'react';
+import React, {Component} from 'react';
 import '../../App.css';
-import {ApplicationI, CvItemI, GrantCallI, ReviewI, StudentI} from "../../DTOs";
+import {ApplicationI, CvItemI, GrantCallI, StudentI} from "../../DTOs";
 import {IStateStore} from "../../store/types";
-
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import {
     Button,
     Card,
     CardHeader, Divider,
-    Slider,
-    TextField,
     Typography
 } from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
-import axios, {AxiosResponse} from 'axios'
-import SuccessMessage from "../../components/SuccessMessage";
-import { Link } from '@material-ui/core';
 
 
 
@@ -38,19 +32,17 @@ class StudentDetailPage extends Component<IProps & RouteComponentProps<{},any,{a
         }
     }
 
-    componentDidMount() {
-        console.log(this.state.student)
-    }
-
-
     render(){
 
         return(
           <>
               <Card className="listObjects">
-                  <CardHeader title={this.state.student?.name} style={{textAlign: 'center',color: 'white',marginTop: '10px'}}>
+                  <CardHeader title={"Student Details"} style={{textAlign: 'center',color: 'white',marginTop: '10px'}}>
                   </CardHeader>
                   <CardContent>
+                      <Typography variant="h6" style={{marginLeft: '20px',color:'white',marginTop: '20px'}}>
+                          Name: {this.state.student?.name}
+                      </Typography>
                       <Typography variant="h6" style={{marginLeft: '20px',color:'white',marginTop: '20px'}}>
                           Email: {this.state.student?.email}
                       </Typography>
@@ -65,7 +57,7 @@ class StudentDetailPage extends Component<IProps & RouteComponentProps<{},any,{a
                              {d.item}: {d.value}
                            </Typography>)
                        })}
-
+                       <Button style={{marginTop: '50px'}} className='backButton' onClick={() => this.props.history.goBack()}>BACK</Button>
                   </CardContent>
               </Card>
           </>

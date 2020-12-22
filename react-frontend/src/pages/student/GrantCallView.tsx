@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import '../App.css';
-import {GrantCallI} from "../DTOs";
-import {IStateStore} from "../store/types";
+import '../../App.css';
+import {GrantCallI} from "../../DTOs";
+import {IStateStore} from "../../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import {Button, Card, CardHeader, Container, Snackbar, Typography} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
-import {formatDate} from "../utils/utils";
+import {formatDate} from "../../utils/utils";
 import axios, {AxiosResponse} from 'axios'
 import {Alert} from "@material-ui/lab";
 interface IProps {
@@ -74,7 +74,7 @@ class GranCallView extends Component<IProps & RouteComponentProps<{id: string}> 
                              To apply to this grant call you need: {this.state.grantCall!!.requirements}
                          </Typography>
                          <Typography key={this.state.grantCall!!.id +"t3"} variant="body1" component="h2" className="typography1" >
-                            Funding: {this.state.grantCall!!.funding}
+                            Funding: {this.state.grantCall!!.funding}€
                          </Typography>
                          <Typography key={this.state.grantCall!!.id +"t4"} variant="body1" component="h2" className="typography1" >
                              OpeningDate: {formatDate(this.state.grantCall!!.openingDate)}

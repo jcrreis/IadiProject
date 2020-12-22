@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import '../../App.css';
-import {GrantCallI, InstitutionI} from "../../DTOs";
+import {GrantCallI} from "../../DTOs";
 import {IStateStore} from "../../store/types";
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
-import {Button, Card, CardHeader, FormControlLabel, FormGroup, Link, Switch, Typography} from "@material-ui/core";
+import {Card, CardHeader, FormControlLabel, FormGroup, Link, Switch, Typography} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import CloseIcon from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';

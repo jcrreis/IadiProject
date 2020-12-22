@@ -54,7 +54,6 @@ class ReviewForm extends Component<IProps & RouteComponentProps<{},any,{applicat
 
     fetchStudent(){
         axios.get(`/students/${this.state.application.studentId}`).then((r: AxiosResponse) => {
-            console.log(r.data)
             this.setState({
                 ...this.state,
                 student: r.data

@@ -3,11 +3,11 @@ import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './pages/Home'
 import NavBar from './components/NavBar'
-import Login from './pages/Login'
-import SignUp from "./pages/SignUp";
+import Login from './pages/anonymous/Login'
+import SignUp from "./pages/anonymous/SignUp";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
 import AGrantCalls from "./pages/anonymous/AGrantCalls";
-import GrantCallView from "./pages/GrantCallView";
+import GrantCallView from "./pages/student/GrantCallView";
 import ApplicationForm from "./pages/student/ApplicationForm";
 import MyApplications from "./pages/student/MyApplications";
 import ApplicationsView from "./pages/reviewer/ApplicationsView";
@@ -48,6 +48,7 @@ export default function Routes()
            <Route path="/grantcall/:id/application" component={ApplicationForm}/>
            <Route path="/grantcall/:id" component={GrantCallView}/>
            <Route path="/grantcalls" component={AGrantCalls}/>
+           <Route path='/application/:id' component={ApplicationDetails}/>
            <Route path="/login" component={Login}/>
            <Route path="/signup" component={SignUp}/>
            <Route path="/" component={Home}/>
