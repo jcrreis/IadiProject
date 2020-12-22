@@ -1,5 +1,3 @@
-
-
 export function formatDate(date: Date): string {
     let d: Date = new Date(date)
     const year: string = d.getFullYear().toString()

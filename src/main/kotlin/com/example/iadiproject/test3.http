@@ -124,7 +124,7 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/grantcalls
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4NDMwNTA2LCJpYXQiOjE2MDg0Mjk5MDYsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.Zg3NhPMIRHM9e6KN0KDvaWiu-jDCstvQ1LWLy2ZJEk0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4NjM2MjIyLCJpYXQiOjE2MDg2MzU2MjIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.6gL9hFFnCRmtUnJukYEm_6T82uIyXz3wIEq3HYIx194
 Content-Type: application/json
 
 
@@ -159,7 +159,7 @@ Content-Type: application/json
     },
     {
       "mandatory": "false",
-      "name": "number of something",
+      "name": "number of works",
       "datatype": "number"
     }
   ],
@@ -256,11 +256,11 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/evaluationpanels/8/panelchair
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4NDMwNjc1LCJpYXQiOjE2MDg0MzAwNzUsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyMyJ9.iqNo5F3sSCUqX1ikR0VtiBswbDgL2K0Pj3dS7DvefPg
+POST http://localhost:8080/evaluationpanels/1/panelchair
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKU09OIFdlYiBUb2tlbiBmb3IgQ0lBSSAyMDE5LzIwIiwiZXhwIjoxNjA4NjUwNzg1LCJpYXQiOjE2MDg2NTAxODUsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1NQT05TT1IifV0sInVzZXJuYW1lIjoic3BvbnNvcjIyIn0.UHicljYcM61BPS4v2RCNs4Qqcrl7eWP9e8pu0rboL-M
 Content-Type: application/json
 
-{"id": "3"}
+{"id": "4"}
 
 ###
 
@@ -291,14 +291,3 @@ Content-Type: application/json
    ]
 
 }
-
-data class CVItemDTO(
-val id: Long,
-val item: String,
-val value: String
-)
-
-data class CurriculumDTO(
-val id: Long,
-val items: List<CVItemDTO>
-)

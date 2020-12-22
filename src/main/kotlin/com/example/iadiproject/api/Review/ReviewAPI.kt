@@ -25,8 +25,7 @@ interface ReviewAPI {
     @GetMapping("")
     fun getAll(): List<ReviewDTO>
 
-    //  not working
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.doesReviewerBelongEpanelOfReview(authentication.principal,#id)")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or @securityService.doesReviewerBelongEpanelOfReview(authentication.principal,#id) or @securityService.canStudentGetReview(authentication.principal,#id)")
     @ApiOperation("Get a review by id")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "Successfully retrieved the review"),

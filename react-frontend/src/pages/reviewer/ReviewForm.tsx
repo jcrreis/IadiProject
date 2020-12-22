@@ -2,13 +2,12 @@ import React, {ChangeEvent, Component} from 'react';
 import '../../App.css';
 import {ApplicationI, GrantCallI, ReviewI, StudentI} from "../../DTOs";
 import {IStateStore} from "../../store/types";
-
 import {RouteComponentProps, withRouter} from "react-router";
 import {connect} from "react-redux";
 import {
     Button,
     Card,
-    CardHeader, Divider,
+    CardHeader, Checkbox, Divider, FormControlLabel,
     Slider,
     TextField,
     Typography
@@ -115,7 +114,28 @@ class ReviewForm extends Component<IProps & RouteComponentProps<{},any,{applicat
             return renderSuccessMessage
 
         const renderDataItemAnswers = this.state.application.answers.map((a: string,index) => {
-           return(
+            if(a == "true" || false){
+                return <FormControlLabel
+                  style={{
+                      color:'white'
+                  }}
+                  control={
+                      <Checkbox
+                        inputProps={{
+                            checked: Boolean(a),
+                            readOnly: true,
+                        }}
+                        style={{
+                            color: '#0081b8'
+                        }}
+                        name="checkedB"
+                        color="primary"
+                      />
+                  }
+                  label={this.state.grantCall.dataItems[index].name}
+                />
+            }
+            else return(
                  <TextField
                   id="outlined-read-only-input"
                   label={this.state.grantCall.dataItems[index].name}

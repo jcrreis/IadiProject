@@ -3,6 +3,7 @@ package com.example.iadiproject.services
 import com.example.iadiproject.model.*
 import com.example.iadiproject.securityconfig.UserAuthToken
 import org.springframework.stereotype.Service
+import java.util.*
 
 
 @Service
@@ -51,8 +52,13 @@ class SecurityService(
     fun doesReviewerBelongEpanelOfReview(principal: UserAuthToken, idReview: Long): Boolean{
         val review: ReviewDAO = reviews.getOne(idReview)
         val ePanel: EvaluationPanelDAO = review.application.grantCall.evaluationPanel
-        val reviewer: ReviewerDAO = reviewers.findReviewerDAOByName(principal.name).orElseThrow(){
-            ForbiddenException("Not a reviewer")
+        val reviewerOpt: Optional<ReviewerDAO> = reviewers.findReviewerDAOByName(principal.name)
+        var reviewer: ReviewerDAO
+        if(reviewerOpt.isEmpty){
+            return false
+        }
+        else{
+            reviewer = reviewerOpt.get()
         }
 
         return ePanel.panelchair?.id == reviewer.id || ePanel.reviewers.contains(reviewer)
@@ -68,6 +74,16 @@ class SecurityService(
         val ePanel: EvaluationPanelDAO = application.grantCall.evaluationPanel
 
         return ePanel.panelchair?.id == reviewer.id
+    }
+
+    fun canStudentGetReview( principal: UserAuthToken, idReview: Long ): Boolean{
+        val student: StudentDAO = students.findStudentDAOByName(principal.name).orElseThrow(){
+            ForbiddenException("Not a student")
+        }
+        val review: ReviewDAO = reviews.getOne(idReview)
+
+        return review.application.student.id == student.id
+
     }
 
 }
